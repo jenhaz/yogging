@@ -1,0 +1,136 @@
+﻿@using Yogging.Models.ViewModels
+@model IEnumerable<SprintViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@foreach (var item in Model)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    </table>
+    if (item.Stories.Any())
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    Sprint
+                </th>
+                <th>
+                    Tag
+                </th>
+                <th>
+                    Assigned To
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Created Date
+                </th>
+                <th>
+                    Last Updated
+                </th>
+                <th>
+                    Priority
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Acceptance Criteria
+                </th>
+                <th>
+                    Points
+                </th>
+                <th>
+                    Status
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var story in item.Stories)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.SprintName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.TagName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.LastUpdated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.Priority)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.AcceptanceCriteria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.Points)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => story.Status)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = story.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = story.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = story.Id })
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+}
