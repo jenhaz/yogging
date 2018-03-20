@@ -3,7 +3,7 @@ namespace Yogging.DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -15,6 +15,7 @@ namespace Yogging.DAL.Migrations
                         Name = c.String(),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
+                        Status = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -24,14 +25,14 @@ namespace Yogging.DAL.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
-                        CreatedDate = c.DateTime(nullable: false),
-                        LastUpdated = c.DateTime(nullable: false),
-                        Priority = c.Int(),
-                        Type = c.Int(),
+                        CreatedDate = c.String(),
+                        LastUpdated = c.String(),
+                        Priority = c.Int(nullable: false),
+                        Type = c.Int(nullable: false),
                         Description = c.String(),
                         AcceptanceCriteria = c.String(),
-                        Points = c.Int(),
-                        Status = c.Int(),
+                        Points = c.Int(nullable: false),
+                        Status = c.Int(nullable: false),
                         UserId = c.Int(),
                         SprintId = c.Int(),
                         TagId = c.Int(),
@@ -61,6 +62,7 @@ namespace Yogging.DAL.Migrations
                         FirstName = c.String(),
                         LastName = c.String(),
                         EmailAddress = c.String(),
+                        IsInactive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
