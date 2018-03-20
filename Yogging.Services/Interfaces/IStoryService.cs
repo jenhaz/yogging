@@ -10,6 +10,6 @@ namespace Yogging.Services.Interfaces
         IEnumerable<StoryViewModel> GetStoriesBySprint(int sprintId);
         IEnumerable<StoryViewModel> GetStoriesByTag(int tagId);
         IEnumerable<StoryViewModel> GetStoriesByAssignedUser(int userId);
-        IEnumerable<StoryViewModel> GetStoriesByStatus(Status status);
+        IEnumerable<StoryViewModel> GetStoriesByStatus(StoryStatus status);
     }
 }

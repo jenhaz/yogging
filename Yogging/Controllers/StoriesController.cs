@@ -14,7 +14,6 @@ namespace Yogging.Controllers
     public class StoriesController : Controller
     {
         private YoggingContext db = new YoggingContext();
-
         private IStoryService StoryService { get; }
 
         public StoriesController(IStoryService storyService)

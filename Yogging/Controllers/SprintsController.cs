@@ -56,7 +56,7 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,StartDate,EndDate")] Sprint sprint)
+        public ActionResult Create([Bind(Include = "Id,Name,StartDate,EndDate,Status")] Sprint sprint)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,StartDate,EndDate")] Sprint sprint)
+        public ActionResult Edit([Bind(Include = "Id,Name,StartDate,EndDate,Status")] Sprint sprint)
         {
             if (ModelState.IsValid)
             {

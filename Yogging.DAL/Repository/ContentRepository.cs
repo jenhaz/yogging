@@ -16,7 +16,7 @@ namespace Yogging.DAL.Repository
 
         public IEnumerable<Story> GetStories()
         {
-            var query = db.Stories.OrderByDescending(x => x.CreatedDate);
+            var query = db.Stories.OrderByDescending(x => x.Id);
 
             return query.ToList();
         }
@@ -40,6 +40,13 @@ namespace Yogging.DAL.Repository
             var query = db.Tags.Where(x => x.Id.Equals(id)).FirstOrDefault();
 
             return query;
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            var query = db.Users.OrderBy(x => x.FirstName);
+
+            return query.ToList();
         }
     }
 }

@@ -96,7 +96,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\Priority.cs" />
-    <Compile Include="Enums\Status.cs" />
+    <Compile Include="Enums\SprintStatus.cs" />
+    <Compile Include="Enums\StoryStatus.cs" />
     <Compile Include="Enums\TaskType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Sprint.cs" />
@@ -106,7 +107,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
-    <Compile Include="ViewModels\SprintsViewModel.cs" />
     <Compile Include="ViewModels\SprintViewModel.cs" />
     <Compile Include="ViewModels\StoryViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />

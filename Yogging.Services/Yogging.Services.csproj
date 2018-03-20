@@ -50,9 +50,11 @@
     <Compile Include="Implementations\SprintService.cs" />
     <Compile Include="Implementations\StoryService.cs" />
     <Compile Include="Implementations\TagService.cs" />
+    <Compile Include="Implementations\UserService.cs" />
     <Compile Include="Interfaces\ISprintService.cs" />
     <Compile Include="Interfaces\IStoryService.cs" />
     <Compile Include="Interfaces\ITagService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

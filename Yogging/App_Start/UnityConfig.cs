@@ -22,6 +22,7 @@ namespace Yogging
             container.RegisterType<IStoryService, StoryService>();
             container.RegisterType<ISprintService, SprintService>();
             container.RegisterType<ITagService, TagService>();
+            container.RegisterType<IUserService, UserService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

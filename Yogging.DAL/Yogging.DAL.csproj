@@ -66,6 +66,14 @@
     <Compile Include="Migrations\201803151547066_storynulls.Designer.cs">
       <DependentUpon>201803151547066_storynulls.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803201450591_sprintstatus.cs" />
+    <Compile Include="Migrations\201803201450591_sprintstatus.Designer.cs">
+      <DependentUpon>201803201450591_sprintstatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803201506133_inactiveuser.cs" />
+    <Compile Include="Migrations\201803201506133_inactiveuser.Designer.cs">
+      <DependentUpon>201803201506133_inactiveuser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ContentRepository.cs" />
@@ -90,6 +98,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803151547066_storynulls.resx">
       <DependentUpon>201803151547066_storynulls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803201450591_sprintstatus.resx">
+      <DependentUpon>201803201450591_sprintstatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803201506133_inactiveuser.resx">
+      <DependentUpon>201803201506133_inactiveuser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

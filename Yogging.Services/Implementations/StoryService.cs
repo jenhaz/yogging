@@ -51,7 +51,7 @@ namespace Yogging.Services.Implementations
             return stories;
         }
 
-        public IEnumerable<StoryViewModel> GetStoriesByStatus(Status status)
+        public IEnumerable<StoryViewModel> GetStoriesByStatus(StoryStatus status)
         {
             IEnumerable<StoryViewModel> stories = ContentRepository.GetStories().Where(y => y.Status.Equals(status))
                 .Select(x => GetStory(x));
@@ -64,13 +64,13 @@ namespace Yogging.Services.Implementations
             return new StoryViewModel()
             {
                 Id = x.Id,
-                Name = x.Name,
-                CreatedDate = x.CreatedDate,
-                LastUpdated = x.LastUpdated,
+                Name = !string.IsNullOrEmpty(x.Name) ? x.Name : "Sprint " + x.Id.ToString(),
+                CreatedDate = !string.IsNullOrEmpty(x.CreatedDate) ? x.CreatedDate : string.Empty,
+                LastUpdated = !string.IsNullOrEmpty(x.LastUpdated) ? x.LastUpdated : string.Empty,
                 Priority = x.Priority,
                 Type = x.Type,
-                Description = x.Description,
-                AcceptanceCriteria = x.AcceptanceCriteria,
+                Description = !string.IsNullOrEmpty(x.Description) ? x.Description : string.Empty,
+                AcceptanceCriteria = !string.IsNullOrEmpty(x.AcceptanceCriteria) ? x.AcceptanceCriteria : string.Empty,
                 Points = x.Points,
                 Status = x.Status,
                 UserId = x.User.Id,
