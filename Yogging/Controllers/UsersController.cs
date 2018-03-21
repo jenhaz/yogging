@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
@@ -23,7 +22,7 @@ namespace Yogging.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            IEnumerable<UserViewModel> users = UserService.GetAllUsers();
+            IEnumerable<UserViewModel> users = UserService.GetAllActiveUsers();
 
             return View(users);
         }

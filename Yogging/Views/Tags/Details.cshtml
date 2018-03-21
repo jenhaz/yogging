@@ -1,4 +1,5 @@
-﻿@model Yogging.Models.ViewModels.TagViewModel
+﻿@using Yogging.Models.ViewModels
+@model TagViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -18,7 +19,10 @@
 
     </dl>
 </div>
+
+@Html.Partial("_TagStoriesList", Model.Stories)
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    @*@Html.ActionLink("Back to List", "Index")*@
 </p>

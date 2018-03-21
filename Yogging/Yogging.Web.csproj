@@ -312,7 +312,9 @@
     <Content Include="Views\Tags\Details.cshtml" />
     <Content Include="Views\Tags\Edit.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
-    <Content Include="Views\Shared\_StoriesList.cshtml" />
+    <Content Include="Views\Shared\_SprintStoriesList.cshtml" />
+    <Content Include="Views\Shared\_UserStoriesList.cshtml" />
+    <Content Include="Views\Shared\_TagStoriesList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

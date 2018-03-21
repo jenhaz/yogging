@@ -27,9 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
-            @*<th>
+            <th>
                 @Html.DisplayNameFor(model => model.SprintPointTotal)
-            </th>*@
+            </th>
             <th></th>
         </tr>
         <tr>
@@ -45,9 +45,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
-            @*<td>
+            <td>
                 @Html.DisplayFor(modelItem => item.SprintPointTotal)
-            </td>*@
+            </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
@@ -56,5 +56,9 @@
         </tr>
     </table>
 
-    @Html.Partial("_StoriesList", item.Stories)
+    @Html.Partial("_SprintStoriesList", item.Stories)
+
+    <p>
+        <a href="@Url.Action("Create", "Stories")">Create new story</a>
+    </p>
 }

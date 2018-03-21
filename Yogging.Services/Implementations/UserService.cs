@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yogging.DAL.Context;
 using Yogging.DAL.Repository;
 using Yogging.Models;
@@ -26,6 +23,14 @@ namespace Yogging.Services.Implementations
         public IEnumerable<UserViewModel> GetAllUsers()
         {
             var users = ContentRepository.GetUsers()
+                .Select(x => GetUser(x));
+
+            return users;
+        }
+
+        public IEnumerable<UserViewModel> GetAllActiveUsers()
+        {
+            var users = ContentRepository.GetUsers().Where(y => !y.IsInactive)
                 .Select(x => GetUser(x));
 
             return users;
