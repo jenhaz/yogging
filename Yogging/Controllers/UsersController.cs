@@ -9,6 +9,7 @@ using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private YoggingContext db = new YoggingContext();

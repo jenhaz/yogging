@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
@@ -10,6 +9,7 @@ using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
 {
+    [Authorize]
     public class TagsController : Controller
     {
         private YoggingContext db = new YoggingContext();

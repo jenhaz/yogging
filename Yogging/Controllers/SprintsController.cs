@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
@@ -10,6 +9,7 @@ using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
 {
+    [Authorize]
     public class SprintsController : Controller
     {
         private YoggingContext db = new YoggingContext();
@@ -25,8 +25,15 @@ namespace Yogging.Controllers
         // GET: Sprints
         public ActionResult Index()
         {
-            IEnumerable<SprintViewModel> sprints = SprintService.GetAllSprints();
+            IEnumerable<SprintViewModel> sprints = SprintService.GetAllActiveSprints();
             
+            return View(sprints);
+        }
+
+        public ActionResult Finished()
+        {
+            IEnumerable<SprintViewModel> sprints = SprintService.GetAllExpiredSprints();
+
             return View(sprints);
         }
 

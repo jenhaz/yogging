@@ -5,6 +5,7 @@ namespace Yogging.Services.Interfaces
 {
     public interface ISprintService
     {
-        IEnumerable<SprintViewModel> GetAllSprints();
+        IEnumerable<SprintViewModel> GetAllActiveSprints();
+        IEnumerable<SprintViewModel> GetAllExpiredSprints();
     }
 }

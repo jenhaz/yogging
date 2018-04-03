@@ -59,7 +59,7 @@ namespace Yogging.Services.Implementations
             return stories;
         }
 
-        private StoryViewModel GetStory(Story x)
+        public StoryViewModel GetStory(Story x)
         {
             return new StoryViewModel()
             {
@@ -79,6 +79,26 @@ namespace Yogging.Services.Implementations
                 UserName = x.User.FirstName + " " + x.User.LastName,
                 SprintName = x.Sprint.Name,
                 TagName = x.Tag.Name
+            };
+        }
+
+        public Story PutStory(StoryViewModel x)
+        {
+            return new Story()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                CreatedDate = x.CreatedDate,
+                LastUpdated = x.LastUpdated,
+                Priority = x.Priority,
+                Type = x.Type,
+                Description = x.Description,
+                AcceptanceCriteria = x.AcceptanceCriteria,
+                Points = x.Points,
+                Status = x.Status,
+                UserId = x.UserId,
+                SprintId = x.SprintId,
+                TagId = x.TagId
             };
         }
     }

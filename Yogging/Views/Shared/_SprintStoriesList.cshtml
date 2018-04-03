@@ -3,7 +3,7 @@
 
 @if (Model.Any())
 {
-    <table class="table">
+    <table class="table" id="story-data-table">
         <tr>
             <th>
                 Name
@@ -20,9 +20,9 @@
             <th>
                 Tag
             </th>
-            <th>
-                Assigned To
-            </th>
+            @*<th>
+                    Assigned To
+                </th>*@
             <th>
                 Type
             </th>
@@ -44,20 +44,50 @@
                     @Html.DisplayFor(modelItem => story.Priority)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => story.TagName)
+                    <a href="@Url.Action("Details", "Tags", new { id = story.TagId })">@story.TagName</a>
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => story.UserName)
-                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => story.UserName)
+                    </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => story.Type)
                 </td>
                 <td>
-                    <a href="@Url.Action("Edit", "Stories", new { id = story.Id })">Edit</a> |
+                    <a class="editStory" href="@Url.Action("Edit", "Stories", new { id = story.Id })">Edit</a> |
                     <a href="@Url.Action("Details", "Stories", new { id = story.Id })">Details</a> |
                     <a href="@Url.Action("Delete", "Stories", new { id = story.Id })">Delete</a>
                 </td>
             </tr>
         }
     </table>
+
+    <div class="modal fade" id="editStoryModal" tabindex="-1" role="dialog" aria-labelledby="EditStoryModal" aria-hidden="true" data-backdrop="static">
+        <div id="editStoryContainer">
+        </div>
+    </div>
 }
+
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+        $('#story-data-table').on("click", ".editStory", function (event) {
+            event.preventDefault();
+            var url = $(this).attr("href");
+            $.get(url, function (data) {
+                $('#editStoryContainer').html(data);
+                $('#editStoryModal').modal('show');
+            });
+        });
+    });
+
+    function UpdateStorySuccess(data) {
+        if (data != "success") {
+            $('#editStoryContainer').html(data);
+            return;
+        }
+
+        $('#editStoryModal').modal('hide');
+        $('#editStoryContainer').html("");
+        viewModel.refresh();
+    }
+</script>

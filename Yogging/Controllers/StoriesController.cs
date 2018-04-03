@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
 using Yogging.Models;
@@ -11,6 +11,7 @@ using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
 {
+    [Authorize]
     public class StoriesController : Controller
     {
         private YoggingContext db = new YoggingContext();
@@ -90,7 +91,13 @@ namespace Yogging.Controllers
             ViewBag.SprintId = new SelectList(db.Sprints, "Id", "Name", story.SprintId);
             ViewBag.TagId = new SelectList(db.Tags, "Id", "Name", story.TagId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", story.UserId);
-            return View(story);
+
+            StoryViewModel viewModel = StoryService.GetStory(story);
+
+            if (Request.IsAjaxRequest())
+                return PartialView("_EditPartial", viewModel);
+
+            return View(viewModel);
         }
 
         // POST: Stories/Edit/5
@@ -104,10 +111,11 @@ namespace Yogging.Controllers
         //    {
         //        story.LastUpdated = DateTime.Now.ToString();
         //        db.Entry(story).State = EntityState.Modified;
+        //        db.Entry(story).Property("CreatedDate").IsModified = false;
         //        db.SaveChanges();
         //        return RedirectToAction("Index");
         //    }
-            
+
         //    ViewBag.SprintId = new SelectList(db.Sprints, "Id", "Name", story.SprintId);
         //    ViewBag.TagId = new SelectList(db.Tags, "Id", "Name", story.TagId);
         //    ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", story.UserId);
@@ -115,22 +123,31 @@ namespace Yogging.Controllers
         //}
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,CreatedDate,LastUpdated,Priority,Type,Description,AcceptanceCriteria,Points,Status,UserId,SprintId,TagId")] Story story)
+        public async Task<ActionResult> Edit(StoryViewModel viewModel)
         {
+            Story story = StoryService.PutStory(viewModel);
+
             if (ModelState.IsValid)
             {
+                db.Stories.Attach(story);
                 story.LastUpdated = DateTime.Now.ToString();
                 db.Entry(story).State = EntityState.Modified;
                 db.Entry(story).Property("CreatedDate").IsModified = false;
-                db.SaveChanges();
+                var task = db.SaveChangesAsync();
+                await task;
+
+                if (Request.IsAjaxRequest())
+                {
+                    return Content("success");
+                }
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SprintId = new SelectList(db.Sprints, "Id", "Name", story.SprintId);
-            ViewBag.TagId = new SelectList(db.Tags, "Id", "Name", story.TagId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", story.UserId);
-            return View(story);
+            ViewBag.SprintId = new SelectList(db.Sprints, "Id", "Name", viewModel.SprintId);
+            ViewBag.TagId = new SelectList(db.Tags, "Id", "Name", viewModel.TagId);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", viewModel.UserId);
+            return View(viewModel);
         }
 
         // GET: Stories/Delete/5

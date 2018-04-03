@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Yogging.Models;
 using Yogging.Models.Enums;
 using Yogging.Models.ViewModels;
 
@@ -11,5 +12,7 @@ namespace Yogging.Services.Interfaces
         IEnumerable<StoryViewModel> GetStoriesByTag(int tagId);
         IEnumerable<StoryViewModel> GetStoriesByAssignedUser(int userId);
         IEnumerable<StoryViewModel> GetStoriesByStatus(StoryStatus status);
+        StoryViewModel GetStory(Story x);
+        Story PutStory(StoryViewModel x);
     }
 }

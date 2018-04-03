@@ -1,0 +1,63 @@
+﻿@using Yogging.Models.ViewModels
+@model IEnumerable<SprintViewModel>
+
+@{
+    var isClosed = Yogging.Models.Enums.SprintStatus.Closed;
+}
+
+@foreach (var item in Model)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SprintPointTotal)
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.StartDate)*@
+                @item.StartDate.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.EndDate)*@
+                @item.EndDate.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SprintPointTotal)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    </table>
+
+    @Html.Partial("_SprintStoriesList", item.Stories)
+
+    if (item.Status != isClosed)
+    {
+        <p>
+            <a href="@Url.Action("Create", "Stories")">Create new story</a>
+        </p>
+    }
+}

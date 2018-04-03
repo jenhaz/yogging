@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Yogging.DAL.Context;
 using Yogging.DAL.Repository;
 using Yogging.Models;
+using Yogging.Models.Enums;
 using Yogging.Models.ViewModels;
 using Yogging.Services.Interfaces;
 
@@ -19,9 +21,19 @@ namespace Yogging.Services.Implementations
             ContentRepository = contentRepository;
             StoryService = storyService;
         }
-        public IEnumerable<SprintViewModel> GetAllSprints()
+        public IEnumerable<SprintViewModel> GetAllActiveSprints()
         {
-            var sprints = ContentRepository.GetSprints()
+            //var sprints = ContentRepository.GetSprints().Where(y => y.EndDate >= DateTime.Now)
+            var sprints = ContentRepository.GetSprints().Where(y => y.Status != SprintStatus.Closed)
+                .Select(x => GetSprint(x));
+
+            return sprints;
+        }
+
+        public IEnumerable<SprintViewModel> GetAllExpiredSprints()
+        {
+            //var sprints = ContentRepository.GetSprints().Where(y => y.EndDate < DateTime.Now)
+            var sprints = ContentRepository.GetSprints().Where(y => y.Status == SprintStatus.Closed)
                 .Select(x => GetSprint(x));
 
             return sprints;

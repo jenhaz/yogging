@@ -1,6 +1,8 @@
 using System.Web.Mvc;
 using Unity;
+using Unity.Injection;
 using Unity.Mvc5;
+using Yogging.Controllers;
 using Yogging.DAL.Repository;
 using Yogging.Services.Implementations;
 using Yogging.Services.Interfaces;
@@ -13,10 +15,8 @@ namespace Yogging
         {
 			var container = new UnityContainer();
 
-            // register all your components with the container here
-            // it is NOT necessary to register your controllers
-
-            // e.g. container.RegisterType<ITestService, TestService>();
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
 
             container.RegisterType<IContentRepository, ContentRepository>();
             container.RegisterType<IStoryService, StoryService>();
