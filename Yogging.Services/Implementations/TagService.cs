@@ -12,10 +12,12 @@ namespace Yogging.Services.Implementations
     {
         private YoggingContext db = new YoggingContext();
         private IContentRepository ContentRepository { get; }
+        private IStoryService StoryService { get; }
 
-        public TagService(IContentRepository contentRepository)
+        public TagService(IContentRepository contentRepository, IStoryService storyService)
         {
             ContentRepository = contentRepository;
+            StoryService = storyService;
         }
 
         public IEnumerable<TagViewModel> GetAllTags()
@@ -39,7 +41,8 @@ namespace Yogging.Services.Implementations
             return new TagViewModel
             {
                 Id = tag.Id,
-                Name = tag.Name
+                Name = tag.Name,
+                Stories = StoryService.GetStoriesByTag(tag.Id)
             };
         }
     }

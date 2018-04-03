@@ -1,6 +1,6 @@
 ﻿namespace Yogging.Models.Enums
 {
-    public enum Status
+    public enum StoryStatus
     {
         None,
         ToDo,

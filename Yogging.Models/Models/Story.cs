@@ -27,7 +27,7 @@ namespace Yogging.Models
 
         public int Points { get; set; }
 
-        public Status Status { get; set; }
+        public StoryStatus Status { get; set; }
 
         [Display(Name = "Assigned User")]
         public int? UserId { get; set; }

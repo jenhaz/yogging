@@ -1,0 +1,75 @@
+﻿@using Yogging.Models.ViewModels
+@model IEnumerable<StoryViewModel>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Points
+            </th>
+            <th>
+                Sprint
+            </th>
+            <th>
+                Tag
+            </th>
+            <th>
+                Created Date
+            </th>
+            <th>
+                Last Updated
+            </th>
+            <th>
+                Priority
+            </th>
+            <th>
+                Type
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var story in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => story.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => story.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => story.Points)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => story.SprintName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => story.TagName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => story.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => story.LastUpdated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => story.Priority)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => story.Type)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Stories", new { id = story.Id })">Edit</a> |
+                    <a href="@Url.Action("Details", "Stories", new { id = story.Id })">Details</a> |
+                    <a href="@Url.Action("Delete", "Stories", new { id = story.Id })">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+}

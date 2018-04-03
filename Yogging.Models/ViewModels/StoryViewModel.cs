@@ -18,7 +18,7 @@ namespace Yogging.Models.ViewModels
         public string Description { get; set; }
         public string AcceptanceCriteria { get; set; }
         public int Points { get; set; }
-        public Status Status { get; set; }
+        public StoryStatus Status { get; set; }
         public int? UserId { get; set; }
         public string UserName { get; set; }
         public int? SprintId { get; set; }

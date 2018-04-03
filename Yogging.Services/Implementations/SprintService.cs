@@ -35,8 +35,24 @@ namespace Yogging.Services.Implementations
                 Name = sprint.Name,
                 StartDate = sprint.StartDate,
                 EndDate = sprint.EndDate,
-                Stories = StoryService.GetStoriesBySprint(sprint.Id)
+                Stories = StoryService.GetStoriesBySprint(sprint.Id),
+                Status = sprint.Status,
+                SprintPointTotal = GetSprintPointTotal(sprint.Id)
             };
+        }
+
+        private int GetSprintPointTotal(int sprintId)
+        {
+            var stories = StoryService.GetStoriesBySprint(sprintId);
+            int total = 0;
+
+            foreach(var story in stories)
+            {
+                int points = story.Points;
+                total = total + points;
+            }
+
+            return total;
         }
     }
 }

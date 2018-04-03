@@ -54,17 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\YoggingContext.cs" />
-    <Compile Include="Migrations\201803151107340_InitialCreate.cs" />
-    <Compile Include="Migrations\201803151107340_InitialCreate.Designer.cs">
-      <DependentUpon>201803151107340_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803151455122_datetime.cs" />
-    <Compile Include="Migrations\201803151455122_datetime.Designer.cs">
-      <DependentUpon>201803151455122_datetime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803151547066_storynulls.cs" />
-    <Compile Include="Migrations\201803151547066_storynulls.Designer.cs">
-      <DependentUpon>201803151547066_storynulls.cs</DependentUpon>
+    <Compile Include="Migrations\201803201657246_init.cs" />
+    <Compile Include="Migrations\201803201657246_init.Designer.cs">
+      <DependentUpon>201803201657246_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,14 +74,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803151107340_InitialCreate.resx">
-      <DependentUpon>201803151107340_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803151455122_datetime.resx">
-      <DependentUpon>201803151455122_datetime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803151547066_storynulls.resx">
-      <DependentUpon>201803151547066_storynulls.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803201657246_init.resx">
+      <DependentUpon>201803201657246_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

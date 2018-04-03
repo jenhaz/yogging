@@ -9,5 +9,6 @@ namespace Yogging.DAL.Repository
         IEnumerable<Sprint> GetSprints();
         IEnumerable<Tag> GetTags();
         Tag GetTagById(int? id);
+        IEnumerable<User> GetUsers();
     }
 }

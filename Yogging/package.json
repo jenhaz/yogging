@@ -1,0 +1,12 @@
+{
+  "name": "Yogging",
+  "version": "1.1.1",
+  "description": "Not quite sprinting",
+  "dependencies": {
+    "gulp": "3.9.1",
+    "gulp-concat": "2.6.1",
+    "gulp-clean-css": "3.7.0",
+    "gulp-rename": "1.2.2",
+    "gulp-sass": "3.1.0"
+  }
+}

@@ -1,20 +1,30 @@
-﻿using System.Data.Entity;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
 using Yogging.Models;
+using Yogging.Models.ViewModels;
+using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
 {
     public class UsersController : Controller
     {
         private YoggingContext db = new YoggingContext();
+        private IUserService UserService { get; }
+
+        public UsersController(IUserService userService)
+        {
+            UserService = userService;
+        }
 
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            IEnumerable<UserViewModel> users = UserService.GetAllActiveUsers();
+
+            return View(users);
         }
 
         // GET: Users/Details/5
@@ -43,7 +53,7 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,EmailAddress")] User user)
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,EmailAddress,IsInactive")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +85,7 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,EmailAddress")] User user)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,EmailAddress,IsInactive")] User user)
         {
             if (ModelState.IsValid)
             {

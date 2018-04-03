@@ -10,7 +10,6 @@ namespace Yogging.DAL.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "Yogging.DAL.Context.YoggingContext";
         }
 
         protected override void Seed(Yogging.DAL.Context.YoggingContext context)
