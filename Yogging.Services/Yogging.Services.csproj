@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Implementations\SprintService.cs" />
     <Compile Include="Implementations\StoryService.cs" />
     <Compile Include="Implementations\TagService.cs" />

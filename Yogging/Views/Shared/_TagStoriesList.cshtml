@@ -1,4 +1,5 @@
 ﻿@using Yogging.Models.ViewModels
+@using Yogging.Services.Extensions
 @model IEnumerable<StoryViewModel>
 
 @if (Model.Any())
@@ -41,7 +42,7 @@
                     @Html.DisplayFor(modelItem => story.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => story.Status)
+                    @story.Status.GetDisplayName()
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => story.Points)

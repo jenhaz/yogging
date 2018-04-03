@@ -1,4 +1,5 @@
 ﻿@using Yogging.Models.ViewModels
+@using Yogging.Services.Extensions
 @model IEnumerable<StoryViewModel>
 
 @{
@@ -89,7 +90,7 @@
                     @Html.DisplayFor(modelItem => item.Points)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @item.Status.GetDisplayName()
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
