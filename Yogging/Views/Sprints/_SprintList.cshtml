@@ -7,50 +7,34 @@
 
 @foreach (var item in Model)
 {
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SprintPointTotal)
-            </th>
-            <th></th>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.StartDate)*@
-                @item.StartDate.ToString("dd/MM/yyyy")
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.EndDate)*@
-                @item.EndDate.ToString("dd/MM/yyyy")
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SprintPointTotal)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    </table>
+    <div>
+        <h3>
+            @Html.DisplayFor(modelItem => item.Name)
+        </h3>
+        <span>
+            @item.Stories.Count() Issues
+        </span>
+    </div>
+
+    <div>
+        <div>
+            @Html.DisplayFor(modelItem => item.Status)
+        </div>
+        <div>
+            @item.StartDate.ToString("dd/MM/yyyy")
+        </div>
+        <div>
+            @item.EndDate.ToString("dd/MM/yyyy")
+        </div>
+        <div>
+            @Html.DisplayFor(modelItem => item.SprintPointTotal)
+        </div>
+        <div>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </div>
+    </div>
 
     @Html.Partial("_SprintStoriesList", item.Stories)
 

@@ -42,7 +42,10 @@ namespace Yogging.Controllers
             {
                 return HttpNotFound();
             }
-            return View(story);
+
+            StoryViewModel viewModel = StoryService.GetStory(story);
+
+            return View(viewModel);
         }
 
         // GET: Stories/Create

@@ -12,89 +12,42 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SprintName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TagName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastUpdated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Priority)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AcceptanceCriteria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Points)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
     @if (Model.Any())
     {
         foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SprintName)
+                    @item.Status.GetDisplayName()
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TagName)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
+                    <a href="@Url.Action("Details", "Stories", new { id = item.Id })">
+                        @item.Name
+                    </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    <a href="@Url.Action("Details", "Sprints", new { id = item.SprintId })">
+                        @item.SprintName
+                    </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                    <a href="@Url.Action("Details", "Tags", new { id = item.TagId })">
+                        @item.TagName
+                    </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastUpdated)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Priority)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AcceptanceCriteria)
+                    <a href="@Url.Action("Details", "Users", new { id = item.UserId })">
+                        @item.UserName
+                    </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Points)
                 </td>
                 <td>
-                    @item.Status.GetDisplayName()
-                </td>
-                <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>

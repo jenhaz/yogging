@@ -7,7 +7,7 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
             <h4 class="modal-title">Edit Story</h4>
         </div>
         @using (Ajax.BeginForm("Edit", "Stories", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "UpdateStorySuccess" }, new { @class = "form-horizontal", role = "form" }))
