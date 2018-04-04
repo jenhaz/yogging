@@ -104,27 +104,6 @@ namespace Yogging.Controllers
         }
 
         // POST: Stories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,Name,CreatedDate,LastUpdated,Priority,Type,Description,AcceptanceCriteria,Points,Status,UserId,SprintId,TagId")] Story story)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        story.LastUpdated = DateTime.Now.ToString();
-        //        db.Entry(story).State = EntityState.Modified;
-        //        db.Entry(story).Property("CreatedDate").IsModified = false;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.SprintId = new SelectList(db.Sprints, "Id", "Name", story.SprintId);
-        //    ViewBag.TagId = new SelectList(db.Tags, "Id", "Name", story.TagId);
-        //    ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", story.UserId);
-        //    return View(story);
-        //}
-
         [HttpPost]
         public async Task<ActionResult> Edit(StoryViewModel viewModel)
         {

@@ -8,12 +8,12 @@
         @foreach (var story in Model)
         {
         <tr>
-            <td>
+            <td class="@story.Status.ToString().ToLower()">
                 @story.Status.GetDisplayName()
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => story.Id)
-            </td>
+            </td>*@
             <td>
                 <a href="@Url.Action("Details", "Stories", new { id = story.Id })">
                     @story.Name
@@ -29,11 +29,6 @@
                     @story.TagName
                 </a>
             </td>
-            @*<td>
-                <a href="@Url.Action("Details", "Users", new { id = story.UserId })">
-                    @story.UserName
-                </a>
-            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => story.Points)
             </td>

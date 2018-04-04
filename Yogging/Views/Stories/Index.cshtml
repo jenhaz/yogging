@@ -3,13 +3,13 @@
 @model IEnumerable<StoryViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Stories";
 }
 
 <h2>Stories</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Story", "Create")
 </p>
 <table class="table">
     @if (Model.Any())

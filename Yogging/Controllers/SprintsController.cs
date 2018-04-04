@@ -26,7 +26,7 @@ namespace Yogging.Controllers
         public ActionResult Index()
         {
             IEnumerable<SprintViewModel> sprints = SprintService.GetAllActiveSprints();
-            
+
             return View(sprints);
         }
 
@@ -49,7 +49,10 @@ namespace Yogging.Controllers
             {
                 return HttpNotFound();
             }
-            return View(sprint);
+
+            SprintViewModel viewModel = SprintService.GetSprint(sprint);
+
+            return View(viewModel);
         }
 
         // GET: Sprints/Create
@@ -87,7 +90,10 @@ namespace Yogging.Controllers
             {
                 return HttpNotFound();
             }
-            return View(sprint);
+
+            SprintViewModel viewModel = SprintService.GetSprint(sprint);
+
+            return View(viewModel);
         }
 
         // POST: Sprints/Edit/5
@@ -95,15 +101,17 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,StartDate,EndDate,Status")] Sprint sprint)
+         public ActionResult Edit(SprintViewModel viewModel)
         {
+            Sprint sprint = SprintService.PutSprint(viewModel);
+
             if (ModelState.IsValid)
             {
                 db.Entry(sprint).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(sprint);
+            return View(viewModel);
         }
 
         // GET: Sprints/Delete/5

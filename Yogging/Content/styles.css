@@ -3,3 +3,58 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
+
+/* sprint listing specific stuff */
+.sprint__headline {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.sprint__title {
+    display: flex;
+    align-items: baseline;
+}
+
+.sprint__title span {
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.sprint__details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sprint__points-list {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.sprint__points-item {
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 2px 4px;
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+/* story status colours and styles */
+.todo {
+    color: #ffffff;
+    background: #BB0000;
+    text-align: center;
+}
+
+.inprog {
+    color: #ffffff;
+    background: #D27800;
+    text-align: center;
+}
+
+.done {
+    color: #ffffff;
+    background: #007925;
+    text-align: center;
+}
