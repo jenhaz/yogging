@@ -48,6 +48,14 @@ namespace Yogging.Controllers
             return View(viewModel);
         }
 
+        public PartialViewResult PartialDetails(int id)
+        {
+            Story story = db.Stories.Find(id);
+            StoryViewModel viewModel = StoryService.GetStory(story);
+
+            return PartialView("_StoriesDetail", viewModel);
+        }
+
         // GET: Stories/Create
         public ActionResult Create()
         {

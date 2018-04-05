@@ -33,6 +33,22 @@
                     </div>
 
                     <div class="form-group">
+                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Points, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Points, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Points, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EnumDropDownListFor(model => model.Priority, htmlAttributes: new { @class = "form-control" })
@@ -61,22 +77,6 @@
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.AcceptanceCriteria, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.AcceptanceCriteria, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Points, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Points, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Points, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                         </div>
                     </div>
 

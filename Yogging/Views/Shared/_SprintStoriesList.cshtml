@@ -4,47 +4,46 @@
 
 @if (Model.Any())
 {
-    <table class="table" id="story-data-table">
+    <div id="story-data-table">
         @foreach (var story in Model)
         {
-        <tr>
-            <td class="@story.Status.ToString().ToLower()">
-                @story.Status.GetDisplayName()
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => story.Id)
-            </td>*@
-            <td>
-                <a href="@Url.Action("Details", "Stories", new { id = story.Id })">
-                    @story.Name
-                </a>
-            </td>
-            <td>
-                <a href="@Url.Action("Details", "Sprints", new { id = story.SprintId })">
-                    @story.SprintName
-                </a>
-            </td>
-            <td>
-                <a href="@Url.Action("Details", "Tags", new { id = story.TagId })">
-                    @story.TagName
-                </a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => story.Points)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => story.Priority)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => story.Type)
-            </td>
-            <td>
-                <a class="editStory" href="@Url.Action("Edit", "Stories", new { id = story.Id })">Edit</a> |
-                <a href="@Url.Action("Delete", "Stories", new { id = story.Id })">Delete</a>
-            </td>
-        </tr>
+            <div class="story__container">
+                <div class="story__headline">
+                    <div>
+                        <div class="story__status @story.Status.ToString().ToLower()">
+                            @story.Status.GetDisplayName()
+                        </div>
+                        <div class="story__title">
+                            <a class="details-link" href="@Url.Action("PartialDetails", "Stories", new { id = story.Id })">
+                                @story.Name
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="story__tag">
+                            <a href="@Url.Action("Details", "Tags", new { id = story.TagId })">
+                                @story.TagName
+                            </a>
+                        </div>
+                        <div class="story__points">
+                            @Html.DisplayFor(modelItem => story.Points)
+                        </div>
+                        <div class="story__priority">
+                            @Html.DisplayFor(modelItem => story.Priority)
+                        </div>
+                        <div class="story__type">
+                            @Html.DisplayFor(modelItem => story.Type)
+                        </div>
+                        <div class="story__quick-links">
+                            <a class="editStory" href="@Url.Action("Edit", "Stories", new { id = story.Id })">Edit</a> |
+                            <a href="@Url.Action("Delete", "Stories", new { id = story.Id })">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="storyDetails"></div>
+            </div>
         }
-    </table>
+    </div>
 
     <div class="modal fade" id="editStoryModal" tabindex="-1" role="dialog" aria-labelledby="EditStoryModal" aria-hidden="true" data-backdrop="static">
         <div id="editStoryContainer">
@@ -52,7 +51,7 @@
     </div>
 }
 
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $.ajaxSetup({ cache: false });
         $('#story-data-table').on("click", ".editStory", function (event) {
@@ -74,5 +73,25 @@
         $('#editStoryModal').modal('hide');
         $('#editStoryContainer').html("");
         viewModel.refresh();
-    }
+    };
+
+    $(function () {
+        var detailsPartial = $('#storyDetails');
+
+        $('.details-link').click(function (event) {
+            event.preventDefault();
+            var url = $(this).attr('href');
+
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (data) {
+                    detailsPartial.html(data);
+                    $('#clearDetails').click(function () {
+                        detailsPartial.html(null);
+                    });
+                }
+            });
+        });
+    });
 </script>

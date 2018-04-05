@@ -16,10 +16,10 @@
     align-items: baseline;
 }
 
-.sprint__title span {
-    margin-left: 10px;
-    font-size: 12px;
-}
+    .sprint__title span {
+        margin-left: 10px;
+        font-size: 12px;
+    }
 
 .sprint__details {
     display: flex;
@@ -37,7 +37,59 @@
     margin-right: 2px;
     padding: 2px 4px;
     border-radius: 5px;
+    background: #d0d0d0;
     color: #ffffff;
+}
+
+/* sprint listing - story specific stuff */
+.story__container {
+    border: 1px solid #d0d0d0;
+    margin-bottom: 5px;
+}
+
+.story__headline {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.story__headline div {
+    display: flex;
+}
+
+.story__status {
+    min-width: 45px;
+    padding: 3px;
+}
+
+.story__title {
+    width: 300px;
+    padding: 3px 10px;
+}
+
+.story__tag {
+    padding: 3px;
+}
+
+.story__points {
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 2px 4px;
+    border-radius: 5px;
+    background: #d0d0d0;
+    color: #ffffff;
+}
+
+.story__priority {
+    padding: 3px;
+}
+
+.story__type {
+    padding: 3px;
+}
+
+.story__quick-links {
+    padding: 3px;
 }
 
 /* story status colours and styles */
