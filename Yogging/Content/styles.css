@@ -1,4 +1,18 @@
-﻿.content__details {
+﻿a {
+    color: #000000;
+}
+
+    a:hover {
+        color: #686F75;
+        text-decoration: none;
+    }
+
+.texthidden {
+    overflow: hidden;
+    text-indent: -9999px;
+}
+
+.content__details {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -51,15 +65,18 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    flex-wrap: wrap;
 }
 
-.story__headline > div {
-    display: flex;
-}
+    .story__headline > div {
+        display: flex;
+    }
 
 .story__status {
-    min-width: 45px;
+    width: 25px;
     padding: 3px;
+    overflow: hidden;
+    text-indent: -9999px;
 }
 
 .story__title {
@@ -91,33 +108,54 @@
     color: #ffffff;
 }
 
+.story__priority, .story__type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+}
+
 .story__priority {
-    padding: 3px;
+    /*padding: 3px;*/
 }
 
 .story__type {
-    padding: 3px;
+    /*padding: 3px;*/
 }
 
 .story__quick-links {
     padding: 3px;
 }
 
+.story-details__container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.story-details__content {
+    padding: 10px;
+}
+
+.story-details__actions {
+    padding: 10px;
+}
+
+
 /* story status colours and styles */
 .todo {
     color: #ffffff;
-    background: #BB0000;
+    background: #e85c5c;
     text-align: center;
 }
 
 .inprogress {
     color: #ffffff;
-    background: #D27800;
+    background: #f7b55d;
     text-align: center;
 }
 
 .done {
     color: #ffffff;
-    background: #007925;
+    background: #69c685;
     text-align: center;
 }

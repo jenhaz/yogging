@@ -1,12 +1,15 @@
 ﻿@using Yogging.Models.ViewModels
 @model StoryViewModel
 
-<div>
-    Description: @Html.DisplayFor(model => model.Description)
+<div class="story-details__content">
+    <div>
+        <strong>Description:</strong> @Html.DisplayFor(model => model.Description)
+    </div>
+    <div>
+        <strong>Acceptance Criteria:</strong> @Html.DisplayFor(model => model.AcceptanceCriteria)
+    </div>
 </div>
-<div>
-    Acceptance Criteria: @Html.DisplayFor(model => model.AcceptanceCriteria)
-</div>
-<div>
+
+<div class="story-details__actions">
     <button type="button" id="clearDetails">X</button>
 </div>

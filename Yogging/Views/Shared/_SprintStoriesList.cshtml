@@ -14,15 +14,15 @@
                             @story.Status.GetDisplayName()
                         </div>
                         <div class="story__title">
-                            <a class="details-link-@story.Id" href="@Url.Action("PartialDetails", "Stories", new { id = story.Id })">
+                            <a class="story-details__link--@story.Id" href="@Url.Action("PartialDetails", "Stories", new { id = story.Id })">
                                 @story.Name
                             </a>
                         </div>
                     </div>
                     <div>
                         <div class="story__tag">
-                            <a style="background-color:@story.TagColour;" 
-                               class="story__tag-link" 
+                            <a style="background-color:@story.TagColour;"
+                               class="story__tag-link"
                                href="@Url.Action("Details", "Tags", new { id = story.TagId })">
                                 @story.TagName
                             </a>
@@ -31,10 +31,10 @@
                             @Html.DisplayFor(modelItem => story.Points)
                         </div>
                         <div class="story__priority">
-                            @Html.DisplayFor(modelItem => story.Priority)
+                            <span class="icon-priority icon-priority--@story.Priority" title="@story.Priority"></span>
                         </div>
                         <div class="story__type">
-                            @Html.DisplayFor(modelItem => story.Type)
+                            <span class="icon-type icon-type--@story.Type" title="@story.Type"></span>
                         </div>
                         <div class="story__quick-links">
                             <a class="editStory" href="@Url.Action("Edit", "Stories", new { id = story.Id })">Edit</a> |
@@ -42,13 +42,13 @@
                         </div>
                     </div>
                 </div>
-                <div id="storyDetails-@story.Id"></div>
+                <div id="story-details--@story.Id" class="story-details__container"></div>
             </div>
             <script>
                 $(function () {
-                    var detailsPartial = $('#storyDetails-@story.Id');
+                    var detailsPartial = $('#story-details--@story.Id');
 
-                    $('.details-link-@story.Id').click(function (event) {
+                    $('.story-details__link--@story.Id').click(function (event) {
                         event.preventDefault();
                         var url = $(this).attr('href');
 
@@ -62,9 +62,7 @@
                                 });
                             }
                         });
-
                     });
-
                 });
             </script>
         }
