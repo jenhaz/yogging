@@ -55,7 +55,7 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Tag tag)
+        public ActionResult Create([Bind(Include = "Id,Name,Colour")] Tag tag)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Tag tag)
+        public ActionResult Edit([Bind(Include = "Id,Name,Colour")] Tag tag)
         {
             if (ModelState.IsValid)
             {

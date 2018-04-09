@@ -78,7 +78,8 @@ namespace Yogging.Services.Implementations
                 TagId = x.Tag.Id,
                 UserName = x.User.FirstName + " " + x.User.LastName,
                 SprintName = x.Sprint.Name,
-                TagName = x.Tag.Name
+                TagName = x.Tag.Name,
+                TagColour = !string.IsNullOrEmpty(x.Tag.Colour) ? x.Tag.Colour : "#ffffff"
             };
         }
 

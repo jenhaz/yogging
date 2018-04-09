@@ -53,7 +53,7 @@
     align-items: baseline;
 }
 
-.story__headline div {
+.story__headline > div {
     display: flex;
 }
 
@@ -70,6 +70,17 @@
 .story__tag {
     padding: 3px;
 }
+
+.story__tag-link {
+    padding: 2px 4px;
+    border-radius: 5px;
+    color: #000000;
+}
+
+    .story__tag-link:hover {
+        color: #686F75;
+        text-decoration: none;
+    }
 
 .story__points {
     margin-left: 2px;
@@ -99,7 +110,7 @@
     text-align: center;
 }
 
-.inprog {
+.inprogress {
     color: #ffffff;
     background: #D27800;
     text-align: center;

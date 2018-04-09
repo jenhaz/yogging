@@ -43,6 +43,8 @@ namespace Yogging.Models.ViewModels
         [Display(Name = "Tag Id")]
         public int? TagId { get; set; }
 
+        public string TagColour { get; set; }
+
         [Display(Name = "Tag Name")]
         public string TagName { get; set; }
     }

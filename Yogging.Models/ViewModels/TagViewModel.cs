@@ -7,5 +7,6 @@ namespace Yogging.Models.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public IEnumerable<StoryViewModel> Stories { get; set; }
+        public string Colour { get; set; }
     }
 }

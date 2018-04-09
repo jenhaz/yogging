@@ -42,7 +42,8 @@ namespace Yogging.Services.Implementations
             {
                 Id = tag.Id,
                 Name = tag.Name,
-                Stories = StoryService.GetStoriesByTag(tag.Id)
+                Stories = StoryService.GetStoriesByTag(tag.Id),
+                Colour = tag.Colour
             };
         }
     }

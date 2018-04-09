@@ -17,6 +17,14 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Colour)
+        </dt>
+
+        <dd style="background-color:@{@Model.Colour};">
+            @Html.DisplayFor(model => model.Colour)
+        </dd>
+
     </dl>
 </div>
 

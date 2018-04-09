@@ -14,14 +14,16 @@
                             @story.Status.GetDisplayName()
                         </div>
                         <div class="story__title">
-                            <a class="details-link" href="@Url.Action("PartialDetails", "Stories", new { id = story.Id })">
+                            <a class="details-link-@story.Id" href="@Url.Action("PartialDetails", "Stories", new { id = story.Id })">
                                 @story.Name
                             </a>
                         </div>
                     </div>
                     <div>
                         <div class="story__tag">
-                            <a href="@Url.Action("Details", "Tags", new { id = story.TagId })">
+                            <a style="background-color:@story.TagColour;" 
+                               class="story__tag-link" 
+                               href="@Url.Action("Details", "Tags", new { id = story.TagId })">
                                 @story.TagName
                             </a>
                         </div>
@@ -40,8 +42,31 @@
                         </div>
                     </div>
                 </div>
-                <div id="storyDetails"></div>
+                <div id="storyDetails-@story.Id"></div>
             </div>
+            <script>
+                $(function () {
+                    var detailsPartial = $('#storyDetails-@story.Id');
+
+                    $('.details-link-@story.Id').click(function (event) {
+                        event.preventDefault();
+                        var url = $(this).attr('href');
+
+                        $.ajax({
+                            url: url,
+                            type: 'get',
+                            success: function (data) {
+                                detailsPartial.html(data);
+                                $('#clearDetails').click(function () {
+                                    detailsPartial.html(null);
+                                });
+                            }
+                        });
+
+                    });
+
+                });
+            </script>
         }
     </div>
 
@@ -72,26 +97,6 @@
 
         $('#editStoryModal').modal('hide');
         $('#editStoryContainer').html("");
-        viewModel.refresh();
+        location.reload();
     };
-
-    $(function () {
-        var detailsPartial = $('#storyDetails');
-
-        $('.details-link').click(function (event) {
-            event.preventDefault();
-            var url = $(this).attr('href');
-
-            $.ajax({
-                url: url,
-                type: 'get',
-                success: function (data) {
-                    detailsPartial.html(data);
-                    $('#clearDetails').click(function () {
-                        detailsPartial.html(null);
-                    });
-                }
-            });
-        });
-    });
 </script>
