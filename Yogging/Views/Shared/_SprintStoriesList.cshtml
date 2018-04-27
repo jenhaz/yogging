@@ -4,7 +4,7 @@
 
 @if (Model.Any())
 {
-    <div id="story-data-table">
+    <div id="story-data__table">
         @foreach (var story in Model)
         {
             <div class="story__container">
@@ -37,7 +37,7 @@
                             <span class="icon-type icon-type--@story.Type" title="@story.Type"></span>
                         </div>
                         <div class="story__quick-links">
-                            <a class="editStory" href="@Url.Action("Edit", "Stories", new { id = story.Id })">Edit</a> |
+                            <a class="story__edit--link" href="@Url.Action("Edit", "Stories", new { id = story.Id })">Edit</a> |
                             <a href="@Url.Action("Delete", "Stories", new { id = story.Id })">Delete</a>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                             type: 'get',
                             success: function (data) {
                                 detailsPartial.html(data);
-                                $('#clearDetails').click(function () {
+                                $('#story-details__close').click(function () {
                                     detailsPartial.html(null);
                                 });
                             }
@@ -68,8 +68,8 @@
         }
     </div>
 
-    <div class="modal fade" id="editStoryModal" tabindex="-1" role="dialog" aria-labelledby="EditStoryModal" aria-hidden="true" data-backdrop="static">
-        <div id="editStoryContainer">
+    <div class="modal fade" id="story-edit__modal" tabindex="-1" role="dialog" aria-labelledby="story-edit__modal" aria-hidden="true" data-backdrop="static">
+        <div id="story-edit__container">
         </div>
     </div>
 }
@@ -77,24 +77,24 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $.ajaxSetup({ cache: false });
-        $('#story-data-table').on("click", ".editStory", function (event) {
+        $('#story-data__table').on("click", ".story__edit--link", function (event) {
             event.preventDefault();
             var url = $(this).attr("href");
             $.get(url, function (data) {
-                $('#editStoryContainer').html(data);
-                $('#editStoryModal').modal('show');
+                $('#story-edit__container').html(data);
+                $('#story-edit__modal').modal('show');
             });
         });
     });
 
     function UpdateStorySuccess(data) {
         if (data != "success") {
-            $('#editStoryContainer').html(data);
+            $('#story-edit__container').html(data);
             return;
         }
 
-        $('#editStoryModal').modal('hide');
-        $('#editStoryContainer').html("");
+        $('#story-edit__modal').modal('hide');
+        $('#story-edit__container').html("");
         location.reload();
     };
 </script>

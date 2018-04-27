@@ -115,14 +115,6 @@
     width: 25px;
 }
 
-.story__priority {
-    /*padding: 3px;*/
-}
-
-.story__type {
-    /*padding: 3px;*/
-}
-
 .story__quick-links {
     padding: 3px;
 }
@@ -139,7 +131,6 @@
 .story-details__actions {
     padding: 10px;
 }
-
 
 /* story status colours and styles */
 .todo {
