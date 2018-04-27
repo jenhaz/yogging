@@ -244,6 +244,7 @@
     <Content Include="Content\fonts\icomoon.eot" />
     <Content Include="Content\fonts\icomoon.ttf" />
     <Content Include="Content\fonts\icomoon.woff" />
+    <Content Include="Views\Home\Blog.cshtml" />
     <None Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Sprints\Finished.cshtml" />
     <Content Include="Views\Sprints\_SprintList.cshtml" />
