@@ -222,6 +222,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SprintsController.cs" />
@@ -244,7 +245,7 @@
     <Content Include="Content\fonts\icomoon.eot" />
     <Content Include="Content\fonts\icomoon.ttf" />
     <Content Include="Content\fonts\icomoon.woff" />
-    <Content Include="Views\Home\Blog.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
     <None Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Sprints\Finished.cshtml" />
     <Content Include="Views\Sprints\_SprintList.cshtml" />
