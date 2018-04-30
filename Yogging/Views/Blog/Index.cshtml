@@ -1,11 +1,11 @@
-﻿@using Yogging.Models.Models
-@model BlogPosts
+﻿@using Yogging.Models.ViewModels
+@model IEnumerable<BlogPostViewModel>
 
 @{
     ViewBag.Title = "My blog";
 }
 
-@foreach (var post in Model.Posts)
+@foreach (var post in Model)
 {
     <h2>
         @post.PostTitle

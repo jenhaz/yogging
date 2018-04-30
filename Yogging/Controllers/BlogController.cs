@@ -1,5 +1,6 @@
-﻿using System.Web.Mvc;
-using Yogging.Models.Models;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using Yogging.Models.ViewModels;
 using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
@@ -15,7 +16,7 @@ namespace Yogging.Controllers
 
         public ActionResult Index()
         {
-            BlogPosts posts = BlogService.GetAllBlogPosts();
+            IEnumerable<BlogPostViewModel> posts = BlogService.GetAllBlogPosts();
 
             return View(posts);
         }
