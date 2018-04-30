@@ -6,6 +6,7 @@ using Yogging.Models.Models;
 using Yogging.Models.ViewModels;
 using Yogging.Services.Interfaces;
 using System.Linq;
+using HtmlAgilityPack;
 
 namespace Yogging.Services.Implementations
 {
@@ -41,6 +42,8 @@ namespace Yogging.Services.Implementations
 
         private BlogPostViewModel GetBlogPostViewModel(BlogPost post)
         {
+            string firstImg = GetFirstImageInHtml(post.PostContent);
+
             return new BlogPostViewModel
             {
                 Id = post.Id,
@@ -48,8 +51,29 @@ namespace Yogging.Services.Implementations
                 UpdatedDate = post.Updated,
                 PostUrl = post.PostUrl,
                 PostTitle = post.PostTitle,
-                PostContent = post.PostContent
+                PostContent = post.PostContent,
+                PostMainImage = !string.IsNullOrEmpty(firstImg) ? firstImg : string.Empty
             };
+        }
+
+        private string GetFirstImageInHtml (string postContent)
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+
+            htmlDocument.LoadHtml(postContent);
+
+            HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes("//img");
+
+            if (nodes != null)
+            {
+                HtmlNode image = nodes.FirstOrDefault();
+
+                HtmlAttribute src = image.Attributes["src"];
+
+                return src.Value;
+            }
+
+            return string.Empty;
         }
     }
 }
