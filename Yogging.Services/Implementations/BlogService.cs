@@ -7,6 +7,7 @@ using Yogging.Models.ViewModels;
 using Yogging.Services.Interfaces;
 using System.Linq;
 using HtmlAgilityPack;
+using System;
 
 namespace Yogging.Services.Implementations
 {
@@ -47,7 +48,7 @@ namespace Yogging.Services.Implementations
             return new BlogPostViewModel
             {
                 Id = post.Id,
-                PublishedDate = post.Published,
+                PublishedDate = GetNiceDate(post.Published),
                 UpdatedDate = post.Updated,
                 PostUrl = post.PostUrl,
                 PostTitle = post.PostTitle,
@@ -56,18 +57,23 @@ namespace Yogging.Services.Implementations
             };
         }
 
-        private string GetFirstImageInHtml (string postContent)
+        private string GetNiceDate(string date)
+        {
+            DateTime stringDate = Convert.ToDateTime(date);
+            string niceDate = stringDate.ToString("dd/MM/yyyy");
+
+            return niceDate;
+        }
+
+        private string GetFirstImageInHtml(string postContent)
         {
             HtmlDocument htmlDocument = new HtmlDocument();
-
             htmlDocument.LoadHtml(postContent);
-
             HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes("//img");
 
             if (nodes != null)
             {
                 HtmlNode image = nodes.FirstOrDefault();
-
                 HtmlAttribute src = image.Attributes["src"];
 
                 return src.Value;

@@ -25,7 +25,10 @@
 
                 <div class="blog__content">
                     <a href="@post.PostUrl" target="_blank">
-                        <h2>
+                        <span class="blog__post-date">
+                            @post.PublishedDate
+                        </span>
+                        <h2 class="blog__post-title">
                             @post.PostTitle
                         </h2>
                     </a>
@@ -39,4 +42,10 @@
         </div>
 
     }
+</div>
+
+<div>
+    <a href="https://weekendpaints.blogspot.com/" target="_blank">
+        more posts
+    </a>
 </div>
