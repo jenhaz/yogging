@@ -8,23 +8,18 @@
 <div class="blog">
     @foreach (var post in Model)
     {
+        string imageUrl = !string.IsNullOrEmpty(post.PostMainImage) ? post.PostMainImage : "https://placekitten.com/300/200";
+        string style = "background-image: url('" + imageUrl + "')";
 
         <div class="blog__item">
-            <div class="blog__container">
-
+            <div class="blog__container" style="@style">
                 <a class="blog__media" href="@post.PostUrl" target="_blank">
-                    @if (!string.IsNullOrEmpty(post.PostMainImage))
-                    {
-                        <img class="blog__image" src="@post.PostMainImage" alt="@post.PostTitle" />
-                    }
-                    else
-                    {
-                        <img class="blog__image" src="https://placekitten.com/300/200" alt="@post.PostTitle" />
-                    }
+                    @post.PostTitle
+                    @*<img class="blog__image" src="@imageUrl" alt="@post.PostTitle" />*@
                 </a>
 
                 <div class="blog__content">
-                    <a href="@post.PostUrl" target="_blank">
+                    <a class="blog__content-link" href="@post.PostUrl" target="_blank">
                         <span class="blog__post-date">
                             @post.PublishedDate
                         </span>
@@ -34,13 +29,12 @@
                     </a>
                 </div>
 
-                <a class="block-link__overlay" href="@post.PostUrl" target="_blank">
+                @* need to get scss working *@
+                @*<a class="block-link__overlay" href="@post.PostUrl" target="_blank">
                     @post.PostTitle
-                </a>
-
+                </a>*@
             </div>
         </div>
-
     }
 </div>
 

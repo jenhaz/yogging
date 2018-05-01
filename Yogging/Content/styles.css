@@ -1,4 +1,12 @@
-﻿a {
+﻿body, html {
+    font-family: 'Libre Baskerville', serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Libre Franklin', sans-serif;
+}
+
+a {
     color: #000000;
 }
 
@@ -176,9 +184,28 @@
 }
 
 .blog__item {
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
     height: 100%;
-    margin: 10px;
+    /*margin: 10px;*/
+}
+
+@media (min-width: 321px) {
+    .blog__item {
+        width: 50%;
+    }
+}
+
+@media (min-width: 650px) {
+    .blog__item {
+        width: 33.33%;
+    }
+}
+
+@media (min-width: 992px) {
+    .blog__item {
+        width: 25%;
+    }
 }
 
 .blog__container {
@@ -189,9 +216,12 @@
     display: block;
     width: auto;
     height: 100%;
-    flex-direction: column;
-    justify-content: flex-end;
+    margin: 10px;
     background-color: #333333;
+
+    background-position: center;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
 }
 
 .blog__media {
@@ -203,14 +233,16 @@
     left: auto;
     width: 100%;
     height: 200px;
+    text-indent: 500%;
+    white-space: nowrap;
 }
 
-.blog__image {
+/*.blog__image {
     width: 100%;
     overflow: hidden;
-    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
-}
+}*/
 
 .blog__content {
     position: absolute;
@@ -220,6 +252,16 @@
     height: 75px;
     overflow: hidden;
     background-color: rgba(255, 255, 255, 0.8);
+}
+
+    .blog__content:hover {
+        height: 95px;
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+
+.blog__content-link:hover {
+    color: #000000;
 }
 
 .blog__post-title {
