@@ -1,0 +1,51 @@
+﻿@using Yogging.Models.ViewModels
+@model IEnumerable<BlogPostViewModel>
+
+@{
+    ViewBag.Title = "blog";
+}
+
+<div class="blog">
+    @foreach (var post in Model)
+    {
+
+        <div class="blog__item">
+            <div class="blog__container">
+
+                <a class="blog__media" href="@post.PostUrl" target="_blank">
+                    @if (!string.IsNullOrEmpty(post.PostMainImage))
+                    {
+                        <img class="blog__image" src="@post.PostMainImage" alt="@post.PostTitle" />
+                    }
+                    else
+                    {
+                        <img class="blog__image" src="https://placekitten.com/300/200" alt="@post.PostTitle" />
+                    }
+                </a>
+
+                <div class="blog__content">
+                    <a href="@post.PostUrl" target="_blank">
+                        <span class="blog__post-date">
+                            @post.PublishedDate
+                        </span>
+                        <h2 class="blog__post-title">
+                            @post.PostTitle
+                        </h2>
+                    </a>
+                </div>
+
+                <a class="block-link__overlay" href="@post.PostUrl" target="_blank">
+                    @post.PostTitle
+                </a>
+
+            </div>
+        </div>
+
+    }
+</div>
+
+<div>
+    <a href="https://weekendpaints.blogspot.com/" target="_blank">
+        more posts
+    </a>
+</div>
