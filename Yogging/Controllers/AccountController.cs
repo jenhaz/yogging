@@ -91,7 +91,8 @@ namespace Yogging.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            //return View();
+            return RedirectToAction("Login");
         }
 
         //
