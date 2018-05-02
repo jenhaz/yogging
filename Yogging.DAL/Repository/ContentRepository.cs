@@ -48,5 +48,12 @@ namespace Yogging.DAL.Repository
 
             return query.ToList();
         }
+
+        public IEnumerable<Profile> GetProfiles()
+        {
+            var query = db.Profiles.OrderBy(x => x.Id);
+
+            return query.ToList();
+        }
     }
 }

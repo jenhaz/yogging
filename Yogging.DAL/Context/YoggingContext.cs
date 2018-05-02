@@ -14,6 +14,7 @@ namespace Yogging.DAL.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Sprint> Sprints { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

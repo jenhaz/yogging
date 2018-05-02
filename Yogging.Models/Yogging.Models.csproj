@@ -101,6 +101,7 @@
     <Compile Include="Enums\TaskType.cs" />
     <Compile Include="Models\BlogPost.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Sprint.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Story.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\BlogPostViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
+    <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="ViewModels\SprintViewModel.cs" />
     <Compile Include="ViewModels\StoryViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />
