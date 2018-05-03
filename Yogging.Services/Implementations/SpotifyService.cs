@@ -16,6 +16,12 @@ namespace Yogging.Services.Implementations
         {
             SpotifyPlaylists playlists = GetSpotifyPlaylists();
             IEnumerable<SpotifyPlaylist> list = playlists.Playlists;
+            
+            foreach(var playlist in list)
+            {
+                SpotifyPlaylistTracks tracks = GetAllPlaylistTracks(playlist.Id);
+                playlist.PlaylistTracks.Tracks = tracks.Tracks;
+            }
 
             return list;
         }
@@ -46,9 +52,50 @@ namespace Yogging.Services.Implementations
                     using (StreamReader reader = new StreamReader(dataStream))
                     {
                         string responseFromServer = reader.ReadToEnd();
-                        SpotifyPlaylists type = JsonConvert.DeserializeObject<SpotifyPlaylists>(responseFromServer);
+                        SpotifyPlaylists playlists = JsonConvert.DeserializeObject<SpotifyPlaylists>(responseFromServer);
 
-                        return type;
+                        return playlists;
+                    }
+                }
+            }
+        }
+
+        private SpotifyPlaylistTracks GetAllPlaylistTracks(string playlistId)
+        {
+            SpotifyPlaylistTracks tracks = GetSpotifyPlaylistTracks(playlistId);
+
+            return tracks;
+        }
+
+        private SpotifyPlaylistTracks GetSpotifyPlaylistTracks(string playlistId)
+        {
+            string accountId = WebConfigurationManager.AppSettings["SpotifyAccountId"].ToString();
+            string url = string.Format("https://api.spotify.com/v1/users/{0}/playlists/{1}/tracks", accountId, playlistId);
+            SpotifyToken token = GetAccessToken();
+            string accessToken = token.access_token;
+
+            SpotifyPlaylistTracks tracks = GetSpotifyPlaylistTracksJson(accessToken, url);
+
+            return tracks;
+        }
+
+        private SpotifyPlaylistTracks GetSpotifyPlaylistTracksJson(string token, string url)
+        {
+            WebRequest request = WebRequest.Create(url);
+            request.Method = "GET";
+            request.Headers.Add("Authorization", "Bearer " + token);
+            request.ContentType = "application/json";
+
+            using (WebResponse response = request.GetResponse())
+            {
+                using (Stream dataStream = response.GetResponseStream())
+                {
+                    using (StreamReader reader = new StreamReader(dataStream))
+                    {
+                        string responseFromServer = reader.ReadToEnd();
+                        SpotifyPlaylistTracks tracks = JsonConvert.DeserializeObject<SpotifyPlaylistTracks>(responseFromServer);
+
+                        return tracks;
                     }
                 }
             }

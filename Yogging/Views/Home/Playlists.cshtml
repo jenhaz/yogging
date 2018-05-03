@@ -8,9 +8,45 @@
 @foreach (var playlist in Model)
 {
     <p>
-        @playlist.Name
+        <a href="@playlist.ExternalUrl.Url" target="_blank">
+            @playlist.Name
+        </a>
     </p>
+    foreach (var img in playlist.PlaylistImage)
+    {
+        <p>
+            <img src="@img.ImageUrl" />
+        </p>
+    }
     <p>
-        @playlist.ExternalUrl.PlaylistUrl
+        Total tracks: @playlist.PlaylistTracks.TotalTracks
     </p>
+
+    foreach (var track in playlist.PlaylistTracks.Tracks.Take(20))
+    {
+        <p>
+            <a href="@track.Track.ExternalUrl.Url" target="_blank">
+                @track.Track.Name
+            </a>
+        </p>
+
+        <p>
+            @foreach (var artist in track.Track.Artists)
+            {
+                <a href="@artist.ExternalUrl.Url" target="_blank">
+                    @artist.Name
+                </a> 
+            }
+        </p>
+
+        <p>
+            <a href="@track.Track.Album.ExternalUrl.Url" target="_blank">
+                @foreach (var album in track.Track.Album.AlbumImage)
+                {
+                    <img src="@album.ImageUrl" /><br />
+                }
+                @track.Track.Album.Name
+            </a>
+        </p>
+    }
 }

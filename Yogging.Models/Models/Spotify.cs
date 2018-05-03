@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace Yogging.Models
 {
+    public class SpotifyPlaylists
+    {
+        [JsonProperty("items")]
+        public List<SpotifyPlaylist> Playlists { get; set; }
+    }
+
     public class SpotifyPlaylist
     {
         [JsonProperty("id")]
@@ -21,18 +27,83 @@ namespace Yogging.Models
         [JsonProperty("public")]
         public bool IsPublic { get; set; }
 
+        [JsonProperty("images")]
+        public SpotifyImages[] PlaylistImage { get; set; }
+
+        [JsonProperty("tracks")]
+        public SpotifyPlaylistTrackInfo PlaylistTracks { get; set; }
     }
 
     public class SpotifyExternalUrl
     {
         [JsonProperty("spotify")]
-        public string PlaylistUrl { get; set; }
+        public string Url { get; set; }
     }
 
-    public class SpotifyPlaylists
+    public class SpotifyImages
+    {
+        [JsonProperty("url")]
+        public string ImageUrl { get; set; }
+    }
+    
+    public class SpotifyPlaylistTrackInfo
+    {
+        [JsonProperty("total")]
+        public int TotalTracks { get; set; }
+
+        [JsonProperty("href")]
+        public string TracksUrl { get; set; }
+        
+        public List<SpotifyTrack> Tracks { get; set; }
+    }
+
+    public class SpotifyPlaylistTracks
     {
         [JsonProperty("items")]
-        public List<SpotifyPlaylist> Playlists { get; set; }
+        public List<SpotifyTrack> Tracks { get; set; }
+    }
+
+    public class SpotifyTrack
+    {
+        [JsonProperty("track")]
+        public SpotifyTrackInfo Track { get; set; }
+    }
+
+    public class SpotifyTrackInfo
+    {
+        [JsonProperty("album")]
+        public SpotifyAlbum Album { get; set; }
+
+        [JsonProperty("artists")]
+        public SpotifyArtist[] Artists { get; set; }
+
+        [JsonProperty("external_urls")]
+        public SpotifyExternalUrl ExternalUrl { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+    }
+
+    public class SpotifyAlbum
+    {
+        [JsonProperty("external_urls")]
+        public SpotifyExternalUrl ExternalUrl { get; set; }
+
+        [JsonProperty("images")]
+        public SpotifyImages[] AlbumImage { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+    }
+
+    public class SpotifyArtist
+    {
+        [JsonProperty("external_urls")]
+        public SpotifyExternalUrl ExternalUrl { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
     }
 
     public class SpotifyToken

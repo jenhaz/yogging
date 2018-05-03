@@ -6,5 +6,6 @@ namespace Yogging.Services.Interfaces
     public interface ISpotifyService
     {
         IEnumerable<SpotifyPlaylist> GetAllPlaylists();
+        //IEnumerable<SpotifyTrack> GetAllPlaylistTracks();
     }
 }
