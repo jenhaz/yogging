@@ -57,11 +57,13 @@
   <ItemGroup>
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Implementations\BlogService.cs" />
+    <Compile Include="Implementations\SpotifyService.cs" />
     <Compile Include="Implementations\SprintService.cs" />
     <Compile Include="Implementations\StoryService.cs" />
     <Compile Include="Implementations\TagService.cs" />
     <Compile Include="Implementations\UserService.cs" />
     <Compile Include="Interfaces\IBlogService.cs" />
+    <Compile Include="Interfaces\ISpotifyService.cs" />
     <Compile Include="Interfaces\ISprintService.cs" />
     <Compile Include="Interfaces\IStoryService.cs" />
     <Compile Include="Interfaces\ITagService.cs" />

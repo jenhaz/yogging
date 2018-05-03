@@ -7,80 +7,91 @@
 
 @foreach (var profile in Model)
 {
-    if (!string.IsNullOrEmpty(profile.ImageUrl))
-    {
-        <img src="@profile.ImageUrl" alt="@profile.FullName" />
-    }
+    <div>
+        <h3>
+            @profile.FullName
+        </h3>
 
-    <h3>
-        @profile.FullName
-    </h3>
+        @* pic section *@
+        <div>
+            @if (!string.IsNullOrEmpty(profile.ImageUrl))
+            {
+                <img src="@profile.ImageUrl" alt="@profile.FullName" />
+            }
+        </div>
 
-    if (!string.IsNullOrEmpty(profile.CurrentJobTitle))
-    {
-        <p>
-            @profile.CurrentJobTitle
-        </p>
-    }
-    if (!string.IsNullOrEmpty(profile.Blurb))
-    {
-        <p>
-            @profile.Blurb
-        </p>
-    }
-    if (!string.IsNullOrEmpty(profile.LongerBlurb))
-    {
-        <p>
-            @profile.LongerBlurb
-        </p>
-    }
+        @* about section *@
+        <div>
+            @if (!string.IsNullOrEmpty(profile.CurrentJobTitle))
+            {
+                <p>
+                    @profile.CurrentJobTitle
+                </p>
+            }
+            @if (!string.IsNullOrEmpty(profile.Blurb))
+            {
+                <p>
+                    @profile.Blurb
+                </p>
+            }
+            @if (!string.IsNullOrEmpty(profile.LongerBlurb))
+            {
+                <p>
+                    @profile.LongerBlurb
+                </p>
+            }
+        </div>
+    </div>
 
-    <ul>
-        @if (!string.IsNullOrEmpty(profile.InstagramUsername))
-        {
-            <li>
-                <a href="@profile.InstagramUrl" target="_blank">
-                    insta
-                </a>
-            </li>
-        }
+    <div>
+        <h4>contact</h4>
+        <ul>
+            @if (!string.IsNullOrEmpty(profile.InstagramUsername))
+            {
+                <li>
+                    <a href="@profile.InstagramUrl" target="_blank">
+                        insta
+                    </a>
+                </li>
+            }
 
-        @if (!string.IsNullOrEmpty(profile.LinkedInUsername))
-        {
-            <li>
-                <a href="@profile.LinkedInUrl" target="_blank">
-                    linked in
-                </a>
-            </li>
-        }
+            @if (!string.IsNullOrEmpty(profile.LinkedInUsername))
+            {
+                <li>
+                    <a href="@profile.LinkedInUrl" target="_blank">
+                        linked in
+                    </a>
+                </li>
+            }
 
-        @if (!string.IsNullOrEmpty(profile.TwitterUsername))
-        {
-            <li>
-                <a href="@profile.TwitterUrl" target="_blank">
-                    twitter
-                </a>
-            </li>
-        }
+            @if (!string.IsNullOrEmpty(profile.TwitterUsername))
+            {
+                <li>
+                    <a href="@profile.TwitterUrl" target="_blank">
+                        twitter
+                    </a>
+                </li>
+            }
 
-        @if (!string.IsNullOrEmpty(profile.BlogUrl))
-        {
-            <li>
-                <a href="@profile.BlogUrl" target="_blank">
-                    blog
-                </a>
-            </li>
-        }
+            @if (!string.IsNullOrEmpty(profile.BlogUrl))
+            {
+                <li>
+                    <a href="@profile.BlogUrl" target="_blank">
+                        blog
+                    </a>
+                </li>
+            }
 
-        @if (!string.IsNullOrEmpty(profile.ContactEmailAddress))
-        {
-            <li>
-                <a href="mailto:@profile.ContactEmailAddress" target="_blank">
-                    email
-                </a>
-            </li>
-        }
-    </ul>
+            @if (!string.IsNullOrEmpty(profile.ContactEmailAddress))
+            {
+                <li>
+                    <a href="mailto:@profile.ContactEmailAddress" target="_blank">
+                        email
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
 
     if (User.Identity.IsAuthenticated)
     {

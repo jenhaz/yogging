@@ -102,6 +102,7 @@
     <Compile Include="Models\BlogPost.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Spotify.cs" />
     <Compile Include="Models\Sprint.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Story.cs" />

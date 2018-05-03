@@ -1,0 +1,16 @@
+﻿@using Yogging.Models
+@model IEnumerable<SpotifyPlaylist>
+
+@{
+    ViewBag.Title = "music";
+}
+
+@foreach (var playlist in Model)
+{
+    <p>
+        @playlist.Name
+    </p>
+    <p>
+        @playlist.ExternalUrl.PlaylistUrl
+    </p>
+}

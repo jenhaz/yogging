@@ -13,10 +13,12 @@ namespace Yogging.Controllers
     {
         private YoggingContext db = new YoggingContext();
         private IUserService UserService { get; }
+        private ISpotifyService SpotifyService { get; }
 
-        public HomeController(IUserService userService)
+        public HomeController(IUserService userService, ISpotifyService spotifyService)
         {
             UserService = userService;
+            SpotifyService = spotifyService;
         }
 
         public ActionResult Index()
@@ -29,6 +31,13 @@ namespace Yogging.Controllers
             IEnumerable<ProfileViewModel> profiles = UserService.GetAllProfiles();
 
             return View(profiles);
+        }
+
+        public ActionResult Playlists()
+        {
+            IEnumerable<SpotifyPlaylist> playlists = SpotifyService.GetAllPlaylists();
+
+            return View(playlists);
         }
 
         [Authorize]

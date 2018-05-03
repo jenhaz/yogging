@@ -248,6 +248,7 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Home\CreateProfile.cshtml" />
     <Content Include="Views\Home\EditProfile.cshtml" />
+    <Content Include="Views\Home\Playlists.cshtml" />
     <None Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Sprints\Finished.cshtml" />
     <Content Include="Views\Sprints\_SprintList.cshtml" />
