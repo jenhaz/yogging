@@ -5,6 +5,14 @@
     ViewBag.Title = "music";
 }
 
+<h1>
+    my playlists
+</h1>
+
+<p>
+    Hello. Please see below for my playlists from Spotify. x
+</p>
+
 <div class="playlists">
     @foreach (var playlist in Model)
     {
@@ -53,8 +61,8 @@
                 </div>
             }
 
-            <div>
-                <a href="@playlist.Url" target="_blank">
+            <div class="playlist__more">
+                <a class="btn playlist__button" href="@playlist.Url" target="_blank">
                     More songs
                 </a>
             </div>

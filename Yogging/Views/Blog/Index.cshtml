@@ -5,6 +5,14 @@
     ViewBag.Title = "blog";
 }
 
+<h1>
+    my blog
+</h1>
+
+<p>
+    Hello. Please see below for my latest blog posts from Blogger. x
+</p>
+
 <div class="blog">
     @foreach (var post in Model)
     {
@@ -37,8 +45,8 @@
     }
 </div>
 
-<div>
-    <a href="https://weekendpaints.blogspot.com/" target="_blank">
+<div class="blog__more">
+    <a class="btn blog__button" href="https://weekendpaints.blogspot.com/" target="_blank">
         more posts
     </a>
 </div>

@@ -30,10 +30,7 @@ textarea {
 }
 
 body, html {
-    /*font-family: 'Libre Baskerville', serif;*/
     font-family: 'Montserrat', sans-serif;
-    /*font-family: 'Crimson Text', serif;
-    font-family: 'Alice', serif;*/
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -219,16 +216,19 @@ a {
 .blog {
     display: flex;
     flex-wrap: wrap;
+    margin-left: -10px;
+    margin-right: -10px;
 }
 
 .blog__item {
-    max-width: 300px;
+    
     width: 100%;
     height: 100%;
 }
 
-@media (min-width: 321px) {
+@media (min-width: 450px) {
     .blog__item {
+        max-width: 300px;
         width: 50%;
     }
 }
@@ -299,6 +299,24 @@ a {
     margin: 0;
 }
 
+.blog__more {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.blog__button {
+    max-width: 300px;
+    width: 100%;
+    background-color: #1E5061;
+    color: #ffffff;
+}
+
+    .blog__button:hover, .blog__button:focus {
+        background-color: #163c49;
+        color: #ffffff;
+    }
+
 
 /* playlists and tracks */
 .playlists {
@@ -307,8 +325,21 @@ a {
 }
 
 .playlist {
-    width: 50%;
-    padding: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 450px) {
+    .playlist {
+        width: 50%;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .playlists {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
 }
 
 .playlist__media {
@@ -361,8 +392,23 @@ a {
 }
 
 .playlist__info {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
+
+.playlist__more  {
+    margin-top: 10px;
+}
+
+.playlist__button {
+    width: 100%;
+    background-color: #1E5061;
+    color: #ffffff;
+}
+
+    .playlist__button:hover, .playlist__button:focus {
+        background-color: #163c49;
+        color: #ffffff;
+    }
 
 .track {
     display: flex;
@@ -439,6 +485,10 @@ a {
     .navbar-collapse {
         background-color: #1E5061;
     }
+}
+
+.admin {
+    background-color: #FFB4A1;
 }
 
 .admin-navbar {

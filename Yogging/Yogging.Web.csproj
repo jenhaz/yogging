@@ -250,6 +250,7 @@
     <Content Include="Views\Home\EditProfile.cshtml" />
     <Content Include="Views\Home\Playlists.cshtml" />
     <None Include="Views\Shared\_Navigation.cshtml" />
+    <None Include="Views\Shared\_Tracking.cshtml" />
     <Content Include="Views\Sprints\Finished.cshtml" />
     <Content Include="Views\Sprints\_SprintList.cshtml" />
     <Content Include="Views\Stories\_EditPartial.cshtml" />
