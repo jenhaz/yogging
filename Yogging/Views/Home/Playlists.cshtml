@@ -5,39 +5,53 @@
     ViewBag.Title = "music";
 }
 
-@foreach (var playlist in Model)
-{
-    <p>
-        <a href="@playlist.Url" target="_blank">
-            @playlist.Name
-        </a>
-    </p>
-    <p>
-        <img src="@playlist.MainImage" />
-    </p>
-    <p>
-        Total tracks: @playlist.TotalTracks
-    </p>
-
-    foreach (var track in playlist.Tracks.Take(20))
+<div class="playlists">
+    @foreach (var playlist in Model)
     {
-        <p>
-            <a href="@track.TrackUrl" target="_blank">
-                @track.TrackName
-            </a>
-        </p>
+        string style = "background-image: url('" + playlist.MainImage + "')";
 
-        <p>
-            <a href="@track.ArtistUrl" target="_blank">
-                @track.ArtistName
-            </a>
-        </p>
+        <div class="playlist">
+            <div class="playlist__heading" style="@style">
+                <a class="playlist__media" href="@playlist.Url" target="_blank">
+                    @playlist.Name
+                </a>
+                <a class="playlist__content-link" href="@playlist.Url" target="_blank">
+                    <div class="playlist__content">
+                        <h2 class="playlist__name">
+                            @playlist.Name
+                        </h2>
+                    </div>
+                </a>
 
-        <p>
-            <a href="@track.AlbumUrl" target="_blank">
-                <img src="@track.AlbumImage" /><br />
-                @track.AlbumName
-            </a>
-        </p>
+                @* TODO: need to get scss working *@
+                @*<a class="block-link__overlay" href="@playlist.Url" target="_blank">
+                        @playlist.Name
+                    </a>*@
+            </div>
+            <div class="playlist__info">
+                Total tracks: @playlist.TotalTracks
+            </div>
+
+            @foreach (var track in playlist.Tracks.Take(20))
+            {
+                <div class="track">
+                    <div class="track__album">
+                        <a href="@track.AlbumUrl" target="_blank">
+                            <img class="track__album-image" src="@track.AlbumImage" alt="@track.AlbumName" />
+                        </a>
+                    </div>
+                    <div class="track__artist">
+                        <a href="@track.ArtistUrl" target="_blank">
+                            @track.ArtistName
+                        </a>
+                    </div>
+                    <div class="track__track">
+                        <a href="@track.TrackUrl" target="_blank">
+                            @track.TrackName
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
     }
-}
+</div>

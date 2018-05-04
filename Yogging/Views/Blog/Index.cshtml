@@ -15,24 +15,23 @@
             <div class="blog__container" style="@style">
                 <a class="blog__media" href="@post.PostUrl" target="_blank">
                     @post.PostTitle
-                    @*<img class="blog__image" src="@imageUrl" alt="@post.PostTitle" />*@
                 </a>
 
-                <div class="blog__content">
-                    <a class="blog__content-link" href="@post.PostUrl" target="_blank">
+                <a class="blog__content-link" href="@post.PostUrl" target="_blank">
+                    <div class="blog__content">
                         <span class="blog__post-date">
                             @post.PublishedDate
                         </span>
                         <h2 class="blog__post-title">
                             @post.PostTitle
                         </h2>
-                    </a>
-                </div>
+                    </div>
+                </a>
 
-                @* need to get scss working *@
+                @* TODO: need to get scss working *@
                 @*<a class="block-link__overlay" href="@post.PostUrl" target="_blank">
-                    @post.PostTitle
-                </a>*@
+                        @post.PostTitle
+                    </a>*@
             </div>
         </div>
     }
