@@ -50,7 +50,7 @@ namespace Yogging.Services.Implementations
             foreach(var playlist in list)
             {
                 SpotifyPlaylistTracks tracks = GetAllPlaylistTracks(playlist.Id);
-                playlist.PlaylistTracks.Tracks = tracks.Tracks;
+                playlist.PlaylistTracks.Tracks = tracks.Tracks.OrderByDescending(x => x.Added).ToList();
             }
 
             IEnumerable<SpotifyPlaylistViewModel> vmList = list.Select(x => GetPlaylistVm(x));
@@ -126,7 +126,6 @@ namespace Yogging.Services.Implementations
                     {
                         string responseFromServer = reader.ReadToEnd();
                         SpotifyPlaylistTracks tracks = JsonConvert.DeserializeObject<SpotifyPlaylistTracks>(responseFromServer);
-
                         return tracks;
                     }
                 }

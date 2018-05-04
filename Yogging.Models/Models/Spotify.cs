@@ -61,6 +61,9 @@ namespace Yogging.Models
 
     public class SpotifyTrack
     {
+        [JsonProperty("added_at")]
+        public string Added { get; set; }
+
         [JsonProperty("track")]
         public SpotifyTrackInfo Track { get; set; }
     }

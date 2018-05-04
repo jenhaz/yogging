@@ -1,4 +1,35 @@
-﻿body, html {
+﻿/*
+    $nile-blue: #19535F;
+    $cello-blue: #1E5061;
+    $surfie-green: #0B7976;
+
+    $vivid-tangerine: #FF9F74;
+    $wax-flower: #FFB4A1;
+
+    $gallery-grey: #EFEFEF;
+*/
+
+
+body {
+    padding-bottom: 20px;
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+body, html {
     /*font-family: 'Libre Baskerville', serif;*/
     font-family: 'Montserrat', sans-serif;
     /*font-family: 'Crimson Text', serif;
@@ -28,6 +59,7 @@ a {
     justify-content: space-between;
     flex-wrap: wrap;
 }
+
 
 /* sprint listing specific stuff */
 .sprint__headline {
@@ -65,6 +97,7 @@ a {
     background: #d0d0d0;
     color: #ffffff;
 }
+
 
 /* sprint listing - story specific stuff */
 .story__container {
@@ -143,6 +176,7 @@ a {
     padding: 10px;
 }
 
+
 /* story status colours and styles */
 .todo {
     color: #ffffff;
@@ -162,6 +196,7 @@ a {
     text-align: center;
 }
 
+
 /* block link */
 .block-link__overlay {
     position: absolute;
@@ -179,6 +214,7 @@ a {
     .block-link__overlay:hover {
     }
 
+
 /* blog */
 .blog {
     display: flex;
@@ -189,7 +225,6 @@ a {
     max-width: 300px;
     width: 100%;
     height: 100%;
-    /*margin: 10px;*/
 }
 
 @media (min-width: 321px) {
@@ -355,3 +390,93 @@ a {
 
 .track__track {
 }
+
+
+/* nav */
+.navbar {
+    background-color: #1E5061;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 10px solid #FFB4A1;
+}
+
+    .navbar .navbar-toggle {
+        border-color: #EFEFEF;
+    }
+
+        .navbar .navbar-toggle:hover, .navbar .navbar-toggle:focus {
+            background-color: #163c49;
+            outline: none;
+        }
+
+        .navbar .navbar-toggle .icon-bar {
+            background-color: #EFEFEF;
+        }
+
+    .navbar .navbar-brand {
+        color: #ffffff;
+    }
+
+.nav > li {
+    text-transform: lowercase;
+}
+
+.nav > li > a, .admin-nav__item > a {
+    color: #EFEFEF;
+}
+
+    .nav > li > a:hover, .nav > li > a:focus {
+        color: #FFB4A1;
+        background-color: transparent;
+    }
+
+.navbar-collapse {
+    background-color: #163c49;
+}
+
+@media (min-width: 768px) {
+    .navbar-collapse {
+        background-color: #1E5061;
+    }
+}
+
+.admin-navbar {
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #FFB4A1;
+}
+
+.admin-nav {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+@media (min-width: 768px) {
+    .admin-nav {
+        margin-left: -15px;
+    }
+}
+
+.admin-nav__item {
+    float: left;
+    margin: 5px 15px;
+    text-transform: lowercase;
+}
+
+    .admin-nav__item > a:hover, .admin-nav__item > a:focus {
+        color: #1E5061;
+        background-color: transparent;
+    }
+
+/*
+    $cello-blue: #1E5061;
+    $nile-blue: #163c49;
+    $surfie-green: #0B7976;
+
+    $vivid-tangerine: #FF9F74;
+    $wax-flower: #FFB4A1;
+
+    $gallery-grey: #EFEFEF;
+*/

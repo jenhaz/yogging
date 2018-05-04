@@ -1,4 +1,28 @@
-﻿<div class="navbar navbar-inverse">
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <div class="">
+        <div class="container">
+            <div class="admin-navbar navbar-collapse collapse">
+                <ul class="admin-nav">
+                    <li class="admin-nav__item">
+                        @Html.ActionLink("Stories", "Index", "Stories")
+                    </li>
+                    <li class="admin-nav__item">
+                        @Html.ActionLink("Sprints", "Index", "Sprints")
+                    </li>
+                    <li class="admin-nav__item">
+                        @Html.ActionLink("Users", "Index", "Users")
+                    </li>
+                    <li class="admin-nav__item">
+                        @Html.ActionLink("Tags", "Index", "Tags")
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="navbar">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -12,14 +36,7 @@
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
-
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li>@Html.ActionLink("Stories", "Index", "Stories")</li>
-                    <li>@Html.ActionLink("Sprints", "Index", "Sprints")</li>
-                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                    <li>@Html.ActionLink("Tags", "Index", "Tags")</li>
-                }
+                <li>@Html.ActionLink("Music", "Playlists", "Home")</li>
             </ul>
             @Html.Partial("_LoginPartial")
         </div>
