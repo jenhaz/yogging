@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Configuration;
 using Yogging.Models.Models;
 using Yogging.Models.ViewModels;
 using Yogging.Services.Interfaces;
-using System.Linq;
-using HtmlAgilityPack;
-using System;
 
 namespace Yogging.Services.Implementations
 {

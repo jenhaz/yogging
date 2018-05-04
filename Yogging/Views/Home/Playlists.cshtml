@@ -1,5 +1,5 @@
-﻿@using Yogging.Models
-@model IEnumerable<SpotifyPlaylist>
+﻿@using Yogging.Models.ViewModels
+@model IEnumerable<SpotifyPlaylistViewModel>
 
 @{
     ViewBag.Title = "music";
@@ -8,44 +8,35 @@
 @foreach (var playlist in Model)
 {
     <p>
-        <a href="@playlist.ExternalUrl.Url" target="_blank">
+        <a href="@playlist.Url" target="_blank">
             @playlist.Name
         </a>
     </p>
-    foreach (var img in playlist.PlaylistImage)
-    {
-        <p>
-            <img src="@img.ImageUrl" />
-        </p>
-    }
     <p>
-        Total tracks: @playlist.PlaylistTracks.TotalTracks
+        <img src="@playlist.MainImage" />
+    </p>
+    <p>
+        Total tracks: @playlist.TotalTracks
     </p>
 
-    foreach (var track in playlist.PlaylistTracks.Tracks.Take(20))
+    foreach (var track in playlist.Tracks.Take(20))
     {
         <p>
-            <a href="@track.Track.ExternalUrl.Url" target="_blank">
-                @track.Track.Name
+            <a href="@track.TrackUrl" target="_blank">
+                @track.TrackName
             </a>
         </p>
 
         <p>
-            @foreach (var artist in track.Track.Artists)
-            {
-                <a href="@artist.ExternalUrl.Url" target="_blank">
-                    @artist.Name
-                </a> 
-            }
+            <a href="@track.ArtistUrl" target="_blank">
+                @track.ArtistName
+            </a>
         </p>
 
         <p>
-            <a href="@track.Track.Album.ExternalUrl.Url" target="_blank">
-                @foreach (var album in track.Track.Album.AlbumImage)
-                {
-                    <img src="@album.ImageUrl" /><br />
-                }
-                @track.Track.Album.Name
+            <a href="@track.AlbumUrl" target="_blank">
+                <img src="@track.AlbumImage" /><br />
+                @track.AlbumName
             </a>
         </p>
     }

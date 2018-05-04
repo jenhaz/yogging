@@ -112,6 +112,8 @@
     <Compile Include="ViewModels\BlogPostViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
+    <Compile Include="ViewModels\SpotifyPlaylistViewModel.cs" />
+    <Compile Include="ViewModels\SpotifyTrackViewModel.cs" />
     <Compile Include="ViewModels\SprintViewModel.cs" />
     <Compile Include="ViewModels\StoryViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />

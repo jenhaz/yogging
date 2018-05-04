@@ -35,7 +35,7 @@ namespace Yogging.Controllers
 
         public ActionResult Playlists()
         {
-            IEnumerable<SpotifyPlaylist> playlists = SpotifyService.GetAllPlaylists();
+            IEnumerable<SpotifyPlaylistViewModel> playlists = SpotifyService.GetAllPlaylists();
 
             return View(playlists);
         }
