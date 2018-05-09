@@ -11,6 +11,10 @@
     @Html.ActionLink("Create New Sprint", "Create")
 </p>
 
+<p>
+    @Html.ActionLink("Completed Sprints", "Finished")
+</p>
+
 @if (Model.Any())
 {
     @Html.Partial("_SprintList", Model)

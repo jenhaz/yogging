@@ -53,26 +53,26 @@ a {
 
 .content__details {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 
 /* sprint listing specific stuff */
 .sprint__headline {
-    display: flex;
     align-items: baseline;
+    display: flex;
     justify-content: space-between;
 }
 
 .sprint__title {
-    display: flex;
     align-items: baseline;
+    display: flex;
 }
 
     .sprint__title span {
-        margin-left: 10px;
         font-size: 12px;
+        margin-left: 10px;
     }
 
 .sprint__details {
@@ -87,12 +87,12 @@ a {
 }
 
 .sprint__points-item {
+    background: #d0d0d0;
+    border-radius: 5px;
+    color: #ffffff;
     margin-left: 2px;
     margin-right: 2px;
     padding: 2px 4px;
-    border-radius: 5px;
-    background: #d0d0d0;
-    color: #ffffff;
 }
 
 
@@ -103,10 +103,10 @@ a {
 }
 
 .story__headline {
-    display: flex;
-    justify-content: space-between;
     align-items: baseline;
+    display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
     .story__headline > div {
@@ -114,15 +114,15 @@ a {
     }
 
 .story__status {
-    width: 25px;
-    padding: 3px;
     overflow: hidden;
+    padding: 3px;
     text-indent: -9999px;
+    width: 25px;
 }
 
 .story__title {
-    width: 300px;
     padding: 3px 10px;
+    width: 300px;
 }
 
 .story__tag {
@@ -130,9 +130,9 @@ a {
 }
 
 .story__tag-link {
-    padding: 2px 4px;
     border-radius: 5px;
     color: #000000;
+    padding: 2px 4px;
 }
 
     .story__tag-link:hover {
@@ -141,17 +141,17 @@ a {
     }
 
 .story__points {
+    background: #d0d0d0;
+    border-radius: 5px;
+    color: #ffffff;
     margin-left: 2px;
     margin-right: 2px;
     padding: 2px 4px;
-    border-radius: 5px;
-    background: #d0d0d0;
-    color: #ffffff;
 }
 
 .story__priority, .story__type {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: center;
     width: 25px;
 }
@@ -176,36 +176,36 @@ a {
 
 /* story status colours and styles */
 .todo {
-    color: #ffffff;
     background: #e85c5c;
+    color: #ffffff;
     text-align: center;
 }
 
 .inprogress {
-    color: #ffffff;
     background: #f7b55d;
+    color: #ffffff;
     text-align: center;
 }
 
 .done {
-    color: #ffffff;
     background: #69c685;
+    color: #ffffff;
     text-align: center;
 }
 
 
 /* block link */
 .block-link__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    display: block;
-    overflow: hidden;
-    text-indent: 500%;
-    white-space: nowrap;
     background: transparent;
+    bottom: 0;
+    display: block;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    text-indent: 500%;
+    top: 0;
+    white-space: nowrap;
 }
 
     .block-link__overlay:hover {
@@ -221,9 +221,8 @@ a {
 }
 
 .blog__item {
-    
-    width: 100%;
     height: 100%;
+    width: 100%;
 }
 
 @media (min-width: 450px) {
@@ -246,48 +245,48 @@ a {
 }
 
 .blog__container {
-    position: relative;
-    top: auto;
-    bottom: auto;
-    left: auto;
-    display: block;
-    width: auto;
-    height: 100%;
-    margin: 10px;
     background-color: #333333;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
-    -webkit-filter: grayscale(100%);
+    bottom: auto;
+    display: block;
     filter: grayscale(100%);
+    height: 100%;
+    left: auto;
+    margin: 10px;
+    position: relative;
+    top: auto;
+    width: auto;
+    -webkit-filter: grayscale(100%);
 }
 
 .blog__media {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    top: auto;
     bottom: auto;
-    left: auto;
-    width: 100%;
+    display: block;
     height: 200px;
+    left: auto;
+    overflow: hidden;
+    position: relative;
     text-indent: 500%;
+    top: auto;
     white-space: nowrap;
+    width: 100%;
 }
 
 .blog__content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 75px;
-    overflow: hidden;
     background-color: rgba(255, 255, 255, 0.8);
+    bottom: 0;
+    height: 75px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
 }
 
     .blog__content:hover {
-        height: 95px;
         background-color: rgba(255, 255, 255, 0.9);
+        height: 95px;
     }
 
 
@@ -306,10 +305,11 @@ a {
 }
 
 .blog__button {
-    max-width: 300px;
-    width: 100%;
     background-color: #1E5061;
     color: #ffffff;
+    max-width: 300px;
+    text-transform: lowercase;
+    width: 100%;
 }
 
     .blog__button:hover, .blog__button:focus {
@@ -325,15 +325,15 @@ a {
 }
 
 .playlist {
-    width: 100%;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 @media (min-width: 450px) {
     .playlist {
-        width: 50%;
-        padding: 10px;
         margin-bottom: 10px;
+        padding: 10px;
+        width: 50%;
     }
 
     .playlists {
@@ -343,44 +343,44 @@ a {
 }
 
 .playlist__media {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    top: auto;
     bottom: auto;
-    left: auto;
-    width: 100%;
+    display: block;
     height: 100px;
+    left: auto;
+    overflow: hidden;
+    position: relative;
     text-indent: 500%;
+    top: auto;
     white-space: nowrap;
+    width: 100%;
 }
 
 .playlist__heading {
-    position: relative;
-    top: auto;
-    bottom: auto;
-    left: auto;
-    display: block;
-    height: 100px;
-    margin-bottom: 10px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    bottom: auto;
+    display: block;
+    height: 100px;
+    left: auto;
+    margin-bottom: 10px;
+    position: relative;
+    top: auto;
 }
 
 .playlist__content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    overflow: hidden;
     background-color: rgba(255, 255, 255, 0.8);
+    bottom: 0;
+    height: 50px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
 }
 
     .playlist__content:hover {
-        height: 60px;
         background-color: rgba(255, 255, 255, 0.9);
+        height: 60px;
     }
 
 .playlist__content-link:hover {
@@ -400,9 +400,10 @@ a {
 }
 
 .playlist__button {
-    width: 100%;
     background-color: #1E5061;
     color: #ffffff;
+    text-transform: lowercase;
+    width: 100%;
 }
 
     .playlist__button:hover, .playlist__button:focus {
@@ -411,11 +412,11 @@ a {
     }
 
 .track {
-    display: flex;
     align-items: center;
+    display: flex;
     margin-bottom: 5px;
-    white-space: nowrap;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .track__album {
@@ -441,10 +442,10 @@ a {
 /* nav */
 .navbar {
     background-color: #1E5061;
+    border-bottom: 10px solid #FFB4A1;
     border-left: none;
     border-right: none;
     border-top: none;
-    border-bottom: 10px solid #FFB4A1;
 }
 
     .navbar .navbar-toggle {
@@ -473,8 +474,8 @@ a {
 }
 
     .nav > li > a:hover, .nav > li > a:focus {
-        color: #FFB4A1;
         background-color: transparent;
+        color: #FFB4A1;
     }
 
 .navbar-collapse {
@@ -492,15 +493,15 @@ a {
 }
 
 .admin-navbar {
+    background-color: #FFB4A1;
     padding-left: 0;
     padding-right: 0;
-    background-color: #FFB4A1;
 }
 
 .admin-nav {
+    list-style: none;
     margin-bottom: 0;
     padding-left: 0;
-    list-style: none;
 }
 
 @media (min-width: 768px) {
@@ -516,8 +517,8 @@ a {
 }
 
     .admin-nav__item > a:hover, .admin-nav__item > a:focus {
-        color: #1E5061;
         background-color: transparent;
+        color: #1E5061;
     }
 
 /*

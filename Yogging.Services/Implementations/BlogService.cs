@@ -15,10 +15,9 @@ namespace Yogging.Services.Implementations
     {
         private BlogPosts GetAllBlogPostsJson()
         {
-            string baseUrl = "https://www.googleapis.com/blogger/v3/blogs/";
             string blogId = WebConfigurationManager.AppSettings["BloggerBlogId"].ToString();
             string key = WebConfigurationManager.AppSettings["GoogleApiKey"].ToString();
-            string url = baseUrl + blogId + "/posts?key=" + key;
+            string url = string.Format("https://www.googleapis.com/blogger/v3/blogs/{0}/posts?key={1}", blogId, key);
 
             using (var client = new WebClient())
             {

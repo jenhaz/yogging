@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Yogging.DAL.Context;
 using Yogging.DAL.Repository;
@@ -50,9 +49,9 @@ namespace Yogging.Services.Implementations
                 Stories = StoryService.GetStoriesBySprint(sprint.Id),
                 Status = sprint.Status,
                 SprintPointTotal = GetSprintPointTotal(sprint.Id),
-                TotalPointsToDo = GetTotalPointsToDo(sprint.Id),
-                TotalPointsInProgress = GetTotalPointsInProgress(sprint.Id),
-                TotalPointsDone = GetTotalPointsDone(sprint.Id)
+                TotalPointsToDo = GetTotalPointsByStatus(sprint.Id, StoryStatus.ToDo),
+                TotalPointsInProgress = GetTotalPointsByStatus(sprint.Id, StoryStatus.InProgress),
+                TotalPointsDone = GetTotalPointsByStatus(sprint.Id, StoryStatus.Done)
             };
         }
 
@@ -82,39 +81,9 @@ namespace Yogging.Services.Implementations
             return total;
         }
 
-        private int GetTotalPointsToDo(int sprintId)
+        private int GetTotalPointsByStatus(int sprintId, StoryStatus status)
         {
-            var stories = StoryService.GetStoriesByStatus(StoryStatus.ToDo)
-                .Where(x => x.SprintId.Equals(sprintId));
-            int total = 0;
-
-            foreach (var story in stories)
-            {
-                int points = story.Points;
-                total = total + points;
-            }
-
-            return total;
-        }
-
-        private int GetTotalPointsInProgress(int sprintId)
-        {
-            var stories = StoryService.GetStoriesByStatus(StoryStatus.InProgress)
-                .Where(x => x.SprintId.Equals(sprintId));
-            int total = 0;
-
-            foreach (var story in stories)
-            {
-                int points = story.Points;
-                total = total + points;
-            }
-
-            return total;
-        }
-
-        private int GetTotalPointsDone(int sprintId)
-        {
-            var stories = StoryService.GetStoriesByStatus(StoryStatus.Done)
+            var stories = StoryService.GetStoriesByStatus(status)
                 .Where(x => x.SprintId.Equals(sprintId));
             int total = 0;
 
