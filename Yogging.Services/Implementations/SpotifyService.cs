@@ -14,40 +14,12 @@ namespace Yogging.Services.Implementations
 {
     public class SpotifyService : ISpotifyService
     {
-        private SpotifyTrackViewModel GetTrackVm(SpotifyTrack track)
-        {
-            return new SpotifyTrackViewModel()
-            {
-                AlbumName = track?.Track?.Album?.Name,
-                AlbumImage = track?.Track?.Album?.AlbumImage?.FirstOrDefault()?.ImageUrl,
-                AlbumUrl = track?.Track?.Album?.ExternalUrl?.Url,
-                ArtistName = track?.Track?.Artists?.FirstOrDefault()?.Name, //TODO: list them out
-                ArtistImage = string.Empty, //TODO: get image 
-                ArtistUrl = track?.Track?.Artists?.FirstOrDefault()?.ExternalUrl?.Url,
-                TrackName = track?.Track?.Name,
-                TrackUrl = track?.Track?.ExternalUrl?.Url
-            };
-        }
-
-        private SpotifyPlaylistViewModel GetPlaylistVm(SpotifyPlaylist playlist)
-        {
-            return new SpotifyPlaylistViewModel()
-            {
-                Id = playlist?.Id,
-                Name = playlist?.Name,
-                Url = playlist?.ExternalUrl?.Url,
-                MainImage = playlist?.PlaylistImage?.FirstOrDefault()?.ImageUrl,
-                TotalTracks = playlist.PlaylistTracks.TotalTracks,
-                Tracks = playlist?.PlaylistTracks?.Tracks?.Select(x => GetTrackVm(x))
-            };
-        }
-
         public IEnumerable<SpotifyPlaylistViewModel> GetAllPlaylists()
         {
             SpotifyPlaylists playlists = GetSpotifyPlaylists();
             IEnumerable<SpotifyPlaylist> list = playlists.Playlists;
-            
-            foreach(var playlist in list)
+
+            foreach (var playlist in list)
             {
                 SpotifyPlaylistTracks tracks = GetAllPlaylistTracks(playlist.Id);
                 playlist.PlaylistTracks.Tracks = tracks.Tracks.OrderByDescending(x => x.Added).ToList(); //TODO: somehow get last page first
@@ -168,6 +140,34 @@ namespace Yogging.Services.Implementations
             }
 
             return token;
+        }
+
+        private SpotifyPlaylistViewModel GetPlaylistVm(SpotifyPlaylist playlist)
+        {
+            return new SpotifyPlaylistViewModel()
+            {
+                Id = playlist?.Id,
+                Name = playlist?.Name,
+                Url = playlist?.ExternalUrl?.Url,
+                MainImage = playlist?.PlaylistImage?.FirstOrDefault()?.ImageUrl,
+                TotalTracks = playlist.PlaylistTracks.TotalTracks,
+                Tracks = playlist?.PlaylistTracks?.Tracks?.Select(x => GetTrackVm(x))
+            };
+        }
+
+        private SpotifyTrackViewModel GetTrackVm(SpotifyTrack track)
+        {
+            return new SpotifyTrackViewModel()
+            {
+                AlbumName = track?.Track?.Album?.Name,
+                AlbumImage = track?.Track?.Album?.AlbumImage?.FirstOrDefault()?.ImageUrl,
+                AlbumUrl = track?.Track?.Album?.ExternalUrl?.Url,
+                ArtistName = track?.Track?.Artists?.FirstOrDefault()?.Name, //TODO: list them out
+                ArtistImage = string.Empty, //TODO: get image 
+                ArtistUrl = track?.Track?.Artists?.FirstOrDefault()?.ExternalUrl?.Url,
+                TrackName = track?.Track?.Name,
+                TrackUrl = track?.Track?.ExternalUrl?.Url
+            };
         }
     }
 }

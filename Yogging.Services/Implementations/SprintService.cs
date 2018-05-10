@@ -22,17 +22,15 @@ namespace Yogging.Services.Implementations
         }
         public IEnumerable<SprintViewModel> GetAllActiveSprints()
         {
-            //var sprints = ContentRepository.GetSprints().Where(y => y.EndDate >= DateTime.Now)
-            var sprints = ContentRepository.GetSprints().Where(y => y.Status != SprintStatus.Closed)
+            IEnumerable<SprintViewModel> sprints = ContentRepository.GetSprints().Where(y => y.Status != SprintStatus.Closed)
                 .Select(x => GetSprint(x));
 
             return sprints;
         }
 
-        public IEnumerable<SprintViewModel> GetAllExpiredSprints()
+        public IEnumerable<SprintViewModel> GetAllClosedSprints()
         {
-            //var sprints = ContentRepository.GetSprints().Where(y => y.EndDate < DateTime.Now)
-            var sprints = ContentRepository.GetSprints().Where(y => y.Status == SprintStatus.Closed)
+            IEnumerable<SprintViewModel> sprints = ContentRepository.GetSprints().Where(y => y.Status == SprintStatus.Closed)
                 .Select(x => GetSprint(x));
 
             return sprints;
@@ -69,7 +67,7 @@ namespace Yogging.Services.Implementations
 
         private int GetSprintPointTotal(int sprintId)
         {
-            var stories = StoryService.GetStoriesBySprint(sprintId);
+            IEnumerable<StoryViewModel> stories = StoryService.GetStoriesBySprint(sprintId);
             int total = 0;
 
             foreach(var story in stories)
@@ -83,7 +81,7 @@ namespace Yogging.Services.Implementations
 
         private int GetTotalPointsByStatus(int sprintId, StoryStatus status)
         {
-            var stories = StoryService.GetStoriesByStatus(status)
+            IEnumerable<StoryViewModel> stories = StoryService.GetStoriesByStatus(status)
                 .Where(x => x.SprintId.Equals(sprintId));
             int total = 0;
 

@@ -32,7 +32,7 @@ namespace Yogging.Controllers
 
         public ActionResult Finished()
         {
-            IEnumerable<SprintViewModel> sprints = SprintService.GetAllExpiredSprints();
+            IEnumerable<SprintViewModel> sprints = SprintService.GetAllClosedSprints();
 
             return View(sprints);
         }

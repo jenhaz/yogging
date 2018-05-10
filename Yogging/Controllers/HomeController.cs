@@ -39,16 +39,16 @@ namespace Yogging.Controllers
 
             return View(playlists);
         }
-
-        [Authorize]
+        
         // GET: Home/CreateProfile
+        [Authorize]
         public ActionResult CreateProfile()
         {
             return View();
         }
 
-        [Authorize]
         // POST: Home/CreateProfile
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateProfile([Bind(Include = "Id,FullName,ImageUrl,Blurb,LongerBlurb,InstagramUsername,LinkedInUsername,TwitterUsername,BlogUrl,CurrentJobTitle,ContactEmailAddress")] Profile profile)
@@ -63,8 +63,8 @@ namespace Yogging.Controllers
             return View(profile);
         }
 
-        [Authorize]
         // GET: Home/EditProfile/5
+        [Authorize]
         public ActionResult EditProfile(int? id)
         {
             if (id == null)
@@ -82,8 +82,8 @@ namespace Yogging.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
         // POST: Home/EditProfile/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditProfile(ProfileViewModel viewModel)

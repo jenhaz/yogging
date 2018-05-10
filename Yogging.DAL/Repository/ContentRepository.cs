@@ -16,42 +16,42 @@ namespace Yogging.DAL.Repository
 
         public IEnumerable<Story> GetStories()
         {
-            var query = db.Stories.OrderByDescending(x => x.Id);
+            IOrderedQueryable<Story> query = db.Stories.OrderByDescending(x => x.Id);
 
             return query.ToList();
         }
 
         public IEnumerable<Sprint> GetSprints()
         {
-            var query = db.Sprints.OrderByDescending(x => x.Id);
+            IOrderedQueryable<Sprint> query = db.Sprints.OrderByDescending(x => x.Id);
 
             return query.ToList();
         }
 
         public IEnumerable<Tag> GetTags()
         {
-            var query = db.Tags.OrderBy(x => x.Name);
+            IOrderedQueryable<Tag> query = db.Tags.OrderBy(x => x.Name);
 
             return query.ToList();
         }
 
         public Tag GetTagById(int? id)
         {
-            var query = db.Tags.Where(x => x.Id.Equals(id)).FirstOrDefault();
+            Tag query = db.Tags.Where(x => x.Id.Equals(id)).FirstOrDefault();
 
             return query;
         }
 
         public IEnumerable<User> GetUsers()
         {
-            var query = db.Users.OrderBy(x => x.FirstName);
+            IOrderedQueryable<User> query = db.Users.OrderBy(x => x.FirstName);
 
             return query.ToList();
         }
 
         public IEnumerable<Profile> GetProfiles()
         {
-            var query = db.Profiles.OrderBy(x => x.Id);
+            IOrderedQueryable<Profile> query = db.Profiles.OrderBy(x => x.Id);
 
             return query.ToList();
         }

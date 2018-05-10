@@ -22,7 +22,7 @@ namespace Yogging.Services.Implementations
 
         public IEnumerable<UserViewModel> GetAllUsers()
         {
-            var users = ContentRepository.GetUsers()
+            IEnumerable<UserViewModel> users = ContentRepository.GetUsers()
                 .Select(x => GetUser(x));
 
             return users;
@@ -30,7 +30,7 @@ namespace Yogging.Services.Implementations
 
         public IEnumerable<UserViewModel> GetAllActiveUsers()
         {
-            var users = ContentRepository.GetUsers().Where(y => !y.IsInactive)
+            IEnumerable<UserViewModel> users = ContentRepository.GetUsers().Where(y => !y.IsInactive)
                 .Select(x => GetUser(x));
 
             return users;
@@ -51,7 +51,7 @@ namespace Yogging.Services.Implementations
 
         public IEnumerable<ProfileViewModel> GetAllProfiles()
         {
-            var profiles = ContentRepository.GetProfiles().Select(x => GetProfile(x));
+            IEnumerable<ProfileViewModel> profiles = ContentRepository.GetProfiles().Select(x => GetProfile(x));
 
             return profiles;
         }

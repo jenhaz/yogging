@@ -7,7 +7,7 @@ namespace Yogging.Services.Interfaces
     public interface ISprintService
     {
         IEnumerable<SprintViewModel> GetAllActiveSprints();
-        IEnumerable<SprintViewModel> GetAllExpiredSprints();
+        IEnumerable<SprintViewModel> GetAllClosedSprints();
         SprintViewModel GetSprint(Sprint sprint);
         Sprint PutSprint(SprintViewModel sprint);
     }

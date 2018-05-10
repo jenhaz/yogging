@@ -36,7 +36,6 @@ namespace Yogging.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TagViewModel tag = TagService.GetTagById(id);
-            //Tag tag = db.Tags.Find(id);
             if (tag == null)
             {
                 return HttpNotFound();
