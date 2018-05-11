@@ -1,16 +1,4 @@
-﻿/*
-    $nile-blue: #19535F;
-    $cello-blue: #1E5061;
-    $surfie-green: #0B7976;
-
-    $vivid-tangerine: #FF9F74;
-    $wax-flower: #FFB4A1;
-
-    $gallery-grey: #EFEFEF;
-*/
-
-
-body {
+﻿body {
     background-attachment: fixed;
     background-color: #FF9505;
     background-image: linear-gradient(135deg, #FF9505, #EC4E20);
@@ -50,7 +38,7 @@ a {
     color: #ffffff;
 }
 
-    a:hover {
+    a:hover, a:focus {
         color: #EC4E20;
         text-decoration: none;
     }
@@ -479,18 +467,9 @@ a {
         color: #ffffff;
     }
 
-.nav > li {
-    text-transform: lowercase;
-}
-
-.nav > li > a, .admin-nav__item > a {
+.admin-nav__item > a {
     color: #EFEFEF;
 }
-
-    .nav > li > a:hover, .nav > li > a:focus {
-        background-color: transparent;
-        color: #EC4E20;
-    }
 
 .navbar-collapse {
     background-color: transparent;
@@ -500,6 +479,20 @@ a {
     .navbar-collapse {
         background-color: transparent;
     }
+}
+
+.nav-item > a {
+    color: #ffffff;
+    text-transform: lowercase;
+}
+
+    .nav-item > a:hover, .nav-item > a:focus {
+        background-color: transparent;
+        color: #EC4E20;
+    }
+
+.current-page {
+    color: #EC4E20 !important;
 }
 
 .admin {
@@ -532,7 +525,7 @@ a {
 
     .admin-nav__item > a:hover, .admin-nav__item > a:focus {
         background-color: transparent;
-        color: #1E5061;
+        color: #333333;
     }
 
 
