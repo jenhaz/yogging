@@ -397,7 +397,7 @@ a {
     margin-bottom: 5px;
 }
 
-.playlist__more  {
+.playlist__more {
     margin-top: 10px;
 }
 
@@ -589,37 +589,34 @@ a {
 
 /* profile - about page */
 .profile__header {
-    display: flex;
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
 .profile__name {
-    /*position: absolute;*/
-    margin-left: -30px;
-    margin-top: -10px;
-    order: 2;
-    z-index: 2;
 }
 
-.profile__name > h1 {
-    font-size: 48px;
-}
+    .profile__name > h1 {
+        font-size: 40px;
+    }
 
 .profile__job {
-    margin-left: 20px;
-    margin-top: -13px;
     margin-bottom: 3px;
+    margin-top: -13px;
 }
 
 .profile__image {
     border-radius: 50%;
     height: 150px;
-    margin: 15px;
-    order: 1;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 10px;
     overflow: hidden;
     position: relative;
     width: 150px;
-    z-index: 1;
 }
 
     .profile__image > img {
@@ -630,11 +627,12 @@ a {
     }
 
 .contact {
-    margin-left: 18px;
+    
 }
 
 .contact-list {
     display: flex;
+    justify-content: center;
     list-style: none;
     padding-left: 0;
 }
@@ -645,4 +643,46 @@ a {
 
 .contact-list__icon {
     font-size: 20px;
+}
+
+@media (min-width: 450px) {
+    .profile__header {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .profile__name {
+        margin-left: -30px;
+        margin-top: -10px;
+        order: 2;
+        z-index: 2;
+    }
+
+        .profile__name > h1 {
+            font-size: 48px;
+        }
+
+    .profile__job {
+        margin-left: 20px;
+    }
+
+    .profile__image {
+        margin-bottom: 15px;
+        margin-top: 15px;
+        margin-right: 15px;
+        order: 1;
+        z-index: 1;
+    }
+
+        .profile__image > img {
+            display: inline;
+        }
+
+    .contact {
+        margin-left: 18px;
+    }
+
+    .contact-list {
+        justify-content: flex-start;
+    }
 }

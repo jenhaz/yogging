@@ -43,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.LongerBlurb, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LongerBlurb, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.LongerBlurb, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.LongerBlurb, "", new { @class = "text-danger" })
             </div>
         </div>
