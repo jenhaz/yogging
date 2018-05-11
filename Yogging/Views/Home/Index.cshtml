@@ -2,11 +2,19 @@
     ViewBag.Title = "home";
 }
 
-<div>
+<div class="home__container">
     <div>
-        about
+        <h1>jennihaslam.com</h1>
     </div>
-    <div>
-        blog
-    </div>
+    <ul class="home__nav-links">
+        <li class="home__nav-link">
+            @Html.ActionLink("About", "About", "Home")
+        </li>
+        <li class="home__nav-link">
+            @Html.ActionLink("Blog", "Index", "Blog")
+        </li>
+        <li class="home__nav-link">
+            @Html.ActionLink("Music", "Playlists", "Home")
+        </li>
+    </ul>
 </div>

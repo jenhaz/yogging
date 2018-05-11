@@ -4,12 +4,20 @@
     @Html.Partial("_Head")
 </head>
 <body>
-    @Html.Partial("_Header")
-    <div class="container body-content">
+
+    @if (ViewBag.IsHome != null && ViewBag.IsHome == true)
+    {
         @RenderBody()
-        <hr />
-        @Html.Partial("_Footer")
-    </div>
+    }
+    else
+    {
+        @Html.Partial("_Header")
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            @Html.Partial("_Footer")
+        </div>
+    }
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
