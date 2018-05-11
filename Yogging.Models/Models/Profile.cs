@@ -20,6 +20,8 @@
 
         public string BlogUrl { get; set; }
 
+        public string GitHubUsername { get; set; }
+
         public string CurrentJobTitle { get; set; }
 
         public string ContactEmailAddress { get; set; }

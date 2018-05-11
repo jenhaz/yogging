@@ -59,6 +59,35 @@
 
 
 /* general */
+
+.icon-github-with-circle:before {
+    content: "\e935";
+}
+
+.icon-linkedin-with-circle:before {
+    content: "\e92f";
+}
+
+.icon-twitter-with-circle2:before {
+    content: "\e930";
+}
+
+.icon-email:before {
+    content: "\e931";
+}
+
+.icon-pencil:before {
+    content: "\e932";
+}
+
+.icon-twitter-with-circle:before {
+    content: "\e933";
+}
+
+.icon-instagram-with-circle:before {
+    content: "\e934";
+}
+
 .icon-arrow-right:before {
     content: "\e925";
 }

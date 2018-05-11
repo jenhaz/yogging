@@ -72,6 +72,8 @@ namespace Yogging.Services.Implementations
                 TwitterUsername = profile.TwitterUsername,
                 TwitterUrl = !string.IsNullOrEmpty(profile.TwitterUsername) ? "https://www.twitter.com/" + profile.TwitterUsername : string.Empty,
                 BlogUrl = profile.BlogUrl,
+                GitHubUsername = profile.GitHubUsername,
+                GitHubUrl = !string.IsNullOrEmpty(profile.GitHubUsername) ? "https://www.github.com/" + profile.GitHubUsername : string.Empty,
                 CurrentJobTitle = profile.CurrentJobTitle,
                 ContactEmailAddress = profile.ContactEmailAddress
             };
@@ -90,6 +92,7 @@ namespace Yogging.Services.Implementations
                 LinkedInUsername = vm.LinkedInUsername,
                 TwitterUsername = vm.TwitterUsername,
                 BlogUrl = vm.BlogUrl,
+                GitHubUsername = vm.GitHubUsername,
                 CurrentJobTitle = vm.CurrentJobTitle,
                 ContactEmailAddress = vm.ContactEmailAddress
             };

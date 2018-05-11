@@ -52,7 +52,7 @@ namespace Yogging.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProfile([Bind(Include = "Id,FullName,ImageUrl,Blurb,LongerBlurb,InstagramUsername,LinkedInUsername,TwitterUsername,BlogUrl,CurrentJobTitle,ContactEmailAddress")] Profile profile)
+        public ActionResult CreateProfile([Bind(Include = "Id,FullName,ImageUrl,Blurb,LongerBlurb,InstagramUsername,LinkedInUsername,TwitterUsername,BlogUrl,GitHubUsername,CurrentJobTitle,ContactEmailAddress")] Profile profile)
         {
             if (ModelState.IsValid)
             {

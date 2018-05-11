@@ -80,6 +80,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.GitHubUsername, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GitHubUsername, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GitHubUsername, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.CurrentJobTitle, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CurrentJobTitle, new { htmlAttributes = new { @class = "form-control" } })

@@ -1,0 +1,60 @@
+﻿@using Yogging.Models.ViewModels
+@model ProfileViewModel
+
+<div class="contact">
+    <ul class="contact-list">
+        @if (!string.IsNullOrEmpty(Model.InstagramUsername))
+        {
+            <li class="contact-list__item">
+                <a href="@Model.InstagramUrl" target="_blank">
+                    <span class="contact-list__icon icon-instagram-with-circle" title="Instagram"></span>
+                </a>
+            </li>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.LinkedInUsername))
+        {
+            <li class="contact-list__item">
+                <a href="@Model.LinkedInUrl" target="_blank">
+                    <span class="contact-list__icon icon-linkedin-with-circle" title="LinkedIn"></span>
+                </a>
+            </li>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.TwitterUsername))
+        {
+            <li class="contact-list__item">
+                <a href="@Model.TwitterUrl" target="_blank">
+                    <span class="contact-list__icon icon-twitter-with-circle2" title="Twitter"></span>
+                </a>
+            </li>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.BlogUrl))
+        {
+            <li class="contact-list__item">
+                <a href="@Model.BlogUrl" target="_blank">
+                    <span class="contact-list__icon icon-pencil" title="Blog"></span>
+                </a>
+            </li>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.ContactEmailAddress))
+        {
+            <li class="contact-list__item">
+                <a href="mailto:@Model.ContactEmailAddress" target="_blank">
+                    <span class="contact-list__icon icon-email" title="Email"></span>
+                </a>
+            </li>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.GitHubUsername))
+        {
+            <li class="contact-list__item">
+                <a href="@Model.GitHubUrl" target="_blank">
+                    <span class="contact-list__icon icon-github-with-circle" title="GitHub"></span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

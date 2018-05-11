@@ -66,6 +66,10 @@
     <Compile Include="Migrations\201805020944038_addprofile.Designer.cs">
       <DependentUpon>201805020944038_addprofile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805111446442_github.cs" />
+    <Compile Include="Migrations\201805111446442_github.Designer.cs">
+      <DependentUpon>201805111446442_github.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ContentRepository.cs" />
@@ -90,6 +94,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805020944038_addprofile.resx">
       <DependentUpon>201805020944038_addprofile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805111446442_github.resx">
+      <DependentUpon>201805111446442_github.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,18 +3,23 @@
 }
 
 <div class="home__container">
-    <div>
+    <div class="home__hi">
         <h1>jennihaslam.com</h1>
+        <div class="home__blurb">
+            the site where the domain is my name
+        </div>
     </div>
-    <ul class="home__nav-links">
-        <li class="home__nav-link">
-            @Html.ActionLink("About", "About", "Home")
-        </li>
-        <li class="home__nav-link">
-            @Html.ActionLink("Blog", "Index", "Blog")
-        </li>
-        <li class="home__nav-link">
-            @Html.ActionLink("Music", "Playlists", "Home")
-        </li>
-    </ul>
+    <div>
+        <ul class="home__nav-links">
+            <li class="home__nav-link">
+                @Html.ActionLink("About", "About", "Home")
+            </li>
+            <li class="home__nav-link">
+                @Html.ActionLink("Blog", "Index", "Blog")
+            </li>
+            <li class="home__nav-link">
+                @Html.ActionLink("Music", "Playlists", "Home")
+            </li>
+        </ul>
+    </div>
 </div>
