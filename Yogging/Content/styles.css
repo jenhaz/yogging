@@ -11,6 +11,12 @@
 
 
 body {
+    background-attachment: fixed;
+    background-color: #FF9505;
+    background-image: linear-gradient(135deg, #FF9505, #EC4E20);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #ffffff;
     padding-bottom: 20px;
 }
 
@@ -31,18 +37,21 @@ textarea {
 
 body, html {
     font-family: 'Montserrat', sans-serif;
+    height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
     font-family: 'Crimson Text', serif;
+    margin-top: 0;
 }
 
 a {
-    color: #000000;
+    color: #ffffff;
 }
 
     a:hover {
-        color: #686F75;
+        color: #EC4E20;
         text-decoration: none;
     }
 
@@ -277,6 +286,7 @@ a {
 .blog__content {
     background-color: rgba(255, 255, 255, 0.8);
     bottom: 0;
+    color: #333333;
     height: 75px;
     left: 0;
     overflow: hidden;
@@ -291,10 +301,11 @@ a {
 
 
 .blog__content-link:hover {
-    color: #000000;
+    color: #333333;
 }
 
 .blog__post-title {
+    color: #333333;
     margin: 0;
 }
 
@@ -305,7 +316,7 @@ a {
 }
 
 .blog__button {
-    background-color: #1E5061;
+    background-color: rgba(255, 255, 255, 0.6);
     color: #ffffff;
     max-width: 300px;
     text-transform: lowercase;
@@ -313,8 +324,8 @@ a {
 }
 
     .blog__button:hover, .blog__button:focus {
-        background-color: #163c49;
-        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #EC4E20;
     }
 
 
@@ -361,11 +372,13 @@ a {
     background-size: cover;
     bottom: auto;
     display: block;
+    filter: grayscale(100%);
     height: 100px;
     left: auto;
     margin-bottom: 10px;
     position: relative;
     top: auto;
+    -webkit-filter: grayscale(100%);
 }
 
 .playlist__content {
@@ -384,10 +397,11 @@ a {
     }
 
 .playlist__content-link:hover {
-    color: #000000;
+    color: #333333;
 }
 
 .playlist__name {
+    color: #333333;
     margin: 0;
 }
 
@@ -400,15 +414,15 @@ a {
 }
 
 .playlist__button {
-    background-color: #1E5061;
+    background-color: rgba(255, 255, 255, 0.6);
     color: #ffffff;
     text-transform: lowercase;
     width: 100%;
 }
 
     .playlist__button:hover, .playlist__button:focus {
-        background-color: #163c49;
-        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #EC4E20;
     }
 
 .track {
@@ -441,8 +455,8 @@ a {
 
 /* nav */
 .navbar {
-    background-color: #1E5061;
-    border-bottom: 10px solid #FFB4A1;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     border-left: none;
     border-right: none;
     border-top: none;
@@ -453,7 +467,7 @@ a {
     }
 
         .navbar .navbar-toggle:hover, .navbar .navbar-toggle:focus {
-            background-color: #163c49;
+            background-color: #EC4E20;
             outline: none;
         }
 
@@ -475,25 +489,25 @@ a {
 
     .nav > li > a:hover, .nav > li > a:focus {
         background-color: transparent;
-        color: #FFB4A1;
+        color: #EC4E20;
     }
 
 .navbar-collapse {
-    background-color: #163c49;
+    background-color: transparent;
 }
 
 @media (min-width: 768px) {
     .navbar-collapse {
-        background-color: #1E5061;
+        background-color: transparent;
     }
 }
 
 .admin {
-    background-color: #FFB4A1;
+    background-color: #EC4E20;
 }
 
 .admin-navbar {
-    background-color: #FFB4A1;
+    background-color: #EC4E20;
     padding-left: 0;
     padding-right: 0;
 }
