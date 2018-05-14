@@ -2,18 +2,18 @@
 @model IEnumerable<SprintViewModel>
 
 @{
+    /**/
+
     ViewBag.Title = "Sprints";
 }
 
-<h2>Sprints</h2>
+<div class="body-admin">
+    <h2>Sprints</h2>
 
-<p>
-    @Html.ActionLink("Create New Sprint", "Create")
-</p>
-
-<p>
-    @Html.ActionLink("Completed Sprints", "Finished")
-</p>
+    <div>
+        @Html.ActionLink("Create New Sprint", "Create") | @Html.ActionLink("Completed Sprints", "Finished")
+    </div>
+</div>
 
 @if (Model.Any())
 {
@@ -21,7 +21,9 @@
 }
 else
 {
-    <p>
-        There are no current or future sprints. Please create a new one or @Html.ActionLink("view completed Sprints", "Finished")
-    </p>
+    <div class="body-admin">
+        <p>
+            There are no current or future sprints. Please create a new one or @Html.ActionLink("view completed Sprints", "Finished")
+        </p>
+    </div>
 }

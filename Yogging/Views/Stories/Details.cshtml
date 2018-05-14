@@ -6,89 +6,93 @@
     ViewBag.Title = "Details";
 }
 
-<div class="content__container">
-    <div class="content__title">
-        <div class="content__title--small">
-            Issue @Html.DisplayFor(model => model.Id)
-        </div>
-        <div>
-            <h2>
-                @Html.DisplayFor(model => model.Name)
-            </h2>
-        </div>
-    </div>
-    <div>
-        <a class="btn btn-primary" href="@Url.Action("Edit", "Stories", new { id = Model.Id })">
-            Edit
-        </a>
-    </div>
-    <div class="content__details">
-        <div>
-            <h3>
-                Details
-            </h3>
-            <div>
-                <span class="">Sprint: </span>
-                <a href="@Url.Action("Details", "Sprints", new { id = Model.SprintId })">
-                    @Model.SprintName
-                </a>
+<div class="body-admin">
+
+    <div class="content__container">
+        <div class="content__title">
+            <div class="content__title--small">
+                Issue @Html.DisplayFor(model => model.Id)
             </div>
             <div>
-                <span>Type: </span>
-                @Html.DisplayFor(model => model.Type)
-            </div>
-            <div>
-                <span>Priority: </span>
-                @Html.DisplayFor(model => model.Priority)
-            </div>
-            <div>
-                <span>Status: </span>
-                @Model.Status.GetDisplayName()
-            </div>
-            <div>
-                <span>Tag: </span>
-                <a href="@Url.Action("Details", "Tags", new { id = Model.TagId })">
-                    @Model.TagName
-                </a>
+                <h2>
+                    @Html.DisplayFor(model => model.Name)
+                </h2>
             </div>
         </div>
         <div>
-            <h3>
-                Other details
-            </h3>
+            <a class="btn button--reverse" href="@Url.Action("Edit", "Stories", new { id = Model.Id })">
+                Edit
+            </a>
+        </div>
+        <div class="content__details">
             <div>
-                <span>Points: </span>
-                @Html.DisplayFor(model => model.Points)
+                <h3>
+                    Details
+                </h3>
+                <div>
+                    <span class="">Sprint: </span>
+                    <a href="@Url.Action("Details", "Sprints", new { id = Model.SprintId })">
+                        @Model.SprintName
+                    </a>
+                </div>
+                <div>
+                    <span>Type: </span>
+                    @Html.DisplayFor(model => model.Type)
+                </div>
+                <div>
+                    <span>Priority: </span>
+                    @Html.DisplayFor(model => model.Priority)
+                </div>
+                <div>
+                    <span>Status: </span>
+                    @Model.Status.GetDisplayName()
+                </div>
+                <div>
+                    <span>Tag: </span>
+                    <a href="@Url.Action("Details", "Tags", new { id = Model.TagId })">
+                        @Model.TagName
+                    </a>
+                </div>
             </div>
             <div>
-                <span>Assigned to: </span>
-                <a href="@Url.Action("Details", "Users", new { id = Model.UserId })">
-                    @Model.UserName
-                </a>
-            </div>
-            <div>
-                <span>Created: </span>
-                @Html.DisplayFor(model => model.CreatedDate)
-            </div>
-            <div>
-                <span>Last updated: </span>
-                @Html.DisplayFor(model => model.LastUpdated)
+                <h3>
+                    Other details
+                </h3>
+                <div>
+                    <span>Points: </span>
+                    @Html.DisplayFor(model => model.Points)
+                </div>
+                <div>
+                    <span>Assigned to: </span>
+                    <a href="@Url.Action("Details", "Users", new { id = Model.UserId })">
+                        @Model.UserName
+                    </a>
+                </div>
+                <div>
+                    <span>Created: </span>
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </div>
+                <div>
+                    <span>Last updated: </span>
+                    @Html.DisplayFor(model => model.LastUpdated)
+                </div>
             </div>
         </div>
-    </div>
-    <div>
-        <h3>Description</h3>
         <div>
-            @Html.DisplayFor(model => model.Description)
+            <h3>Description</h3>
+            <div>
+                @Html.DisplayFor(model => model.Description)
+            </div>
         </div>
-    </div>
-    <div>
-        <h3>Acceptance Criteria</h3>
         <div>
-            @Html.DisplayFor(model => model.AcceptanceCriteria)
+            <h3>Acceptance Criteria</h3>
+            <div>
+                @Html.DisplayFor(model => model.AcceptanceCriteria)
+            </div>
         </div>
     </div>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>

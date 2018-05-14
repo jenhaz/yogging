@@ -22,16 +22,7 @@
                 Tag
             </th>
             <th>
-                Created Date
-            </th>
-            <th>
-                Last Updated
-            </th>
-            <th>
                 Priority
-            </th>
-            <th>
-                Type
             </th>
             <th></th>
         </tr>
@@ -54,16 +45,7 @@
                     @Html.DisplayFor(modelItem => story.TagName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => story.CreatedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => story.LastUpdated)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => story.Priority)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => story.Type)
                 </td>
                 <td>
                     <a href="@Url.Action("Edit", "Stories", new { id = story.Id })">Edit</a> |

@@ -5,13 +5,16 @@
     ViewBag.Title = "Finished Sprints";
 }
 
-<h2>Finished Sprints</h2>
+<div class="body-admin">
+    <h2>Finished Sprints</h2>
 
-<p>
-    @Html.ActionLink("Active and future Sprints", "Index")
-</p>
+    <p>
+        @Html.ActionLink("Active and future Sprints", "Index")
+    </p>
 
-@if (Model.Any())
-{
-    @Html.Partial("_SprintList", Model)
-}
+    @if (Model.Any())
+    {
+        @Html.Partial("_SprintList", Model)
+    }
+
+</div>

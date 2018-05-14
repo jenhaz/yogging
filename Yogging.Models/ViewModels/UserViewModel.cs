@@ -17,7 +17,7 @@ namespace Yogging.Models.ViewModels
         public string EmailAddress { get; set; }
 
         [Display(Name = "User Is Inactive")]
-        public bool IsInactive { get; set; }
+        public string IsInactive { get; set; }
 
         public IEnumerable<StoryViewModel> Stories { get; set; }
     }

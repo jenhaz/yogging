@@ -36,6 +36,13 @@ namespace Yogging.Services.Implementations
             return users;
         }
 
+        private string UserIsInactive (bool isInactive)
+        {
+            string words = isInactive ? "Inactive" : "Active";
+
+            return words;
+        }
+
         private UserViewModel GetUser(User user)
         {
             return new UserViewModel()
@@ -44,7 +51,7 @@ namespace Yogging.Services.Implementations
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 EmailAddress = user.EmailAddress,
-                IsInactive = user.IsInactive,
+                IsInactive = UserIsInactive(user.IsInactive),
                 Stories = StoryService.GetStoriesByAssignedUser(user.Id)
             };
         }

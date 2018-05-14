@@ -7,51 +7,56 @@
 
 @foreach (var item in Model)
 {
-    <div class="sprint__headline">
-        <div class="sprint__title">
-            <h3>
-                @Html.DisplayFor(modelItem => item.Name)
-            </h3>
-            <span>
-                @item.Stories.Count() Issues
-            </span>
+    <div class="body-admin">
+        <div class="sprint__headline">
+            <div class="sprint__title">
+                <h3>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </h3>
+                <span>
+                    @item.Stories.Count() Issues
+                </span>
+            </div>
+            <div>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </div>
         </div>
-        <div>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </div>
-    </div>
 
-    <div class="sprint__details">
-        <div>
-            @Html.DisplayFor(modelItem => item.Status)
+        <div class="sprint__details">
+            <div>
+                @Html.DisplayFor(modelItem => item.Status)
+            </div>
+            <div>
+                @item.StartDate.ToString("dd/MM/yyyy") - @item.EndDate.ToString("dd/MM/yyyy")
+            </div>
+            <ul class="sprint__points-list">
+                <li class="sprint__points-item todo">
+                    @Html.DisplayFor(modelItem => item.TotalPointsToDo)
+                </li>
+                <li class="sprint__points-item inprogress">
+                    @Html.DisplayFor(modelItem => item.TotalPointsInProgress)
+                </li>
+                <li class="sprint__points-item done">
+                    @Html.DisplayFor(modelItem => item.TotalPointsDone)
+                </li>
+            </ul>
         </div>
-        <div>
-            @item.StartDate.ToString("dd/MM/yyyy") - @item.EndDate.ToString("dd/MM/yyyy")
+
+        @Html.Partial("_SprintStoriesList", item.Stories)
+
+        <div class="sprint__details">
+            @if (item.Status != isClosed)
+            {
+                <div>
+                    <a href="@Url.Action("Create", "Stories")">Create new story</a>
+                </div>
+            }
+
+            <div>
+                Total points: @Html.DisplayFor(modelItem => item.SprintPointTotal)
+            </div>
         </div>
-        <ul class="sprint__points-list">
-            <li class="sprint__points-item todo">
-                @Html.DisplayFor(modelItem => item.TotalPointsToDo)
-            </li>
-            <li class="sprint__points-item inprogress">
-                @Html.DisplayFor(modelItem => item.TotalPointsInProgress)
-            </li>
-            <li class="sprint__points-item done">
-                @Html.DisplayFor(modelItem => item.TotalPointsDone)
-            </li>
-        </ul>
-    </div>
 
-    @Html.Partial("_SprintStoriesList", item.Stories)
-    
-    <div>
-        Total points: @Html.DisplayFor(modelItem => item.SprintPointTotal)
     </div>
-
-    if (item.Status != isClosed)
-    {
-        <p>
-            <a href="@Url.Action("Create", "Stories")">Create new story</a>
-        </p>
-    }
 }

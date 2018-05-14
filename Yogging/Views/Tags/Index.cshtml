@@ -5,33 +5,41 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Tags</h2>
+<div class="body-admin">
+    <h2>Tags</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+</div>
 
 @foreach (var item in Model)
 {
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-        <tr>
-            <td style="background-color:@item.Colour;">
+    <div class="body-admin">
+        <div class="tag__title" style="background-color:@item.Colour;">
+            <h3>
                 @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
+            </h3>
+            <div>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+            </div>
+        </div>
 
-    </table>
+        @if (item.Stories.Any())
+        {
+            <div>
+                <p>Tagged stories:</p>
 
-    @Html.Partial("_TagStoriesList", item.Stories)
+                @Html.Partial("_TagStoriesList", item.Stories)
+            </div>
+        }
+        else
+        {
+            <div>
+                <p>No stories found for this tag.</p>
+            </div>
+        }
+    </div>
 }

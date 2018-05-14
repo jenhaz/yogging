@@ -8,7 +8,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-            <h4 class="modal-title">Edit Story</h4>
+            <h3 class="modal-title">Edit Story</h3>
         </div>
         @using (Ajax.BeginForm("Edit", "Stories", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "UpdateStorySuccess" }, new { @class = "form-horizontal", role = "form" }))
         {
@@ -18,7 +18,7 @@
                     @Html.HiddenFor(model => model.Id)
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label modal-control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -26,14 +26,14 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label modal-control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.TextBoxFor(model => model.CreatedDate, new { disabled = "disabled", @readonly = "readonly", @class = "form-control" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label modal-control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Points, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Points, htmlAttributes: new { @class = "control-label modal-control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.Points, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Points, "", new { @class = "text-danger" })
@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label modal-control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EnumDropDownListFor(model => model.Priority, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label modal-control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label modal-control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.AcceptanceCriteria, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.AcceptanceCriteria, htmlAttributes: new { @class = "control-label modal-control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.AcceptanceCriteria, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.AcceptanceCriteria, "", new { @class = "text-danger" })
@@ -81,7 +81,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label modal-control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
@@ -89,7 +89,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.SprintId, "SprintId", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.SprintId, "SprintId", htmlAttributes: new { @class = "control-label modal-control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.DropDownList("SprintId", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.SprintId, "", new { @class = "text-danger" })
@@ -97,7 +97,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.TagId, "TagId", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.TagId, "TagId", htmlAttributes: new { @class = "control-label modal-control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.DropDownList("TagId", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.TagId, "", new { @class = "text-danger" })
@@ -110,7 +110,7 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Save changes" />
+                        <input type="submit" class="btn button--reverse" value="Save changes" />
                     </div>
                 </div>
             </div>

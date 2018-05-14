@@ -18,21 +18,6 @@
             <th>
                 Sprint
             </th>
-            <th>
-                Assigned To
-            </th>
-            <th>
-                Created Date
-            </th>
-            <th>
-                Last Updated
-            </th>
-            <th>
-                Priority
-            </th>
-            <th>
-                Type
-            </th>
             <th></th>
         </tr>
         @foreach (var story in Model)
@@ -49,21 +34,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => story.SprintName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => story.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => story.CreatedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => story.LastUpdated)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => story.Priority)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => story.Type)
                 </td>
                 <td>
                     <a href="@Url.Action("Edit", "Stories", new { id = story.Id })">Edit</a> |

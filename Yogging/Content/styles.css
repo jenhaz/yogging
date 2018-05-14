@@ -13,6 +13,17 @@
     padding-right: 15px;
 }
 
+.body-admin {
+    background: rgba(255, 255, 255, 0.2);
+    margin-bottom: 15px;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+}
+
 .dl-horizontal dt {
     white-space: normal;
 }
@@ -43,9 +54,13 @@ a {
         text-decoration: none;
     }
 
-.texthidden {
+.text--hidden {
     overflow: hidden;
     text-indent: -9999px;
+}
+
+.text--lowercase {
+    text-transform: lowercase;
 }
 
 .content__details {
@@ -53,6 +68,26 @@ a {
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+.button {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: #ffffff;
+    width: 100%;
+}
+    .button:hover, .button:focus {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #EC4E20;
+    }
+
+.button--reverse {
+    background-color: #EC4E20;
+    color: #ffffff;
+}
+
+    .button--reverse:hover, .button--reverse:focus {
+        background-color: #ce431a;
+        color: #ffffff;
+    }
 
 
 /* sprint listing specific stuff */
@@ -95,7 +130,7 @@ a {
 
 /* sprint listing - story specific stuff */
 .story__container {
-    border: 1px solid #d0d0d0;
+    border: 1px solid rgba(255, 255, 255, 0.4);
     margin-bottom: 5px;
 }
 
@@ -138,7 +173,7 @@ a {
     }
 
 .story__points {
-    background: #d0d0d0;
+    background: #3f3f3f;
     border-radius: 5px;
     color: #ffffff;
     margin-left: 2px;
@@ -170,24 +205,42 @@ a {
     padding: 10px;
 }
 
+.modal-title, .modal-control-label {
+    color: #333333;
+}
+
 
 /* story status colours and styles */
 .todo {
-    background: #e85c5c;
+    background: #ad1308;
     color: #ffffff;
     text-align: center;
 }
 
 .inprogress {
-    background: #f7b55d;
+    background: #f7b61d;
     color: #ffffff;
     text-align: center;
 }
 
 .done {
-    background: #69c685;
+    background: #6b6125;
     color: #ffffff;
     text-align: center;
+}
+
+
+/* tags */
+.tag__title {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.tag__title > div {
+    margin-bottom: 10px;
 }
 
 
@@ -304,17 +357,8 @@ a {
 }
 
 .blog__button {
-    background-color: rgba(255, 255, 255, 0.6);
-    color: #ffffff;
     max-width: 300px;
-    text-transform: lowercase;
-    width: 100%;
 }
-
-    .blog__button:hover, .blog__button:focus {
-        background-color: rgba(255, 255, 255, 0.9);
-        color: #EC4E20;
-    }
 
 
 /* playlists and tracks */
@@ -401,18 +445,6 @@ a {
     margin-top: 10px;
 }
 
-.playlist__button {
-    background-color: rgba(255, 255, 255, 0.6);
-    color: #ffffff;
-    text-transform: lowercase;
-    width: 100%;
-}
-
-    .playlist__button:hover, .playlist__button:focus {
-        background-color: rgba(255, 255, 255, 0.9);
-        color: #EC4E20;
-    }
-
 .track {
     align-items: center;
     display: flex;
@@ -466,11 +498,7 @@ a {
     .navbar .navbar-brand {
         color: #ffffff;
     }
-
-.admin-nav__item > a {
-    color: #EFEFEF;
-}
-
+    
 .navbar-collapse {
     background-color: transparent;
 }
@@ -481,9 +509,8 @@ a {
     }
 }
 
-.nav-item > a {
+.nav-item > a, .admin-nav__item > a {
     color: #ffffff;
-    text-transform: lowercase;
 }
 
     .nav-item > a:hover, .nav-item > a:focus {
@@ -520,7 +547,6 @@ a {
 .admin-nav__item {
     float: left;
     margin: 5px 15px;
-    text-transform: lowercase;
 }
 
     .admin-nav__item > a:hover, .admin-nav__item > a:focus {
@@ -557,10 +583,6 @@ a {
     margin-left: 5px;
     margin-right: 5px;
     padding-left: 0;
-}
-
-.home__nav-link {
-    text-transform: lowercase;
 }
 
 .home__blurb {

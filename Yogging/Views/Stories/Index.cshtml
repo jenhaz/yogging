@@ -6,51 +6,53 @@
     ViewBag.Title = "Stories";
 }
 
-<h2>Stories</h2>
+<div class="body-admin">
+    <h2>Stories</h2>
 
-<p>
-    @Html.ActionLink("Create New Story", "Create")
-</p>
-<table class="table">
-    @if (Model.Any())
-    {
-        foreach (var item in Model)
+    <p>
+        @Html.ActionLink("Create New Story", "Create")
+    </p>
+    <table class="table">
+        @if (Model.Any())
         {
-            <tr>
-                <td>
-                    @item.Status.GetDisplayName()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    <a href="@Url.Action("Details", "Stories", new { id = item.Id })">
-                        @item.Name
-                    </a>
-                </td>
-                <td>
-                    <a href="@Url.Action("Details", "Sprints", new { id = item.SprintId })">
-                        @item.SprintName
-                    </a>
-                </td>
-                <td>
-                    <a href="@Url.Action("Details", "Tags", new { id = item.TagId })">
-                        @item.TagName
-                    </a>
-                </td>
-                <td>
-                    <a href="@Url.Action("Details", "Users", new { id = item.UserId })">
-                        @item.UserName
-                    </a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Points)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Status.GetDisplayName()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Stories", new { id = item.Id })">
+                            @item.Name
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Sprints", new { id = item.SprintId })">
+                            @item.SprintName
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Tags", new { id = item.TagId })">
+                            @item.TagName
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Users", new { id = item.UserId })">
+                            @item.UserName
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Points)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
         }
-    }
-</table>
+    </table>
+</div>

@@ -5,50 +5,45 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Users</h2>
+<div class="body-admin">
+    <h2>Users</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+</div>
+
 @foreach (var item in Model)
 {
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsInactive)
-            </th>
-            <th></th>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
+    <div class="body-admin">
+        <div>
+            <h3>
+                @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+            </h3>
+            <p>
                 @Html.DisplayFor(modelItem => item.EmailAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsInactive)
-            </td>
-            <td>
+            </p>
+            <p>
+                User is @Html.DisplayFor(modelItem => item.IsInactive) | 
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    </table>
+            </p>
+        </div>
 
-    @Html.Partial("_UserStoriesList", item.Stories)
+        @if (item.Stories.Any())
+        {
+            <div>
+                <p>Assigned stories:</p>
+
+                @Html.Partial("_UserStoriesList", item.Stories)
+            </div>
+        }
+        else
+        {
+            <p>
+                User has no assigned stories.
+            </p>
+        }
+    </div>
 }
-

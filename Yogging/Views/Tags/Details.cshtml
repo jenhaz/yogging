@@ -5,32 +5,34 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Tag details</h2>
+<div class="body-admin">
+    <h2>Tag details</h2>
 
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Colour)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Colour)
+            </dt>
 
-        <dd style="background-color:@{@Model.Colour};">
-            @Html.DisplayFor(model => model.Colour)
-        </dd>
+            <dd style="background-color:@{@Model.Colour};">
+                @Html.DisplayFor(model => model.Colour)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+
+    @Html.Partial("_TagStoriesList", Model.Stories)
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        @*@Html.ActionLink("Back to List", "Index")*@
+    </p>
 </div>
-
-@Html.Partial("_TagStoriesList", Model.Stories)
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
-    @*@Html.ActionLink("Back to List", "Index")*@
-</p>
