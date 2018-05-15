@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
 using Yogging.Models;
 using Yogging.Models.ViewModels;
+using Yogging.Services.Helpers;
 using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
@@ -58,9 +60,18 @@ namespace Yogging.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ExceptionHelper.LogException(e, "Error creating new user");
+                    ViewBag.ErrorMessage = "Error creating new user";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
 
             return View(user);
@@ -90,9 +101,18 @@ namespace Yogging.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ExceptionHelper.LogException(e, "Error editing user " + user.Id + " - " + user.FirstName + " " + user.LastName);
+                    ViewBag.ErrorMessage = "Error updating user " + user.FirstName + " " + user.LastName;
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
             return View(user);
         }
@@ -117,10 +137,19 @@ namespace Yogging.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                User user = db.Users.Find(id);
+                db.Users.Remove(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                ExceptionHelper.LogException(e, "Error deleting user " + id);
+                ViewBag.ErrorMessage = "Error deleting user";
+                return View("~/Views/Shared/Error.cshtml");
+            }
         }
 
         protected override void Dispose(bool disposing)

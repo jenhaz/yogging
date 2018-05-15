@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
 using Yogging.Models;
 using Yogging.Models.ViewModels;
+using Yogging.Services.Helpers;
 using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
@@ -56,9 +58,18 @@ namespace Yogging.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Profiles.Add(profile);
-                db.SaveChanges();
-                return RedirectToAction("About");
+                try
+                {
+                    db.Profiles.Add(profile);
+                    db.SaveChanges();
+                    return RedirectToAction("About");
+                }
+                catch (Exception e)
+                {
+                    ExceptionHelper.LogException(e, "Error creating new profile");
+                    ViewBag.ErrorMessage = "Error creating new profile";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
 
             return View(profile);
@@ -93,9 +104,18 @@ namespace Yogging.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(profile).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("About");
+                try
+                {
+                    db.Entry(profile).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("About");
+                }
+                catch (Exception e)
+                {
+                    ExceptionHelper.LogException(e, "Error editing profile for " + viewModel.FullName);
+                    ViewBag.ErrorMessage = "Error updating profile for " + viewModel.FullName;
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
             return View(viewModel);
         }

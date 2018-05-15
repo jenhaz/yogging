@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
 using Yogging.Models;
 using Yogging.Models.ViewModels;
+using Yogging.Services.Helpers;
 using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
@@ -70,9 +72,18 @@ namespace Yogging.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Sprints.Add(sprint);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Sprints.Add(sprint);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ExceptionHelper.LogException(e, "Error creating new sprint");
+                    ViewBag.ErrorMessage = "Error creating new sprint";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
 
             return View(sprint);
@@ -107,9 +118,18 @@ namespace Yogging.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(sprint).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(sprint).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ExceptionHelper.LogException(e, "Error editing sprint " + viewModel.Name + " - " + viewModel.Id);
+                    ViewBag.ErrorMessage = "Error updating sprint " + viewModel.Name;
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
             return View(viewModel);
         }
@@ -134,10 +154,19 @@ namespace Yogging.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Sprint sprint = db.Sprints.Find(id);
-            db.Sprints.Remove(sprint);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Sprint sprint = db.Sprints.Find(id);
+                db.Sprints.Remove(sprint);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                ExceptionHelper.LogException(e, "Error deleting sprint " + id);
+                ViewBag.ErrorMessage = "Error deleting sprint";
+                return View("~/Views/Shared/Error.cshtml");
+            }
         }
 
         protected override void Dispose(bool disposing)

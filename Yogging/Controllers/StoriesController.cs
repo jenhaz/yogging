@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Yogging.DAL.Context;
 using Yogging.Models;
 using Yogging.Models.ViewModels;
+using Yogging.Services.Helpers;
 using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
@@ -74,11 +75,20 @@ namespace Yogging.Controllers
         {
             if (ModelState.IsValid)
             {
-                story.CreatedDate = DateTime.Now.ToString();
-                story.LastUpdated = DateTime.Now.ToString();
-                db.Stories.Add(story);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    story.CreatedDate = DateTime.Now.ToString();
+                    story.LastUpdated = DateTime.Now.ToString();
+                    db.Stories.Add(story);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ExceptionHelper.LogException(e, "Error creating new story");
+                    ViewBag.ErrorMessage = "Error creating new story";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
 
             ViewBag.SprintId = new SelectList(db.Sprints, "Id", "Name", story.SprintId);
@@ -119,19 +129,28 @@ namespace Yogging.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Stories.Attach(story);
-                story.LastUpdated = DateTime.Now.ToString();
-                db.Entry(story).State = EntityState.Modified;
-                db.Entry(story).Property("CreatedDate").IsModified = false;
-                var task = db.SaveChangesAsync();
-                await task;
-
-                if (Request.IsAjaxRequest())
+                try
                 {
-                    return Content("success");
-                }
+                    db.Stories.Attach(story);
+                    story.LastUpdated = DateTime.Now.ToString();
+                    db.Entry(story).State = EntityState.Modified;
+                    db.Entry(story).Property("CreatedDate").IsModified = false;
+                    var task = db.SaveChangesAsync();
+                    await task;
 
-                return RedirectToAction("Index");
+                    if (Request.IsAjaxRequest())
+                    {
+                        return Content("success");
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ExceptionHelper.LogException(e, "Error editing story " + viewModel.Id + " - " + viewModel.Name);
+                    ViewBag.ErrorMessage = "Error updating story " + viewModel.Name;
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
 
             ViewBag.SprintId = new SelectList(db.Sprints, "Id", "Name", viewModel.SprintId);
@@ -160,10 +179,19 @@ namespace Yogging.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Story story = db.Stories.Find(id);
-            db.Stories.Remove(story);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Story story = db.Stories.Find(id);
+                db.Stories.Remove(story);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                ExceptionHelper.LogException(e, "Error deleting story " + id);
+                ViewBag.ErrorMessage = "Error deleting story";
+                return View("~/Views/Shared/Error.cshtml");
+            }
         }
 
         protected override void Dispose(bool disposing)

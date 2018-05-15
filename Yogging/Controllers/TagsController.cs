@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
 using Yogging.Models;
 using Yogging.Models.ViewModels;
+using Yogging.Services.Helpers;
 using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
@@ -58,9 +60,18 @@ namespace Yogging.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Tags.Add(tag);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Tags.Add(tag);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ExceptionHelper.LogException(e, "Error creating new tag");
+                    ViewBag.ErrorMessage = "Error creating new tag";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
 
             return View(tag);
@@ -90,9 +101,18 @@ namespace Yogging.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tag).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(tag).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    ExceptionHelper.LogException(e, "Error editing tag " + tag.Id + " - " + tag.Name);
+                    ViewBag.ErrorMessage = "Error updating tag " + tag.Name;
+                    return View("~/Views/Shared/Error.cshtml");
+                }
             }
             return View(tag);
         }
@@ -117,10 +137,19 @@ namespace Yogging.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Tag tag = db.Tags.Find(id);
-            db.Tags.Remove(tag);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Tag tag = db.Tags.Find(id);
+                db.Tags.Remove(tag);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                ExceptionHelper.LogException(e, "Error deleting tag " + id);
+                ViewBag.ErrorMessage = "Error deleting tag";
+                return View("~/Views/Shared/Error.cshtml");
+            }
         }
 
         protected override void Dispose(bool disposing)

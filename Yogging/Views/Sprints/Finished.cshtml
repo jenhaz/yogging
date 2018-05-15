@@ -2,7 +2,7 @@
 @model IEnumerable<SprintViewModel>
 
 @{
-    ViewBag.Title = "Finished Sprints";
+    ViewBag.Title = "Finished sprints";
 }
 
 <div class="body-admin">
@@ -11,10 +11,9 @@
     <p>
         @Html.ActionLink("Active and future Sprints", "Index")
     </p>
-
-    @if (Model.Any())
-    {
-        @Html.Partial("_SprintList", Model)
-    }
-
 </div>
+
+@if (Model.Any())
+{
+    @Html.Partial("_SprintList", Model)
+}
