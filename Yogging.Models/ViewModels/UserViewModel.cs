@@ -12,6 +12,8 @@ namespace Yogging.Models.ViewModels
 
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        
+        public string FullName => FirstName + " " + LastName;
 
         [Display(Name = "Email")]
         public string EmailAddress { get; set; }

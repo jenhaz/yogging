@@ -20,6 +20,10 @@ namespace Yogging.Services.Implementations
             StoryService = storyService;
         }
 
+        /// <summary>
+        /// Get all users from Repository and convert to viewmodel
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<UserViewModel> GetAllUsers()
         {
             IEnumerable<UserViewModel> users = ContentRepository.GetUsers()
@@ -28,6 +32,10 @@ namespace Yogging.Services.Implementations
             return users;
         }
 
+        /// <summary>
+        /// Get all users that aren't inactive from the Repository and convert to viewmodel
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<UserViewModel> GetAllActiveUsers()
         {
             IEnumerable<UserViewModel> users = ContentRepository.GetUsers().Where(y => !y.IsInactive)
@@ -36,6 +44,11 @@ namespace Yogging.Services.Implementations
             return users;
         }
 
+        /// <summary>
+        /// Change bool to a readable string
+        /// </summary>
+        /// <param name="isInactive">Bool for whether user is inactive or not</param>
+        /// <returns></returns>
         private string UserIsInactive (bool isInactive)
         {
             string words = isInactive ? "Inactive" : "Active";
@@ -43,6 +56,11 @@ namespace Yogging.Services.Implementations
             return words;
         }
 
+        /// <summary>
+        /// Convert user to viewmodel
+        /// </summary>
+        /// <param name="user">User from db</param>
+        /// <returns></returns>
         private UserViewModel GetUser(User user)
         {
             return new UserViewModel()
@@ -56,6 +74,10 @@ namespace Yogging.Services.Implementations
             };
         }
 
+        /// <summary>
+        /// Get all Profiles from the Repository and convert to viewmodel
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<ProfileViewModel> GetAllProfiles()
         {
             IEnumerable<ProfileViewModel> profiles = ContentRepository.GetProfiles().Select(x => GetProfile(x));
@@ -63,6 +85,11 @@ namespace Yogging.Services.Implementations
             return profiles;
         }
 
+        /// <summary>
+        /// Convert profile to viewmodel
+        /// </summary>
+        /// <param name="profile">Profile from db</param>
+        /// <returns></returns>
         public ProfileViewModel GetProfile(Profile profile)
         {
             return new ProfileViewModel()
@@ -86,6 +113,11 @@ namespace Yogging.Services.Implementations
             };
         }
 
+        /// <summary>
+        /// Convert viewmodel to profile model
+        /// </summary>
+        /// <param name="vm">Profile viewmodel</param>
+        /// <returns></returns>
         public Profile PutProfile(ProfileViewModel vm)
         {
             return new Profile()

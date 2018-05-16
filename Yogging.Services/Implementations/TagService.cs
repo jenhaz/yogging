@@ -20,6 +20,10 @@ namespace Yogging.Services.Implementations
             StoryService = storyService;
         }
 
+        /// <summary>
+        /// Get all tags from Repository and convert to viewmodel
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<TagViewModel> GetAllTags()
         {
             IEnumerable<TagViewModel> tags = ContentRepository.GetTags()
@@ -28,6 +32,11 @@ namespace Yogging.Services.Implementations
             return tags;
         }
 
+        /// <summary>
+        /// Get Tag by its ID and convert to viewmodel
+        /// </summary>
+        /// <param name="id">ID of the particular tag</param>
+        /// <returns></returns>
         public TagViewModel GetTagById(int? id)
         {
             TagViewModel tag = ContentRepository.GetTags().Where(y => y.Id.Equals(id))
@@ -36,6 +45,11 @@ namespace Yogging.Services.Implementations
             return tag;
         }
 
+        /// <summary>
+        /// Convert tag to viewmodel
+        /// </summary>
+        /// <param name="tag">Tag from db</param>
+        /// <returns></returns>
         private TagViewModel GetTag(Tag tag)
         {
             return new TagViewModel

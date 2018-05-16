@@ -21,9 +21,6 @@
             <th>
                 Tag
             </th>
-            <th>
-                Priority
-            </th>
             <th></th>
         </tr>
         @foreach (var story in Model)
@@ -42,10 +39,13 @@
                     @Html.DisplayFor(modelItem => story.SprintName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => story.TagName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => story.Priority)
+                    <div class="story__tag">
+                        <a style="background-color:@story.TagColour;"
+                           class="story__tag-link"
+                           href="@Url.Action("Details", "Tags", new { id = story.TagId })">
+                            @story.TagName
+                        </a>
+                    </div>
                 </td>
                 <td>
                     <a href="@Url.Action("Edit", "Stories", new { id = story.Id })">Edit</a> |

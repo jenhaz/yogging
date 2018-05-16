@@ -19,6 +19,10 @@ namespace Yogging.Services.Implementations
             ContentRepository = contentRepository;
         }
 
+        /// <summary>
+        /// Get all stories from Repository and convert to viewmodel
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<StoryViewModel> GetAllStories()
         {
             IEnumerable<StoryViewModel> stories = ContentRepository.GetStories()
@@ -27,6 +31,11 @@ namespace Yogging.Services.Implementations
             return stories;
         }
         
+        /// <summary>
+        /// Get all stories by sprint ID and convert to viewmodel
+        /// </summary>
+        /// <param name="sprintId">ID of the particular sprint</param>
+        /// <returns></returns>
         public IEnumerable<StoryViewModel> GetStoriesBySprint(int sprintId)
         {
             IEnumerable<StoryViewModel> stories = ContentRepository.GetStories().Where(y => y.SprintId.Equals(sprintId))
@@ -35,6 +44,11 @@ namespace Yogging.Services.Implementations
             return stories;
         }
 
+        /// <summary>
+        /// Get all stories by Tag and convert to viewmodel
+        /// </summary>
+        /// <param name="tagId">ID of the particular tag</param>
+        /// <returns></returns>
         public IEnumerable<StoryViewModel> GetStoriesByTag(int tagId)
         {
             IEnumerable<StoryViewModel> stories = ContentRepository.GetStories().Where(y => y.TagId.Equals(tagId))
@@ -43,6 +57,11 @@ namespace Yogging.Services.Implementations
             return stories;
         }
 
+        /// <summary>
+        /// Get all stories by the assigned user and convert to viewmodel
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public IEnumerable<StoryViewModel> GetStoriesByAssignedUser(int userId)
         {
             IEnumerable<StoryViewModel> stories = ContentRepository.GetStories().Where(y => y.UserId.Equals(userId))
@@ -51,6 +70,11 @@ namespace Yogging.Services.Implementations
             return stories;
         }
 
+        /// <summary>
+        /// Get all stories by their status and convert to viewmodel
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
         public IEnumerable<StoryViewModel> GetStoriesByStatus(StoryStatus status)
         {
             IEnumerable<StoryViewModel> stories = ContentRepository.GetStories().Where(y => y.Status.Equals(status))
@@ -59,6 +83,11 @@ namespace Yogging.Services.Implementations
             return stories;
         }
 
+        /// <summary>
+        /// Convert story to viewmodel
+        /// </summary>
+        /// <param name="x">Story stored in db</param>
+        /// <returns></returns>
         public StoryViewModel GetStory(Story x)
         {
             return new StoryViewModel()
@@ -83,6 +112,11 @@ namespace Yogging.Services.Implementations
             };
         }
 
+        /// <summary>
+        /// Convert viewmodel to db model
+        /// </summary>
+        /// <param name="x">Story viewmodel</param>
+        /// <returns></returns>
         public Story PutStory(StoryViewModel x)
         {
             return new Story()

@@ -8,31 +8,19 @@
 <div class="body-admin">
     <h2>Tag details</h2>
 
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+    <div class="margin-bottom--10" style="background-color:@{@Model.Colour};">
+        <div>
+            <strong>Name:</strong> @Html.DisplayFor(model => model.Name)
+        </div>
+        <div>
+            <strong>Colour:</strong> @Html.DisplayFor(model => model.Colour)
+        </div>
+    </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Colour)
-            </dt>
-
-            <dd style="background-color:@{@Model.Colour};">
-                @Html.DisplayFor(model => model.Colour)
-            </dd>
-
-        </dl>
+    <div class="margin-bottom--10">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
     </div>
 
     @Html.Partial("_TagStoriesList", Model.Stories)
-
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
-        @*@Html.ActionLink("Back to List", "Index")*@
-    </p>
 </div>

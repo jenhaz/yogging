@@ -49,9 +49,13 @@
                 </div>
                 <div>
                     <span>Tag: </span>
-                    <a href="@Url.Action("Details", "Tags", new { id = Model.TagId })">
-                        @Model.TagName
-                    </a>
+                    <div class="story__tag">
+                        <a style="background-color:@Model.TagColour;"
+                           class="story__tag-link"
+                           href="@Url.Action("Details", "Tags", new { id = Model.TagId })">
+                            @Model.TagName
+                        </a>
+                    </div>
                 </div>
             </div>
             <div>

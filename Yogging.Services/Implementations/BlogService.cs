@@ -13,6 +13,10 @@ namespace Yogging.Services.Implementations
 {
     public class BlogService : IBlogService
     {
+        /// <summary>
+        /// Returns a list of Blog Posts from json content retrieved from the API
+        /// </summary>
+        /// <returns></returns>
         private BlogPosts GetAllBlogPostsJson()
         {
             string blogId = WebConfigurationManager.AppSettings["BloggerBlogId"].ToString();
@@ -29,6 +33,10 @@ namespace Yogging.Services.Implementations
             }
         }
 
+        /// <summary>
+        /// Returns list of Blog Posts using the view model
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<BlogPostViewModel> GetAllBlogPosts()
         {
             BlogPosts posts = GetAllBlogPostsJson();
@@ -40,6 +48,11 @@ namespace Yogging.Services.Implementations
             return vm;
         }
 
+        /// <summary>
+        /// Converts model to view model
+        /// </summary>
+        /// <param name="post">The post retrieved from the API</param>
+        /// <returns></returns>
         private BlogPostViewModel GetBlogPostViewModel(BlogPost post)
         {
             string firstImg = GetFirstImageInHtml(post.PostContent);
@@ -56,6 +69,11 @@ namespace Yogging.Services.Implementations
             };
         }
 
+        /// <summary>
+        /// Converts the date retrieved from the API to something better looking
+        /// </summary>
+        /// <param name="date">The date retrieved from the API</param>
+        /// <returns></returns>
         private string GetNiceDate(string date)
         {
             DateTime stringDate = Convert.ToDateTime(date);
@@ -64,6 +82,11 @@ namespace Yogging.Services.Implementations
             return niceDate;
         }
 
+        /// <summary>
+        /// Gets the first image from the HTML retrieved from the API
+        /// </summary>
+        /// <param name="postContent">The string of HTML from the body of the blog post</param>
+        /// <returns></returns>
         private string GetFirstImageInHtml(string postContent)
         {
             HtmlDocument htmlDocument = new HtmlDocument();

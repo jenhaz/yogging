@@ -2,8 +2,10 @@
 
 @{
     ViewBag.Title = "Error";
+    string help = "Please try again or contact an administrator.";
+    string message = !string.IsNullOrEmpty(ViewBag.ErrorMessage) ? ViewBag.ErrorMessage + ". " + help : help;
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-<h3>@ViewBag.ErrorMessage</h3>
+<h1>Error!!1!</h1>
+<h2>So sorry, an error occurred while processing your request.</h2>
+<h3>@message</h3>

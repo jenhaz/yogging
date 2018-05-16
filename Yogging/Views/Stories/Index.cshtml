@@ -35,9 +35,13 @@
                         </a>
                     </td>
                     <td>
-                        <a href="@Url.Action("Details", "Tags", new { id = item.TagId })">
-                            @item.TagName
-                        </a>
+                        <div class="story__tag">
+                            <a style="background-color:@item.TagColour;"
+                               class="story__tag-link"
+                               href="@Url.Action("Details", "Tags", new { id = item.TagId })">
+                                @item.TagName
+                            </a>
+                        </div>
                     </td>
                     <td>
                         <a href="@Url.Action("Details", "Users", new { id = item.UserId })">
