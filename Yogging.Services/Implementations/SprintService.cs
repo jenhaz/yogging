@@ -20,6 +20,7 @@ namespace Yogging.Services.Implementations
             ContentRepository = contentRepository;
             StoryService = storyService;
         }
+
         /// <summary>
         /// Get all Sprints from Repository that aren't closed and convert to list of viewmodels
         /// </summary>
@@ -60,9 +61,9 @@ namespace Yogging.Services.Implementations
                 Stories = StoryService.GetStoriesBySprint(sprint.Id),
                 Status = sprint.Status,
                 SprintPointTotal = GetSprintPointTotal(sprint.Id),
-                TotalPointsToDo = GetTotalPointsByStatus(sprint.Id, StoryStatus.ToDo),
-                TotalPointsInProgress = GetTotalPointsByStatus(sprint.Id, StoryStatus.InProgress),
-                TotalPointsDone = GetTotalPointsByStatus(sprint.Id, StoryStatus.Done)
+                TotalPointsToDo = GetSprintPointTotal(sprint.Id, StoryStatus.ToDo),
+                TotalPointsInProgress = GetSprintPointTotal(sprint.Id, StoryStatus.InProgress),
+                TotalPointsDone = GetSprintPointTotal(sprint.Id, StoryStatus.Done)
             };
         }
 
@@ -108,7 +109,7 @@ namespace Yogging.Services.Implementations
         /// <param name="sprintId">ID for the particular sprint</param>
         /// <param name="status">The status of the stories</param>
         /// <returns></returns>
-        private int GetTotalPointsByStatus(int sprintId, StoryStatus status)
+        private int GetSprintPointTotal(int sprintId, StoryStatus status)
         {
             IEnumerable<StoryViewModel> stories = StoryService.GetStoriesByStatus(status)
                 .Where(x => x.SprintId.Equals(sprintId));

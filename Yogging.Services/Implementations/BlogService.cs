@@ -21,7 +21,7 @@ namespace Yogging.Services.Implementations
         {
             string blogId = WebConfigurationManager.AppSettings["BloggerBlogId"].ToString();
             string key = WebConfigurationManager.AppSettings["GoogleApiKey"].ToString();
-            string url = string.Format("https://www.googleapis.com/blogger/v3/blogs/{0}/posts?key={1}", blogId, key);
+            string url = $"https://www.googleapis.com/blogger/v3/blogs/{blogId}/posts?key={key}";
 
             using (var client = new WebClient())
             {
@@ -76,10 +76,9 @@ namespace Yogging.Services.Implementations
         /// <returns></returns>
         private string GetNiceDate(string date)
         {
-            DateTime stringDate = Convert.ToDateTime(date);
-            string niceDate = stringDate.ToString("dd/MM/yyyy");
+            string stringDate = Convert.ToDateTime(date).ToString("dd/MM/yyyy");
 
-            return niceDate;
+            return stringDate;
         }
 
         /// <summary>

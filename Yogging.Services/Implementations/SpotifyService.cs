@@ -41,7 +41,7 @@ namespace Yogging.Services.Implementations
         private SpotifyPlaylists GetSpotifyPlaylists()
         {
             string accountId = WebConfigurationManager.AppSettings["SpotifyAccountId"].ToString();
-            string url = string.Format("https://api.spotify.com/v1/users/{0}/playlists", accountId);
+            string url = $"https://api.spotify.com/v1/users/{accountId}/playlists";
             SpotifyToken token = GetAccessToken();
             string accessToken = token.access_token;
 
@@ -98,7 +98,7 @@ namespace Yogging.Services.Implementations
         private SpotifyPlaylistTracks GetSpotifyPlaylistTracks(string playlistId)
         {
             string accountId = WebConfigurationManager.AppSettings["SpotifyAccountId"].ToString();
-            string url = string.Format("https://api.spotify.com/v1/users/{0}/playlists/{1}/tracks", accountId, playlistId);
+            string url = $"https://api.spotify.com/v1/users/{accountId}/playlists/{playlistId}/tracks";
             SpotifyToken token = GetAccessToken();
             string accessToken = token.access_token;
 
@@ -141,17 +141,13 @@ namespace Yogging.Services.Implementations
         private SpotifyToken GetAccessToken()
         {
             SpotifyToken token = new SpotifyToken();
-            string postString = string.Format("grant_type=client_credentials");
-
-            byte[] byteArray = Encoding.UTF8.GetBytes(postString);
-            string url = "https://accounts.spotify.com/api/token";
-
+            byte[] byteArray = Encoding.UTF8.GetBytes("grant_type=client_credentials");
             string clientId = WebConfigurationManager.AppSettings["SpotifyClientId"].ToString();
             string secret = WebConfigurationManager.AppSettings["SpotifySecret"].ToString();
-            string credentials = string.Format("{0}:{1}", clientId, secret);
+            string credentials = $"{clientId}:{secret}";
             string auth = "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials));
 
-            WebRequest request = WebRequest.Create(url);
+            WebRequest request = WebRequest.Create("https://accounts.spotify.com/api/token");
             request.Method = "POST";
             request.Headers.Add("Authorization", auth);
             request.ContentType = "application/x-www-form-urlencoded";
