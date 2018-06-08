@@ -49,7 +49,7 @@ namespace Yogging.Services.Implementations
         /// </summary>
         /// <param name="isInactive">Bool for whether user is inactive or not</param>
         /// <returns></returns>
-        private string UserIsInactive (bool isInactive)
+        public string UserIsInactive (bool isInactive)
         {
             string words = isInactive ? "Inactive" : "Active";
 

@@ -8,6 +8,7 @@ namespace Yogging.Services.Interfaces
     {
         IEnumerable<UserViewModel> GetAllUsers();
         IEnumerable<UserViewModel> GetAllActiveUsers();
+        string UserIsInactive(bool isInactive);
         IEnumerable<ProfileViewModel> GetAllProfiles();
         ProfileViewModel GetProfile(Profile profile);
         Profile PutProfile(ProfileViewModel vm);
