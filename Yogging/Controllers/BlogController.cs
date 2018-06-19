@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Yogging.Models.ViewModels;
 using Yogging.Services.Interfaces;
 
@@ -16,9 +15,22 @@ namespace Yogging.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<BlogPostViewModel> posts = BlogService.GetAllBlogPosts();
+            BlogViewModel posts = BlogService.GetAllBlogPosts();
 
             return View(posts);
+        }
+
+        public ActionResult MoreBlogPosts(string nextPageToken = "")
+        {
+            if(!string.IsNullOrEmpty(nextPageToken))
+            {
+                BlogViewModel morePosts = BlogService.GetAllBlogPosts(nextPageToken);
+                return PartialView("_BlogPostsList", morePosts);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

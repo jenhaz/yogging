@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Web;
+using System.Web.Configuration;
 
 namespace Yogging.Services.Helpers
 {
@@ -10,7 +11,8 @@ namespace Yogging.Services.Helpers
         {
             // Get the absolute path to the log file
             string todaysDate = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            string logFile = "~/App_Data/ErrorLog_" + todaysDate + ".txt";
+            string logFolder = WebConfigurationManager.AppSettings["ErrorLogFolder"].ToString();
+            string logFile = logFolder + "ErrorLog_" + todaysDate + ".txt";
             logFile = HttpContext.Current.Server.MapPath(logFile);
 
             // Open the log file for append and write the log

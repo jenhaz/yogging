@@ -1,5 +1,5 @@
 ﻿@using Yogging.Models.ViewModels
-@model IEnumerable<BlogPostViewModel>
+@model BlogViewModel
 
 @{
     ViewBag.Title = "Blog";
@@ -13,40 +13,12 @@
     Hello. Please see below for my latest blog posts from Blogger. x
 </p>
 
-<div class="blog">
-    @foreach (var post in Model)
-    {
-        string imageUrl = !string.IsNullOrEmpty(post.PostMainImage) ? post.PostMainImage : "https://placekitten.com/300/200";
-        string style = "background-image: url('" + imageUrl + "')";
-
-        <div class="blog__item">
-            <div class="blog__container" style="@style">
-                <a class="blog__media" href="@post.PostUrl" target="_blank">
-                    @post.PostTitle
-                </a>
-
-                <a class="blog__content-link" href="@post.PostUrl" target="_blank">
-                    <div class="blog__content">
-                        <time class="blog__post-date">
-                            @post.PublishedDate
-                        </time>
-                        <h2 class="blog__post-title">
-                            @post.PostTitle
-                        </h2>
-                    </div>
-                </a>
-
-                @* TODO: need to get scss working *@
-                @*<a class="block-link__overlay" href="@post.PostUrl" target="_blank">
-                        @post.PostTitle
-                    </a>*@
-            </div>
-        </div>
-    }
+<div class="blog" id="blog__more-posts">
+    @Html.Partial("_BlogPostsList", Model)
 </div>
 
 <div class="blog__more">
-    <a class="btn button blog__button text--lowercase" href="https://weekendpaints.blogspot.com/" target="_blank">
+    <a class="btn button blog__button text--lowercase">
         More posts
     </a>
 </div>

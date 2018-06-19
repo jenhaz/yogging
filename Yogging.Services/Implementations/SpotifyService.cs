@@ -23,7 +23,7 @@ namespace Yogging.Services.Implementations
             SpotifyPlaylists playlists = GetSpotifyPlaylists();
             IEnumerable<SpotifyPlaylist> list = playlists.Playlists;
 
-            foreach (var playlist in list)
+            foreach (SpotifyPlaylist playlist in list)
             {
                 SpotifyPlaylistTracks tracks = GetAllPlaylistTracks(playlist.Id);
                 playlist.PlaylistTracks.Tracks = tracks.Tracks.OrderByDescending(x => x.Added).ToList(); //TODO: somehow get last page first

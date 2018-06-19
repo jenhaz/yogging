@@ -13,7 +13,7 @@ namespace Yogging
     {
         public static void RegisterComponents()
         {
-			var container = new UnityContainer();
+            UnityContainer container = new UnityContainer();
 
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());

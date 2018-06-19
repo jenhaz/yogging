@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using System.Web.Routing;
 
 namespace Yogging.Services.Helpers
 {
@@ -8,9 +9,9 @@ namespace Yogging.Services.Helpers
     {
         public static MvcHtmlString MenuLink(this HtmlHelper helper, string text, string action, string controller)
         {
-            var routeData = helper.ViewContext.RouteData.Values;
-            var currentController = routeData["controller"];
-            var currentAction = routeData["action"];
+            RouteValueDictionary routeData = helper.ViewContext.RouteData.Values;
+            object currentController = routeData["controller"];
+            object currentAction = routeData["action"];
 
             if (String.Equals(action, currentAction as string, StringComparison.OrdinalIgnoreCase)
                 &&

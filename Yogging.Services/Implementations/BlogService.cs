@@ -13,17 +13,12 @@ namespace Yogging.Services.Implementations
 {
     public class BlogService : IBlogService
     {
-        /// <summary>
-        /// Returns a list of Blog Posts from json content retrieved from the API
-        /// </summary>
-        /// <returns></returns>
-        private BlogPosts GetAllBlogPostsJson()
+        string blogId = WebConfigurationManager.AppSettings["BloggerBlogId"].ToString();
+        string key = WebConfigurationManager.AppSettings["GoogleApiKey"].ToString();
+        
+        private BlogPosts GetBlogPostsJson(string url)
         {
-            string blogId = WebConfigurationManager.AppSettings["BloggerBlogId"].ToString();
-            string key = WebConfigurationManager.AppSettings["GoogleApiKey"].ToString();
-            string url = $"https://www.googleapis.com/blogger/v3/blogs/{blogId}/posts?key={key}";
-
-            using (var client = new WebClient())
+            using (WebClient client = new WebClient())
             {
                 string content = client.DownloadString(url);
 
@@ -37,15 +32,36 @@ namespace Yogging.Services.Implementations
         /// Returns list of Blog Posts using the view model
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BlogPostViewModel> GetAllBlogPosts()
+        public BlogViewModel GetAllBlogPosts()
         {
-            BlogPosts posts = GetAllBlogPostsJson();
+            string url = $"https://www.googleapis.com/blogger/v3/blogs/{blogId}/posts?key={key}";
+            BlogPosts posts = GetBlogPostsJson(url);
 
-            List<BlogPost> list = posts.Posts;
+            List<BlogPost> list = posts?.Posts;
 
-            IEnumerable<BlogPostViewModel> vm = list.Select(x => GetBlogPostViewModel(x)).ToList();
+            IEnumerable<BlogPostViewModel> vm = list?.Select(x => GetBlogPostViewModel(x)).ToList();
 
-            return vm;
+            return new BlogViewModel()
+            {
+                BlogPosts = vm,
+                NextPageToken = posts?.NextPageToken
+            };
+        }
+
+        public BlogViewModel GetAllBlogPosts(string nextPageToken)
+        {
+            string url = $"https://www.googleapis.com/blogger/v3/blogs/{blogId}/posts?pageToken={nextPageToken}&key={key}";
+            BlogPosts nextPagePosts = GetBlogPostsJson(url);
+
+            List<BlogPost> list = nextPagePosts?.Posts;
+
+            IEnumerable<BlogPostViewModel> vm = list?.Select(x => GetBlogPostViewModel(x)).ToList();
+
+            return new BlogViewModel()
+            {
+                BlogPosts = vm,
+                NextPageToken = nextPagePosts?.NextPageToken
+            };
         }
 
         /// <summary>
@@ -63,7 +79,7 @@ namespace Yogging.Services.Implementations
                 PublishedDate = GetNiceDate(post.Published),
                 UpdatedDate = post.Updated,
                 PostUrl = post.PostUrl,
-                PostTitle = post.PostTitle,
+                PostTitle = post.PostTitle.Replace("&amp;", "&"),
                 PostContent = post.PostContent,
                 PostMainImage = !string.IsNullOrEmpty(firstImg) ? firstImg : string.Empty
             };

@@ -251,6 +251,7 @@
     <Content Include="Views\Home\EditProfile.cshtml" />
     <Content Include="Views\Home\Playlists.cshtml" />
     <Content Include="Views\Home\_ProfileContact.cshtml" />
+    <Content Include="Views\Blog\_BlogPostsList.cshtml" />
     <None Include="Views\Shared\_Navigation.cshtml" />
     <None Include="Views\Shared\_Tracking.cshtml" />
     <Content Include="Views\Sprints\Finished.cshtml" />

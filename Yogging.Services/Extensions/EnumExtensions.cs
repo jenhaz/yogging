@@ -8,7 +8,7 @@ namespace Yogging.Services.Extensions
     {
         public static string GetDisplayName(this Enum enu)
         {
-            var attr = GetDisplayAttribute(enu);
+            DisplayAttribute attr = GetDisplayAttribute(enu);
             return attr != null ? attr.Name : enu.ToString();
         }
 
@@ -21,7 +21,7 @@ namespace Yogging.Services.Extensions
             }
 
             // Get the enum field.
-            var field = type.GetField(value.ToString());
+            FieldInfo field = type.GetField(value.ToString());
             return field == null ? null : field.GetCustomAttribute<DisplayAttribute>();
         }
     }

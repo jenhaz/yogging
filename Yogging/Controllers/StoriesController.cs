@@ -135,7 +135,7 @@ namespace Yogging.Controllers
                     story.LastUpdated = DateTime.Now.ToString();
                     db.Entry(story).State = EntityState.Modified;
                     db.Entry(story).Property("CreatedDate").IsModified = false;
-                    var task = db.SaveChangesAsync();
+                    Task<int> task = db.SaveChangesAsync();
                     await task;
 
                     if (Request.IsAjaxRequest())

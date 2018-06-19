@@ -1,0 +1,53 @@
+﻿@using Yogging.Models.ViewModels
+@model BlogViewModel
+
+@if (Model.BlogPosts.Any())
+{
+    foreach (var post in Model.BlogPosts)
+    {
+        string imageUrl = !string.IsNullOrEmpty(post.PostMainImage) ? post.PostMainImage : "https://placekitten.com/300/200";
+        string style = "background-image: url('" + imageUrl + "')";
+
+        <div class="blog__item">
+            <div class="blog__container" style="@style">
+                <a class="blog__media" href="@post.PostUrl" target="_blank">
+                    @post.PostTitle
+                </a>
+
+                <a class="blog__content-link" href="@post.PostUrl" target="_blank">
+                    <div class="blog__content">
+                        <time class="blog__post-date">
+                            @post.PublishedDate
+                        </time>
+                        <h2 class="blog__post-title">
+                            @post.PostTitle
+                        </h2>
+                    </div>
+                </a>
+
+                @* TODO: need to get scss working *@
+                @*<a class="block-link__overlay" href="@post.PostUrl" target="_blank">
+                        @post.PostTitle
+                    </a>*@
+            </div>
+        </div>
+    }
+}
+
+<script>
+    $(function () {
+        var nextPage = '@Model.NextPageToken';
+
+        $('.blog__button').click(function () {
+            $.ajax({
+                url: "/Blog/MoreBlogPosts",
+                data: { 'nextPageToken': nextPage },
+                type: 'get',
+                success: function (posts) {
+                    $("#blog__more-posts").append(posts);
+                    nextPage = posts.nextPageToken;
+                }
+            });
+        });
+    });
+</script>

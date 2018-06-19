@@ -94,7 +94,7 @@ namespace Yogging.Services.Implementations
             IEnumerable<StoryViewModel> stories = StoryService.GetStoriesBySprint(sprintId);
             int total = 0;
 
-            foreach(var story in stories)
+            foreach(StoryViewModel story in stories)
             {
                 int points = story.Points;
                 total = total + points;
@@ -115,7 +115,7 @@ namespace Yogging.Services.Implementations
                 .Where(x => x.SprintId.Equals(sprintId));
             int total = 0;
 
-            foreach (var story in stories)
+            foreach (StoryViewModel story in stories)
             {
                 int points = story.Points;
                 total = total + points;

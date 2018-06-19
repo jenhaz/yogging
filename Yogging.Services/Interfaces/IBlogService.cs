@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using Yogging.Models.ViewModels;
+﻿using Yogging.Models.ViewModels;
 
 namespace Yogging.Services.Interfaces
 {
     public interface IBlogService
     {
-        IEnumerable<BlogPostViewModel> GetAllBlogPosts();
+        BlogViewModel GetAllBlogPosts();
+
+        BlogViewModel GetAllBlogPosts(string nextPageToken);
     }
 }

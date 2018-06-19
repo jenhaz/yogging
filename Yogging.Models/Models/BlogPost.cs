@@ -28,5 +28,8 @@ namespace Yogging.Models.Models
     {
         [JsonProperty("items")]
         public List<BlogPost> Posts { get; set; }
+
+        [JsonProperty("nextPageToken")]
+        public string NextPageToken { get; set; }
     }
 }
