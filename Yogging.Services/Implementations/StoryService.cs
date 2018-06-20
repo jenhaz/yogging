@@ -104,11 +104,11 @@ namespace Yogging.Services.Implementations
                 Status = x.Status,
                 UserId = x.User.Id,
                 SprintId = x.Sprint.Id,
-                TagId = x.Tag.Id,
+                TagId = x.Tag?.Id,
                 UserName = x.User.FirstName + " " + x.User.LastName,
                 SprintName = x.Sprint.Name,
-                TagName = x.Tag.Name,
-                TagColour = !string.IsNullOrEmpty(x.Tag.Colour) ? x.Tag.Colour : "#ffffff"
+                TagName = !string.IsNullOrEmpty(x.Tag?.Name) ? x.Tag?.Name : string.Empty,
+                TagColour = !string.IsNullOrEmpty(x.Tag?.Colour) ? x.Tag?.Colour : "#ffffff"
             };
         }
 
