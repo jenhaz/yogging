@@ -30,7 +30,7 @@ namespace Yogging.Services.Implementations
 
             return stories;
         }
-        
+
         /// <summary>
         /// Get all stories by sprint ID and convert to viewmodel
         /// </summary>
@@ -102,11 +102,13 @@ namespace Yogging.Services.Implementations
                 AcceptanceCriteria = !string.IsNullOrEmpty(x.AcceptanceCriteria) ? x.AcceptanceCriteria : string.Empty,
                 Points = x.Points,
                 Status = x.Status,
-                UserId = x.User.Id,
-                SprintId = x.Sprint.Id,
+                UserId = x.User?.Id,
+                SprintId = x.Sprint?.Id,
                 TagId = x.Tag?.Id,
-                UserName = x.User.FirstName + " " + x.User.LastName,
-                SprintName = x.Sprint.Name,
+                UserName = !string.IsNullOrEmpty(x.User?.FirstName) && !string.IsNullOrEmpty(x.User?.LastName)
+                ? x.User?.FirstName + " " + x.User?.LastName
+                : string.Empty,
+                SprintName = !string.IsNullOrEmpty(x.Sprint?.Name) ? x.Sprint?.Name : string.Empty,
                 TagName = !string.IsNullOrEmpty(x.Tag?.Name) ? x.Tag?.Name : string.Empty,
                 TagColour = !string.IsNullOrEmpty(x.Tag?.Colour) ? x.Tag?.Colour : "#ffffff"
             };
