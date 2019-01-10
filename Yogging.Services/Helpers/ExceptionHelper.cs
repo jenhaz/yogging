@@ -10,13 +10,13 @@ namespace Yogging.Services.Helpers
         public static void LogException(Exception exc, string source)
         {
             // Get the absolute path to the log file
-            string todaysDate = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            string logFolder = WebConfigurationManager.AppSettings["ErrorLogFolder"].ToString();
-            string logFile = logFolder + "ErrorLog_" + todaysDate + ".txt";
+            var todaysDate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            var logFolder = WebConfigurationManager.AppSettings["ErrorLogFolder"];
+            var logFile = logFolder + "ErrorLog_" + todaysDate + ".txt";
             logFile = HttpContext.Current.Server.MapPath(logFile);
 
             // Open the log file for append and write the log
-            StreamWriter sw = new StreamWriter(logFile, true);
+            var sw = new StreamWriter(logFile, true);
             sw.WriteLine("********** {0} **********", DateTime.Now);
             if (exc.InnerException != null)
             {

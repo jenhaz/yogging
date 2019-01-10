@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
 using Yogging.Models;
-using Yogging.Models.ViewModels;
 using Yogging.Services.Helpers;
 using Yogging.Services.Interfaces;
 
@@ -14,18 +12,21 @@ namespace Yogging.Controllers
     [Authorize]
     public class UsersController : Controller
     {
-        private YoggingContext db = new YoggingContext();
-        private IUserService UserService { get; }
+        private readonly IUserService _userService;
+        private readonly YoggingContext _db;
 
-        public UsersController(IUserService userService)
+        public UsersController(
+            IUserService userService, 
+            YoggingContext db)
         {
-            UserService = userService;
+            _userService = userService;
+            _db = db;
         }
 
         // GET: Users
         public ActionResult Index()
         {
-            IEnumerable<UserViewModel> users = UserService.GetAllActiveUsers();
+            var users = _userService.GetAllActiveUsers();
 
             return View(users);
         }
@@ -37,7 +38,7 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            var user = _db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -62,8 +63,8 @@ namespace Yogging.Controllers
             {
                 try
                 {
-                    db.Users.Add(user);
-                    db.SaveChanges();
+                    _db.Users.Add(user);
+                    _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -84,7 +85,7 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            var user = _db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -103,8 +104,8 @@ namespace Yogging.Controllers
             {
                 try
                 {
-                    db.Entry(user).State = EntityState.Modified;
-                    db.SaveChanges();
+                    _db.Entry(user).State = EntityState.Modified;
+                    _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -124,7 +125,7 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            var user = _db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -139,9 +140,12 @@ namespace Yogging.Controllers
         {
             try
             {
-                User user = db.Users.Find(id);
-                db.Users.Remove(user);
-                db.SaveChanges();
+                var user = _db.Users.Find(id);
+                if (user != null)
+                {
+                    _db.Users.Remove(user);
+                    _db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -156,7 +160,7 @@ namespace Yogging.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

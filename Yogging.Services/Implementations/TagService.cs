@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Yogging.DAL.Context;
 using Yogging.DAL.Repository;
 using Yogging.Models;
 using Yogging.Models.ViewModels;
@@ -10,14 +9,13 @@ namespace Yogging.Services.Implementations
 {
     public class TagService : ITagService
     {
-        private YoggingContext db = new YoggingContext();
-        private IContentRepository ContentRepository { get; }
-        private IStoryService StoryService { get; }
+        private readonly ITagRepository _repository;
+        private readonly IStoryService _service;
 
-        public TagService(IContentRepository contentRepository, IStoryService storyService)
+        public TagService(ITagRepository repository, IStoryService service)
         {
-            ContentRepository = contentRepository;
-            StoryService = storyService;
+            _repository = repository;
+            _service = service;
         }
 
         /// <summary>
@@ -26,8 +24,9 @@ namespace Yogging.Services.Implementations
         /// <returns></returns>
         public IEnumerable<TagViewModel> GetAllTags()
         {
-            IEnumerable<TagViewModel> tags = ContentRepository.GetTags()
-                .Select(x => GetTag(x));
+            var tags = _repository
+                .GetTags()
+                .Select(GetTag);
 
             return tags;
         }
@@ -39,8 +38,11 @@ namespace Yogging.Services.Implementations
         /// <returns></returns>
         public TagViewModel GetTagById(int? id)
         {
-            TagViewModel tag = ContentRepository.GetTags().Where(y => y.Id.Equals(id))
-                .Select(x => GetTag(x)).FirstOrDefault();
+            var tag = _repository
+                .GetTags()
+                .Where(y => y.Id.Equals(id))
+                .Select(GetTag)
+                .FirstOrDefault();
 
             return tag;
         }
@@ -56,7 +58,7 @@ namespace Yogging.Services.Implementations
             {
                 Id = tag.Id,
                 Name = tag.Name,
-                Stories = StoryService.GetStoriesByTag(tag.Id),
+                Stories = _service.GetStoriesByTag(tag.Id),
                 Colour = tag.Colour
             };
         }

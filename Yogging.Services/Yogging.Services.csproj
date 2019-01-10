@@ -80,6 +80,8 @@
     <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Implementations\BlogService.cs" />
+    <Compile Include="Interfaces\IProfileService.cs" />
+    <Compile Include="Implementations\ProfileService.cs" />
     <Compile Include="Implementations\SpotifyService.cs" />
     <Compile Include="Implementations\SprintService.cs" />
     <Compile Include="Implementations\StoryService.cs" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
@@ -13,14 +12,18 @@ namespace Yogging.Controllers
 {
     public class HomeController : Controller
     {
-        private YoggingContext db = new YoggingContext();
-        private IUserService UserService { get; }
-        private ISpotifyService SpotifyService { get; }
+        private readonly IProfileService _profileService;
+        private readonly ISpotifyService _spotifyService;
+        private readonly YoggingContext _db;
 
-        public HomeController(IUserService userService, ISpotifyService spotifyService)
+        public HomeController(
+            IProfileService profileService, 
+            ISpotifyService spotifyService, 
+            YoggingContext db)
         {
-            UserService = userService;
-            SpotifyService = spotifyService;
+            _profileService = profileService;
+            _spotifyService = spotifyService;
+            _db = db;
         }
 
         public ActionResult Index()
@@ -31,14 +34,14 @@ namespace Yogging.Controllers
 
         public ActionResult About()
         {
-            IEnumerable<ProfileViewModel> profiles = UserService.GetAllProfiles();
+            var profiles = _profileService.GetAllProfiles();
 
             return View(profiles);
         }
 
         public ActionResult Playlists()
         {
-            IEnumerable<SpotifyPlaylistViewModel> playlists = SpotifyService.GetAllPlaylists();
+            var playlists = _spotifyService.GetAllPlaylists();
 
             return View(playlists);
         }
@@ -60,8 +63,8 @@ namespace Yogging.Controllers
             {
                 try
                 {
-                    db.Profiles.Add(profile);
-                    db.SaveChanges();
+                    _db.Profiles.Add(profile);
+                    _db.SaveChanges();
                     return RedirectToAction("About");
                 }
                 catch (Exception e)
@@ -83,13 +86,13 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Profile profile = db.Profiles.Find(id);
+            var profile = _db.Profiles.Find(id);
             if (profile == null)
             {
                 return HttpNotFound();
             }
 
-            ProfileViewModel viewModel = UserService.GetProfile(profile);
+            var viewModel = _profileService.GetProfile(profile);
 
             return View(viewModel);
         }
@@ -100,14 +103,14 @@ namespace Yogging.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditProfile(ProfileViewModel viewModel)
         {
-            Profile profile = UserService.PutProfile(viewModel);
+            var profile = _profileService.PutProfile(viewModel);
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    db.Entry(profile).State = EntityState.Modified;
-                    db.SaveChanges();
+                    _db.Entry(profile).State = EntityState.Modified;
+                    _db.SaveChanges();
                     return RedirectToAction("About");
                 }
                 catch (Exception e)

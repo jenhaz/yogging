@@ -19,12 +19,17 @@ namespace Yogging
             container.RegisterType<ManageController>(new InjectionConstructor());
 
             container.RegisterType<IBlogService, BlogService>();
-            container.RegisterType<IContentRepository, ContentRepository>();
             container.RegisterType<ISpotifyService, SpotifyService>();
             container.RegisterType<ISprintService, SprintService>();
             container.RegisterType<IStoryService, StoryService>();
             container.RegisterType<ITagService, TagService>();
             container.RegisterType<IUserService, UserService>();
+
+            container.RegisterType<IProfileRepository, ProfileRepository>();
+            container.RegisterType<ISprintRepository, SprintRepository>();
+            container.RegisterType<IStoryRepository, StoryRepository>();
+            container.RegisterType<ITagRepository, TagRepository>();
+            container.RegisterType<IUserRepository, UserRepository>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

@@ -1,36 +1,33 @@
 ﻿using System.Web.Mvc;
-using Yogging.Models.ViewModels;
 using Yogging.Services.Interfaces;
 
 namespace Yogging.Controllers
 {
     public class BlogController : Controller
     {
-        private IBlogService BlogService { get; }
+        private readonly IBlogService _blogService;
 
         public BlogController(IBlogService blogService)
         {
-            BlogService = blogService;
+            _blogService = blogService;
         }
 
         public ActionResult Index()
         {
-            BlogViewModel posts = BlogService.GetAllBlogPosts();
+            var posts = _blogService.GetAllBlogPosts();
 
             return View(posts);
         }
 
         public ActionResult MoreBlogPosts(string nextPageToken = "")
         {
-            if(!string.IsNullOrEmpty(nextPageToken))
-            {
-                BlogViewModel morePosts = BlogService.GetAllBlogPosts(nextPageToken);
-                return PartialView("_BlogPostsList", morePosts);
-            }
-            else
+            if (string.IsNullOrEmpty(nextPageToken))
             {
                 return null;
             }
+
+            var morePosts = _blogService.GetAllBlogPosts(nextPageToken);
+            return PartialView("_BlogPostsList", morePosts);
         }
     }
 }

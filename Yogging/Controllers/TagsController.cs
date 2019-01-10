@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
 using Yogging.Models;
-using Yogging.Models.ViewModels;
 using Yogging.Services.Helpers;
 using Yogging.Services.Interfaces;
 
@@ -14,18 +12,21 @@ namespace Yogging.Controllers
     [Authorize]
     public class TagsController : Controller
     {
-        private YoggingContext db = new YoggingContext();
-        private ITagService TagService { get; }
+        private readonly ITagService _tagService;
+        private readonly YoggingContext _db;
 
-        public TagsController(ITagService tagService)
+        public TagsController(
+            ITagService tagService, 
+            YoggingContext db)
         {
-            TagService = tagService;
+            _tagService = tagService;
+            _db = db;
         }
 
         // GET: Tags
         public ActionResult Index()
         {
-            IEnumerable<TagViewModel> tags = TagService.GetAllTags();
+            var tags = _tagService.GetAllTags();
 
             return View(tags);
         }
@@ -37,7 +38,7 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TagViewModel tag = TagService.GetTagById(id);
+            var tag = _tagService.GetTagById(id);
             if (tag == null)
             {
                 return HttpNotFound();
@@ -62,8 +63,8 @@ namespace Yogging.Controllers
             {
                 try
                 {
-                    db.Tags.Add(tag);
-                    db.SaveChanges();
+                    _db.Tags.Add(tag);
+                    _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -84,7 +85,7 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tag tag = db.Tags.Find(id);
+            var tag = _db.Tags.Find(id);
             if (tag == null)
             {
                 return HttpNotFound();
@@ -103,8 +104,8 @@ namespace Yogging.Controllers
             {
                 try
                 {
-                    db.Entry(tag).State = EntityState.Modified;
-                    db.SaveChanges();
+                    _db.Entry(tag).State = EntityState.Modified;
+                    _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -124,7 +125,7 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tag tag = db.Tags.Find(id);
+            var tag = _db.Tags.Find(id);
             if (tag == null)
             {
                 return HttpNotFound();
@@ -139,9 +140,12 @@ namespace Yogging.Controllers
         {
             try
             {
-                Tag tag = db.Tags.Find(id);
-                db.Tags.Remove(tag);
-                db.SaveChanges();
+                var tag = _db.Tags.Find(id);
+                if (tag != null)
+                {
+                    _db.Tags.Remove(tag);
+                    _db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -156,7 +160,7 @@ namespace Yogging.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

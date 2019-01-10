@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
 using System.Threading.Tasks;
@@ -15,18 +14,21 @@ namespace Yogging.Controllers
     [Authorize]
     public class StoriesController : Controller
     {
-        private YoggingContext db = new YoggingContext();
-        private IStoryService StoryService { get; }
+        private readonly IStoryService _storyService;
+        private readonly YoggingContext _db;
 
-        public StoriesController(IStoryService storyService)
+        public StoriesController(
+            IStoryService storyService, 
+            YoggingContext db)
         {
-            StoryService = storyService;
+            _storyService = storyService;
+            _db = db;
         }
 
         // GET: Stories
         public ActionResult Index()
         {
-            IEnumerable<StoryViewModel> stories = StoryService.GetAllStories();
+            var stories = _storyService.GetAllStories();
 
             return View(stories);
         }
@@ -38,21 +40,21 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Story story = db.Stories.Find(id);
+            var story = _db.Stories.Find(id);
             if (story == null)
             {
                 return HttpNotFound();
             }
 
-            StoryViewModel viewModel = StoryService.GetStory(story);
+            var viewModel = _storyService.GetStory(story);
 
             return View(viewModel);
         }
 
         public PartialViewResult PartialDetails(int id)
         {
-            Story story = db.Stories.Find(id);
-            StoryViewModel viewModel = StoryService.GetStory(story);
+            var story = _db.Stories.Find(id);
+            var viewModel = _storyService.GetStory(story);
 
             return PartialView("_StoriesDetail", viewModel);
         }
@@ -60,9 +62,9 @@ namespace Yogging.Controllers
         // GET: Stories/Create
         public ActionResult Create()
         {
-            ViewBag.SprintId = new SelectList(db.Sprints, "Id", "Name");
-            ViewBag.TagId = new SelectList(db.Tags, "Id", "Name");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
+            ViewBag.SprintId = new SelectList(_db.Sprints, "Id", "Name");
+            ViewBag.TagId = new SelectList(_db.Tags, "Id", "Name");
+            ViewBag.UserId = new SelectList(_db.Users, "Id", "FirstName");
             return View();
         }
 
@@ -79,8 +81,8 @@ namespace Yogging.Controllers
                 {
                     story.CreatedDate = DateTime.Now.ToString();
                     story.LastUpdated = DateTime.Now.ToString();
-                    db.Stories.Add(story);
-                    db.SaveChanges();
+                    _db.Stories.Add(story);
+                    _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -91,9 +93,9 @@ namespace Yogging.Controllers
                 }
             }
 
-            ViewBag.SprintId = new SelectList(db.Sprints, "Id", "Name", story.SprintId);
-            ViewBag.TagId = new SelectList(db.Tags, "Id", "Name", story.TagId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", story.UserId);
+            ViewBag.SprintId = new SelectList(_db.Sprints, "Id", "Name", story.SprintId);
+            ViewBag.TagId = new SelectList(_db.Tags, "Id", "Name", story.TagId);
+            ViewBag.UserId = new SelectList(_db.Users, "Id", "FirstName", story.UserId);
             return View(story);
         }
 
@@ -104,16 +106,16 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Story story = db.Stories.Find(id);
+            var story = _db.Stories.Find(id);
             if (story == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SprintId = new SelectList(db.Sprints, "Id", "Name", story.SprintId);
-            ViewBag.TagId = new SelectList(db.Tags, "Id", "Name", story.TagId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", story.UserId);
+            ViewBag.SprintId = new SelectList(_db.Sprints, "Id", "Name", story.SprintId);
+            ViewBag.TagId = new SelectList(_db.Tags, "Id", "Name", story.TagId);
+            ViewBag.UserId = new SelectList(_db.Users, "Id", "FirstName", story.UserId);
 
-            StoryViewModel viewModel = StoryService.GetStory(story);
+            var viewModel = _storyService.GetStory(story);
 
             if (Request.IsAjaxRequest())
                 return PartialView("_EditPartial", viewModel);
@@ -125,17 +127,17 @@ namespace Yogging.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(StoryViewModel viewModel)
         {
-            Story story = StoryService.PutStory(viewModel);
+            var story = _storyService.PutStory(viewModel);
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    db.Stories.Attach(story);
+                    _db.Stories.Attach(story);
                     story.LastUpdated = DateTime.Now.ToString();
-                    db.Entry(story).State = EntityState.Modified;
-                    db.Entry(story).Property("CreatedDate").IsModified = false;
-                    Task<int> task = db.SaveChangesAsync();
+                    _db.Entry(story).State = EntityState.Modified;
+                    _db.Entry(story).Property("CreatedDate").IsModified = false;
+                    var task = _db.SaveChangesAsync();
                     await task;
 
                     if (Request.IsAjaxRequest())
@@ -153,9 +155,9 @@ namespace Yogging.Controllers
                 }
             }
 
-            ViewBag.SprintId = new SelectList(db.Sprints, "Id", "Name", viewModel.SprintId);
-            ViewBag.TagId = new SelectList(db.Tags, "Id", "Name", viewModel.TagId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", viewModel.UserId);
+            ViewBag.SprintId = new SelectList(_db.Sprints, "Id", "Name", viewModel.SprintId);
+            ViewBag.TagId = new SelectList(_db.Tags, "Id", "Name", viewModel.TagId);
+            ViewBag.UserId = new SelectList(_db.Users, "Id", "FirstName", viewModel.UserId);
             return View(viewModel);
         }
 
@@ -166,7 +168,7 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Story story = db.Stories.Find(id);
+            var story = _db.Stories.Find(id);
             if (story == null)
             {
                 return HttpNotFound();
@@ -181,9 +183,12 @@ namespace Yogging.Controllers
         {
             try
             {
-                Story story = db.Stories.Find(id);
-                db.Stories.Remove(story);
-                db.SaveChanges();
+                var story = _db.Stories.Find(id);
+                if (story != null)
+                {
+                    _db.Stories.Remove(story);
+                    _db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -198,7 +203,7 @@ namespace Yogging.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

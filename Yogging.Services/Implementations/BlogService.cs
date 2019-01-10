@@ -13,16 +13,16 @@ namespace Yogging.Services.Implementations
 {
     public class BlogService : IBlogService
     {
-        string blogId = WebConfigurationManager.AppSettings["BloggerBlogId"].ToString();
-        string key = WebConfigurationManager.AppSettings["GoogleApiKey"].ToString();
-        
+        private readonly string _blogId = WebConfigurationManager.AppSettings["BloggerBlogId"];
+        private readonly string _key = WebConfigurationManager.AppSettings["GoogleApiKey"];
+
         private BlogPosts GetBlogPostsJson(string url)
         {
-            using (WebClient client = new WebClient())
+            using (var client = new WebClient())
             {
-                string content = client.DownloadString(url);
+                var content = client.DownloadString(url);
 
-                BlogPosts jsonContent = JsonConvert.DeserializeObject<BlogPosts>(content);
+                var jsonContent = JsonConvert.DeserializeObject<BlogPosts>(content);
 
                 return jsonContent;
             }
@@ -34,14 +34,14 @@ namespace Yogging.Services.Implementations
         /// <returns></returns>
         public BlogViewModel GetAllBlogPosts()
         {
-            string url = $"https://www.googleapis.com/blogger/v3/blogs/{blogId}/posts?key={key}";
-            BlogPosts posts = GetBlogPostsJson(url);
+            var url = $"https://www.googleapis.com/blogger/v3/blogs/{_blogId}/posts?key={_key}";
+            var posts = GetBlogPostsJson(url);
 
-            List<BlogPost> list = posts?.Posts;
+            var list = posts?.Posts;
 
-            IEnumerable<BlogPostViewModel> vm = list?.Select(x => GetBlogPostViewModel(x)).ToList();
+            IEnumerable<BlogPostViewModel> vm = list?.Select(GetBlogPostViewModel).ToList();
 
-            return new BlogViewModel()
+            return new BlogViewModel
             {
                 BlogPosts = vm,
                 NextPageToken = posts?.NextPageToken
@@ -50,14 +50,14 @@ namespace Yogging.Services.Implementations
 
         public BlogViewModel GetAllBlogPosts(string nextPageToken)
         {
-            string url = $"https://www.googleapis.com/blogger/v3/blogs/{blogId}/posts?pageToken={nextPageToken}&key={key}";
-            BlogPosts nextPagePosts = GetBlogPostsJson(url);
+            var url = $"https://www.googleapis.com/blogger/v3/blogs/{_blogId}/posts?pageToken={nextPageToken}&key={_key}";
+            var nextPagePosts = GetBlogPostsJson(url);
 
-            List<BlogPost> list = nextPagePosts?.Posts;
+            var list = nextPagePosts?.Posts;
 
-            IEnumerable<BlogPostViewModel> vm = list?.Select(x => GetBlogPostViewModel(x)).ToList();
+            IEnumerable<BlogPostViewModel> vm = list?.Select(GetBlogPostViewModel).ToList();
 
-            return new BlogViewModel()
+            return new BlogViewModel
             {
                 BlogPosts = vm,
                 NextPageToken = nextPagePosts?.NextPageToken
@@ -71,7 +71,7 @@ namespace Yogging.Services.Implementations
         /// <returns></returns>
         private BlogPostViewModel GetBlogPostViewModel(BlogPost post)
         {
-            string firstImg = GetFirstImageInHtml(post.PostContent);
+            var firstImg = GetFirstImageInHtml(post.PostContent);
 
             return new BlogPostViewModel
             {
@@ -92,7 +92,7 @@ namespace Yogging.Services.Implementations
         /// <returns></returns>
         private string GetNiceDate(string date)
         {
-            string stringDate = Convert.ToDateTime(date).ToString("dd/MM/yyyy");
+            var stringDate = Convert.ToDateTime(date).ToString("dd/MM/yyyy");
 
             return stringDate;
         }
@@ -104,19 +104,19 @@ namespace Yogging.Services.Implementations
         /// <returns></returns>
         private string GetFirstImageInHtml(string postContent)
         {
-            HtmlDocument htmlDocument = new HtmlDocument();
+            var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(postContent);
-            HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes("//img");
+            var nodes = htmlDocument.DocumentNode.SelectNodes("//img");
 
-            if (nodes != null)
+            if (nodes == null)
             {
-                HtmlNode image = nodes.FirstOrDefault();
-                HtmlAttribute src = image.Attributes["src"];
-
-                return src.Value;
+                return string.Empty;
             }
 
-            return string.Empty;
+            var image = nodes.FirstOrDefault();
+            var src = image?.Attributes["src"];
+
+            return src?.Value;
         }
     }
 }

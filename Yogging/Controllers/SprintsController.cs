@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
@@ -14,27 +13,28 @@ namespace Yogging.Controllers
     [Authorize]
     public class SprintsController : Controller
     {
-        private YoggingContext db = new YoggingContext();
-        private IStoryService StoryService { get; }
-        private ISprintService SprintService { get; }
+        private readonly ISprintService _sprintService;
+        private readonly YoggingContext _db;
 
-        public SprintsController(IStoryService storyService, ISprintService sprintService)
+        public SprintsController(
+            ISprintService sprintService, 
+            YoggingContext db)
         {
-            StoryService = storyService;
-            SprintService = sprintService;
+            _sprintService = sprintService;
+            _db = db;
         }
 
         // GET: Sprints
         public ActionResult Index()
         {
-            IEnumerable<SprintViewModel> sprints = SprintService.GetAllActiveSprints();
+            var sprints = _sprintService.GetAllActiveSprints();
 
             return View(sprints);
         }
 
         public ActionResult Finished()
         {
-            IEnumerable<SprintViewModel> sprints = SprintService.GetAllClosedSprints();
+            var sprints = _sprintService.GetAllClosedSprints();
 
             return View(sprints);
         }
@@ -46,13 +46,13 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sprint sprint = db.Sprints.Find(id);
+            var sprint = _db.Sprints.Find(id);
             if (sprint == null)
             {
                 return HttpNotFound();
             }
 
-            SprintViewModel viewModel = SprintService.GetSprint(sprint);
+            var viewModel = _sprintService.GetSprint(sprint);
 
             return View(viewModel);
         }
@@ -74,8 +74,8 @@ namespace Yogging.Controllers
             {
                 try
                 {
-                    db.Sprints.Add(sprint);
-                    db.SaveChanges();
+                    _db.Sprints.Add(sprint);
+                    _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -96,13 +96,13 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sprint sprint = db.Sprints.Find(id);
+            var sprint = _db.Sprints.Find(id);
             if (sprint == null)
             {
                 return HttpNotFound();
             }
 
-            SprintViewModel viewModel = SprintService.GetSprint(sprint);
+            var viewModel = _sprintService.GetSprint(sprint);
 
             return View(viewModel);
         }
@@ -114,14 +114,14 @@ namespace Yogging.Controllers
         [ValidateAntiForgeryToken]
          public ActionResult Edit(SprintViewModel viewModel)
         {
-            Sprint sprint = SprintService.PutSprint(viewModel);
+            var sprint = _sprintService.PutSprint(viewModel);
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    db.Entry(sprint).State = EntityState.Modified;
-                    db.SaveChanges();
+                    _db.Entry(sprint).State = EntityState.Modified;
+                    _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -141,7 +141,7 @@ namespace Yogging.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sprint sprint = db.Sprints.Find(id);
+            var sprint = _db.Sprints.Find(id);
             if (sprint == null)
             {
                 return HttpNotFound();
@@ -156,9 +156,12 @@ namespace Yogging.Controllers
         {
             try
             {
-                Sprint sprint = db.Sprints.Find(id);
-                db.Sprints.Remove(sprint);
-                db.SaveChanges();
+                var sprint = _db.Sprints.Find(id);
+                if (sprint != null)
+                {
+                    _db.Sprints.Remove(sprint);
+                    _db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -173,7 +176,7 @@ namespace Yogging.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

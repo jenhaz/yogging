@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Yogging.Models;
 using Yogging.Models.ViewModels;
 
 namespace Yogging.Services.Interfaces
@@ -9,8 +8,5 @@ namespace Yogging.Services.Interfaces
         IEnumerable<UserViewModel> GetAllUsers();
         IEnumerable<UserViewModel> GetAllActiveUsers();
         string UserIsInactive(bool isInactive);
-        IEnumerable<ProfileViewModel> GetAllProfiles();
-        ProfileViewModel GetProfile(Profile profile);
-        Profile PutProfile(ProfileViewModel vm);
     }
 }

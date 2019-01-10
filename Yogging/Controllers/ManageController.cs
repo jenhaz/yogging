@@ -4,7 +4,6 @@ using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Yogging.Models;
 using Yogging.Models.ViewModels;
 
 namespace Yogging.Controllers
@@ -27,26 +26,14 @@ namespace Yogging.Controllers
 
         public ApplicationSignInManager SignInManager
         {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
+            get => _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            private set => _signInManager = value;
         }
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get => _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            private set => _userManager = value;
         }
 
         //
@@ -59,8 +46,8 @@ namespace Yogging.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
 
-            string userId = User.Identity.GetUserId();
-            IndexViewModel model = new IndexViewModel
+            var userId = User.Identity.GetUserId();
+            var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
@@ -85,10 +72,10 @@ namespace Yogging.Controllers
             {
                 return View(model);
             }
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -114,10 +101,10 @@ namespace Yogging.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
                 if (result.Succeeded)
                 {
-                    ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                     if (user != null)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -143,20 +130,12 @@ namespace Yogging.Controllers
         }
 
 #region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         private void AddErrors(IdentityResult result)
         {
-            foreach (string error in result.Errors)
+            foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error);
             }
@@ -164,32 +143,14 @@ namespace Yogging.Controllers
 
         private bool HasPassword()
         {
-            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
-            return false;
-        }
-
-        private bool HasPhoneNumber()
-        {
-            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PhoneNumber != null;
-            }
-            return false;
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            return user?.PasswordHash != null;
         }
 
         public enum ManageMessageId
         {
-            AddPhoneSuccess,
             ChangePasswordSuccess,
-            SetTwoFactorSuccess,
             SetPasswordSuccess,
-            RemoveLoginSuccess,
-            RemovePhoneSuccess,
             Error
         }
 
