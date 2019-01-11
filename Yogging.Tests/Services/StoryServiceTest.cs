@@ -1,73 +1,69 @@
 ﻿using AutoFixture;
 using NSubstitute;
 using NUnit.Framework;
+using Yogging.DAL.Repository;
 using Yogging.Models;
-using Yogging.Services.Interfaces;
+using Yogging.Services.Implementations;
 
 namespace Yogging.Tests.Services
 {
     [TestFixture]
     public class StoryServiceTest
     {
-        private IStoryService _storyService;
         private Fixture _fixture;
+        private IStoryRepository _storyRepository;
 
         [SetUp]
         public void SetUp()
         {
-            _storyService = Substitute.For<IStoryService>();
             _fixture = new Fixture();
+            _storyRepository = Substitute.For<IStoryRepository>();
         }
 
-        // TODO: fix tests
+        [Test]
+        public void MissingTag_ReturnsNull()
+        {
+            var story = _fixture.Build<Story>()
+                .With(x => x.Sprint, new Sprint())
+                .With(x => x.User, new User())
+                .With(x => x.Tag, null)
+                .Create();
 
-        //[Test]
-        //public void MissingTag_ReturnsNull()
-        //{
-        //    var story = _fixture.Build<Story>()
-        //        .With(x => x.Sprint, new Sprint())
-        //        .With(x => x.User, new User())
-        //        .With(x => x.Tag, null)
-        //        .Create();
-            
-        //    var result = _storyService.GetStory(story);
+            var result = new StoryService(_storyRepository).GetStory(story);
 
-        //    Assert.AreEqual(result.TagColour, "#ffffff");
-        //    Assert.AreEqual(result.TagName, string.Empty);
-        //    Assert.AreEqual(result.TagId, null);
-        //}
+            Assert.AreEqual("#ffffff", result.TagColour);
+            Assert.AreEqual(string.Empty, result.TagName);
+            Assert.AreEqual(null, result.TagId);
+        }
 
-        //[Test]
-        //public void MissingUser_ReturnsNull()
-        //{
-        //    var story = _fixture.Build<Story>()
-        //        .With(x => x.Sprint, new Sprint())
-        //        .With(x => x.User, null)
-        //        .With(x => x.Tag, new Tag())
-        //        .Create();
+        [Test]
+        public void MissingUser_ReturnsNull()
+        {
+            var story = _fixture.Build<Story>()
+                .With(x => x.Sprint, new Sprint())
+                .With(x => x.User, null)
+                .With(x => x.Tag, new Tag())
+                .Create();
 
-        //    var result = _storyService.GetStory(story);
+            var result = new StoryService(_storyRepository).GetStory(story);
 
-        //    Assert.AreEqual(result.UserId, null);
-        //    Assert.AreEqual(result.UserName, string.Empty);
-        //}
+            Assert.AreEqual(null, result.UserId);
+            Assert.AreEqual(string.Empty, result.UserName);
+        }
 
-        //[Test]
-        //public void MissingSprint_ReturnsNull()
-        //{
-        //    var user = _fixture.Create<User>();
-        //    var tag = _fixture.Create<Tag>();
+        [Test]
+        public void MissingSprint_ReturnsNull()
+        {
+            var story = _fixture.Build<Story>()
+                .With(x => x.Sprint, null)
+                .With(x => x.User, new User())
+                .With(x => x.Tag, new Tag())
+                .Create();
 
-        //    var story = _fixture.Build<Story>()
-        //        .With(x => x.Sprint, null)
-        //        .With(x => x.User, user)
-        //        .With(x => x.Tag, tag)
-        //        .Create();
+            var result = new StoryService(_storyRepository).GetStory(story);
 
-        //    var result = _storyService.GetStory(story);
-
-        //    Assert.AreEqual(result.SprintId, null);
-        //    Assert.AreEqual(result.SprintName, string.Empty);
-        //}
+            Assert.AreEqual(null, result.SprintId);
+            Assert.AreEqual(string.Empty, result.SprintName);
+        }
     }
 }

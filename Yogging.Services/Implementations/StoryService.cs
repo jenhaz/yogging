@@ -116,8 +116,8 @@ namespace Yogging.Services.Implementations
                 x.Sprint?.Id,
                 !string.IsNullOrEmpty(x.Sprint?.Name) ? x.Sprint?.Name : string.Empty,
                 x.Tag?.Id,
-                !string.IsNullOrEmpty(x.Tag?.Name) ? x.Tag?.Name : string.Empty,
-                !string.IsNullOrEmpty(x.Tag?.Colour) ? x.Tag?.Colour : "#ffffff"
+                !string.IsNullOrEmpty(x.Tag?.Colour) ? x.Tag?.Colour : "#ffffff",
+                !string.IsNullOrEmpty(x.Tag?.Name) ? x.Tag?.Name : string.Empty
             );
         }
 
