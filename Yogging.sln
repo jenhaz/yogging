@@ -5,13 +5,17 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yogging.Web", "Yogging\Yogging.Web.csproj", "{3D007FF7-00DF-4AB2-8F85-9CE42B1BDE54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yogging.Tests", "Yogging.Tests\Yogging.Tests.csproj", "{D8A4E9FE-B81E-4235-A4FF-B11886E75212}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yogging.Tests.Unit", "Yogging.Tests\Yogging.Tests.Unit.csproj", "{D8A4E9FE-B81E-4235-A4FF-B11886E75212}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yogging.Models", "Yogging.Models\Yogging.Models.csproj", "{23BE9A8B-B728-4CFF-89C5-D03947855364}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yogging.DAL", "Yogging.DAL\Yogging.DAL.csproj", "{29AE9F33-EF9F-4DDA-8272-EFE753FE7950}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yogging.Services", "Yogging.Services\Yogging.Services.csproj", "{477CCBC2-6CD7-4ED4-9681-BCD69C5C5BEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yogging.Domain", "Yogging.Domain\Yogging.Domain.csproj", "{DF4F9E6F-E161-408B-84FC-F4DDD44CAB5F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9B25F5AB-E579-4817-9044-E82BDC613C67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +43,16 @@ Global
 		{477CCBC2-6CD7-4ED4-9681-BCD69C5C5BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{477CCBC2-6CD7-4ED4-9681-BCD69C5C5BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{477CCBC2-6CD7-4ED4-9681-BCD69C5C5BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF4F9E6F-E161-408B-84FC-F4DDD44CAB5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF4F9E6F-E161-408B-84FC-F4DDD44CAB5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF4F9E6F-E161-408B-84FC-F4DDD44CAB5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF4F9E6F-E161-408B-84FC-F4DDD44CAB5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D8A4E9FE-B81E-4235-A4FF-B11886E75212} = {9B25F5AB-E579-4817-9044-E82BDC613C67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C1C57E0-F484-4E28-B54F-997CABF4E899}

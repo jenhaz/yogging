@@ -113,6 +113,7 @@
     <Compile Include="Services\ProfileServiceTests.cs" />
     <Compile Include="Services\SprintServiceTests.cs" />
     <Compile Include="Services\StoryServiceTests.cs" />
+    <Compile Include="Services\TagServiceTests.cs" />
     <Compile Include="Services\UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +126,10 @@
     <ProjectReference Include="..\Yogging.DAL\Yogging.DAL.csproj">
       <Project>{29AE9F33-EF9F-4DDA-8272-EFE753FE7950}</Project>
       <Name>Yogging.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Yogging.Domain\Yogging.Domain.csproj">
+      <Project>{df4f9e6f-e161-408b-84fc-f4ddd44cab5f}</Project>
+      <Name>Yogging.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Yogging.Models\Yogging.Models.csproj">
       <Project>{23be9a8b-b728-4cff-89c5-d03947855364}</Project>

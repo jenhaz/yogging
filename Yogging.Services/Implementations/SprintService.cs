@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Yogging.DAL.Repository;
+using Yogging.Domain.Sprints;
 using Yogging.Models;
 using Yogging.Models.Enums;
 using Yogging.Models.ViewModels;

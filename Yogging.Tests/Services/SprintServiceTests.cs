@@ -4,7 +4,7 @@ using System.Linq;
 using AutoFixture;
 using NSubstitute;
 using NUnit.Framework;
-using Yogging.DAL.Repository;
+using Yogging.Domain.Sprints;
 using Yogging.Models;
 using Yogging.Models.Enums;
 using Yogging.Services.Implementations;

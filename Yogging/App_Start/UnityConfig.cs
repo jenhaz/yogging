@@ -4,6 +4,12 @@ using Unity.Injection;
 using Unity.Mvc5;
 using Yogging.Controllers;
 using Yogging.DAL.Repository;
+using Yogging.DAL.Users;
+using Yogging.Domain.Profiles;
+using Yogging.Domain.Sprints;
+using Yogging.Domain.Stories;
+using Yogging.Domain.Tags;
+using Yogging.Domain.Users;
 using Yogging.Services.Implementations;
 using Yogging.Services.Interfaces;
 

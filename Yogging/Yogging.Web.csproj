@@ -359,6 +359,10 @@
       <Project>{29ae9f33-ef9f-4dda-8272-efe753fe7950}</Project>
       <Name>Yogging.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Yogging.Domain\Yogging.Domain.csproj">
+      <Project>{df4f9e6f-e161-408b-84fc-f4ddd44cab5f}</Project>
+      <Name>Yogging.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Yogging.Models\Yogging.Models.csproj">
       <Project>{23be9a8b-b728-4cff-89c5-d03947855364}</Project>
       <Name>Yogging.Models</Name>

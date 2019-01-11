@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Yogging.Models;
 
-namespace Yogging.DAL.Repository
+namespace Yogging.Domain.Profiles
 {
     public interface IProfileRepository
     {

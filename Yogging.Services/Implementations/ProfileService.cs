@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Yogging.DAL.Repository;
+using Yogging.Domain.Profiles;
 using Yogging.Models;
 using Yogging.Models.ViewModels;
 using Yogging.Services.Interfaces;

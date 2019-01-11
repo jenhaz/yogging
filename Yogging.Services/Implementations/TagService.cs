@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Yogging.DAL.Repository;
+using Yogging.Domain.Tags;
 using Yogging.Models;
 using Yogging.Models.ViewModels;
 using Yogging.Services.Interfaces;
@@ -27,7 +28,7 @@ namespace Yogging.Services.Implementations
             return tags;
         }
 
-        public TagViewModel GetTagById(int? id)
+        public TagViewModel GetTagById(Guid? id)
         {
             var tag = _repository
                 .GetTags()

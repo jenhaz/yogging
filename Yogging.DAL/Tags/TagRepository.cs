@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Yogging.DAL.Context;
+using Yogging.Domain.Tags;
 using Yogging.Models;
 
 namespace Yogging.DAL.Repository

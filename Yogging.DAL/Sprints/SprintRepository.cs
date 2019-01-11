@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Yogging.DAL.Context;
+using Yogging.Domain.Sprints;
 using Yogging.Models;
 
 namespace Yogging.DAL.Repository
 {
-    public class ProfileRepository : IProfileRepository
+    public class SprintRepository : ISprintRepository
     {
         private readonly YoggingContext _db;
 
-        public ProfileRepository(YoggingContext db)
+        public SprintRepository(YoggingContext db)
         {
             _db = db;
         }
 
-        public IEnumerable<Profile> GetProfiles()
+        public IEnumerable<Sprint> GetSprints()
         {
-            var query = _db.Profiles.OrderBy(x => x.Id);
+            var query = _db.Sprints.OrderByDescending(x => x.Id);
 
             return query.ToList();
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using AutoFixture;
 using NSubstitute;
 using NUnit.Framework;
-using Yogging.DAL.Repository;
+using Yogging.Domain.Profiles;
 using Yogging.Models;
 using ProfileService = Yogging.Services.Implementations.ProfileService;
 

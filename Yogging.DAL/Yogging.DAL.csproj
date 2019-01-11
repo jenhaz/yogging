@@ -72,22 +72,21 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IProfileRepository.cs" />
-    <Compile Include="Repository\ISprintRepository.cs" />
-    <Compile Include="Repository\IStoryRepository.cs" />
-    <Compile Include="Repository\ITagRepository.cs" />
-    <Compile Include="Repository\IUserRepository.cs" />
-    <Compile Include="Repository\ProfileRepository.cs" />
-    <Compile Include="Repository\SprintRepository.cs" />
-    <Compile Include="Repository\StoryRepository.cs" />
-    <Compile Include="Repository\TagRepository.cs" />
-    <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Profiles\ProfileRepository.cs" />
+    <Compile Include="Sprints\SprintRepository.cs" />
+    <Compile Include="Stories\StoryRepository.cs" />
+    <Compile Include="Tags\TagRepository.cs" />
+    <Compile Include="Users\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Yogging.Domain\Yogging.Domain.csproj">
+      <Project>{df4f9e6f-e161-408b-84fc-f4ddd44cab5f}</Project>
+      <Name>Yogging.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Yogging.Models\Yogging.Models.csproj">
       <Project>{23BE9A8B-B728-4CFF-89C5-D03947855364}</Project>
       <Name>Yogging.Models</Name>
