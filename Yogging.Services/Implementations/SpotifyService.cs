@@ -14,10 +14,6 @@ namespace Yogging.Services.Implementations
 {
     public class SpotifyService : ISpotifyService
     {
-        /// <summary>
-        /// Converts the list of playlists retrieved from API to a list of view models & does the same for the tracks within each playlist
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<SpotifyPlaylistViewModel> GetAllPlaylists()
         {
             var playlists = GetSpotifyPlaylists();
@@ -34,10 +30,6 @@ namespace Yogging.Services.Implementations
             return vmList;
         }
 
-        /// <summary>
-        /// Gets playlists from Spotify API using access token and account ID
-        /// </summary>
-        /// <returns></returns>
         private SpotifyPlaylists GetSpotifyPlaylists()
         {
             var accountId = WebConfigurationManager.AppSettings["SpotifyAccountId"].ToString();
@@ -50,12 +42,6 @@ namespace Yogging.Services.Implementations
             return playlists;
         }
 
-        /// <summary>
-        /// Makes the API call to get all playlists
-        /// </summary>
-        /// <param name="token">The access token created</param>
-        /// <param name="url">The API call url including the account ID parameter</param>
-        /// <returns></returns>
         private SpotifyPlaylists GetSpotifyPlaylistsJson(string token, string url)
         {
             var playlists = new SpotifyPlaylists();
@@ -84,11 +70,6 @@ namespace Yogging.Services.Implementations
             return playlists;
         }
 
-        /// <summary>
-        /// Get the tracks for each playlist
-        /// </summary>
-        /// <param name="playlistId">ID for the particular Spotify playlist</param>
-        /// <returns></returns>
         private SpotifyPlaylistTracks GetAllPlaylistTracks(string playlistId)
         {
             var tracks = GetSpotifyPlaylistTracks(playlistId);
@@ -96,11 +77,6 @@ namespace Yogging.Services.Implementations
             return tracks;
         }
 
-        /// <summary>
-        /// Gets all tracks for the particular playlist
-        /// </summary>
-        /// <param name="playlistId">ID for the particular Spotify playlist</param>
-        /// <returns></returns>
         private SpotifyPlaylistTracks GetSpotifyPlaylistTracks(string playlistId)
         {
             var accountId = WebConfigurationManager.AppSettings["SpotifyAccountId"];
@@ -113,12 +89,6 @@ namespace Yogging.Services.Implementations
             return tracks;
         }
 
-        /// <summary>
-        /// Makes the API call to get all of the playlist's tracks
-        /// </summary>
-        /// <param name="token">The access token created</param>
-        /// <param name="url">The API url including the account and playlist IDs</param>
-        /// <returns></returns>
         private SpotifyPlaylistTracks GetSpotifyPlaylistTracksJson(string token, string url)
         {
             var tracks = new SpotifyPlaylistTracks();
@@ -146,10 +116,6 @@ namespace Yogging.Services.Implementations
             return tracks;
         }
 
-        /// <summary>
-        /// Creates an access token for API calls
-        /// </summary>
-        /// <returns></returns>
         private SpotifyToken GetAccessToken()
         {
             var token = new SpotifyToken();
@@ -187,11 +153,6 @@ namespace Yogging.Services.Implementations
             return token;
         }
 
-        /// <summary>
-        /// Converts info retrieved from API call to viewmodel
-        /// </summary>
-        /// <param name="playlist">Playlist info retrieved from API</param>
-        /// <returns></returns>
         private SpotifyPlaylistViewModel GetPlaylistVm(SpotifyPlaylist playlist)
         {
             return new SpotifyPlaylistViewModel()
@@ -205,11 +166,6 @@ namespace Yogging.Services.Implementations
             };
         }
 
-        /// <summary>
-        /// Converts info retrieved from API call to viewmodel
-        /// </summary>
-        /// <param name="track">Track info retrieved from API</param>
-        /// <returns></returns>
         private SpotifyTrackViewModel GetTrackVm(SpotifyTrack track)
         {
             return new SpotifyTrackViewModel()

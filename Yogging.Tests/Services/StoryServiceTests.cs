@@ -28,22 +28,14 @@ namespace Yogging.Tests.Services
         public void GetAllStories_ReturnsAllStories()
         {
             // given
-            var storyId = _fixture.Create<int>();
+            var storyId = _fixture.Create<Guid>();
+            var story = _fixture
+                .Build<Story>()
+                .With(x => x.Id, storyId)
+                .Create();
             var stories = new List<Story>
             {
-                new Story
-                {
-                    AcceptanceCriteria = _fixture.Create<string>(),
-                    CreatedDate = _fixture.Create<string>(),
-                    Description = _fixture.Create<string>(),
-                    Id = storyId,
-                    LastUpdated = _fixture.Create<string>(),
-                    Name = _fixture.Create<string>(),
-                    Points = _fixture.Create<int>(),
-                    Priority = _fixture.Create<Priority>(),
-                    SprintId = null,
-                    Status = _fixture.Create<StoryStatus>()
-                }
+                story
             };
             _storyRepository.GetStories().Returns(stories);
 
@@ -62,7 +54,6 @@ namespace Yogging.Tests.Services
             Assert.That(actual.Name, Is.EqualTo(stories.First().Name));
             Assert.That(actual.Points, Is.EqualTo(stories.First().Points));
             Assert.That(actual.Priority, Is.EqualTo(stories.First().Priority));
-            Assert.That(actual.SprintId, Is.Null);
             Assert.That(actual.Status, Is.EqualTo(stories.First().Status));
         }
 
@@ -70,37 +61,19 @@ namespace Yogging.Tests.Services
         public void GetAllStoriesBySprint_ReturnsAllStoriesBySprint()
         {
             // given
-            var sprintId = _fixture.Create<int>();
-            var storyInSprintId = _fixture.Create<int>();
-            var storyNotInSprintId = _fixture.Create<int>();
-
-            var storyInSprint = new Story
-            {
-                AcceptanceCriteria = _fixture.Create<string>(),
-                CreatedDate = _fixture.Create<string>(),
-                Description = _fixture.Create<string>(),
-                Id = storyInSprintId,
-                LastUpdated = _fixture.Create<string>(),
-                Name = _fixture.Create<string>(),
-                Points = _fixture.Create<int>(),
-                Priority = _fixture.Create<Priority>(),
-                SprintId = sprintId,
-                Status = _fixture.Create<StoryStatus>()
-            };
-            var storyNotInSprint = new Story
-            {
-                AcceptanceCriteria = _fixture.Create<string>(),
-                CreatedDate = _fixture.Create<string>(),
-                Description = _fixture.Create<string>(),
-                Id = storyNotInSprintId,
-                LastUpdated = _fixture.Create<string>(),
-                Name = _fixture.Create<string>(),
-                Points = _fixture.Create<int>(),
-                Priority = _fixture.Create<Priority>(),
-                SprintId = null,
-                Status = _fixture.Create<StoryStatus>()
-            };
-
+            var sprintId = _fixture.Create<Guid>();
+            var storyInSprintId = _fixture.Create<Guid>();
+            var storyInSprint = _fixture
+                .Build<Story>()
+                .With(x => x.Id, storyInSprintId)
+                .With(x => x.SprintId, sprintId)
+                .Create();
+            var storyNotInSprintId = _fixture.Create<Guid>();
+            var storyNotInSprint = _fixture
+                .Build<Story>()
+                .With(x => x.Id, storyNotInSprintId)
+                .Create();
+            
             var stories = new List<Story>
             {
                 storyInSprint,
@@ -133,36 +106,16 @@ namespace Yogging.Tests.Services
         public void GetAllStoriesByTag_ReturnsAllStoriesByTag()
         {
             // given
-            var tagId = _fixture.Create<int>();
-            var storyWithTagId = _fixture.Create<int>();
-            var storyWithoutTagId = _fixture.Create<int>();
-
-            var storyWithTag = new Story
-            {
-                AcceptanceCriteria = _fixture.Create<string>(),
-                CreatedDate = _fixture.Create<string>(),
-                Description = _fixture.Create<string>(),
-                Id = storyWithTagId,
-                LastUpdated = _fixture.Create<string>(),
-                Name = _fixture.Create<string>(),
-                Points = _fixture.Create<int>(),
-                Priority = _fixture.Create<Priority>(),
-                TagId = tagId,
-                Status = _fixture.Create<StoryStatus>()
-            };
-            var storyWithoutTag = new Story
-            {
-                AcceptanceCriteria = _fixture.Create<string>(),
-                CreatedDate = _fixture.Create<string>(),
-                Description = _fixture.Create<string>(),
-                Id = storyWithoutTagId,
-                LastUpdated = _fixture.Create<string>(),
-                Name = _fixture.Create<string>(),
-                Points = _fixture.Create<int>(),
-                Priority = _fixture.Create<Priority>(),
-                TagId = null,
-                Status = _fixture.Create<StoryStatus>()
-            };
+            var tagId = _fixture.Create<Guid>();
+            var storyWithTagId = _fixture.Create<Guid>();
+            var storyWithTag = _fixture.Build<Story>()
+                .With(x => x.TagId, tagId)
+                .With(x => x.Id, storyWithTagId)
+                .Create();
+            var storyWithoutTagId = _fixture.Create<Guid>();
+            var storyWithoutTag = _fixture.Build<Story>()
+                .With(x => x.Id, storyWithoutTagId)
+                .Create();
 
             var stories = new List<Story>
             {
@@ -203,7 +156,7 @@ namespace Yogging.Tests.Services
             StoryStatus otherStatus)
         {
             // given
-            var storyWithStatusId = _fixture.Create<int>();
+            var storyWithStatusId = _fixture.Create<Guid>();
 
             var storyWithStatus = _fixture
                 .Build<Story>()

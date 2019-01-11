@@ -1,8 +1,10 @@
-﻿namespace Yogging.Models
+﻿using System;
+
+namespace Yogging.Models
 {
     public class Profile
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string FullName { get; set; }
 

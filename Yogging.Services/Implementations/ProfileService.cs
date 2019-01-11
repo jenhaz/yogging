@@ -16,10 +16,6 @@ namespace Yogging.Services.Implementations
             _repository = repository;
         }
 
-        /// <summary>
-        /// Get all Profiles from the Repository and convert to viewmodel
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<ProfileViewModel> GetAllProfiles()
         {
             var profiles = _repository
@@ -29,11 +25,6 @@ namespace Yogging.Services.Implementations
             return profiles;
         }
 
-        /// <summary>
-        /// Convert profile to viewmodel
-        /// </summary>
-        /// <param name="profile">Profile from db</param>
-        /// <returns></returns>
         public ProfileViewModel GetProfile(Profile profile)
         {
             return new ProfileViewModel
@@ -65,11 +56,6 @@ namespace Yogging.Services.Implementations
             };
         }
 
-        /// <summary>
-        /// Convert viewmodel to profile model
-        /// </summary>
-        /// <param name="vm">Profile viewmodel</param>
-        /// <returns></returns>
         public Profile PutProfile(ProfileViewModel vm)
         {
             return new Profile

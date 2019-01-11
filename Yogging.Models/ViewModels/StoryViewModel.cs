@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Yogging.Models.Enums;
 
 namespace Yogging.Models.ViewModels
@@ -6,21 +7,21 @@ namespace Yogging.Models.ViewModels
     public class StoryViewModel
     {
         public StoryViewModel(
-            int id,
+            Guid id,
             string name,
-            string createdDate,
-            string lastUpdated,
+            DateTime createdDate,
+            DateTime lastUpdated,
             Priority priority,
             TaskType type,
             string description,
             string acceptanceCriteria,
             int points,
             StoryStatus status,
-            int? userId,
+            Guid? userId,
             string userName,
-            int? sprintId,
+            Guid? sprintId,
             string sprintName,
-            int? tagId,
+            Guid? tagId,
             string tagColour,
             string tagName)
         {
@@ -43,15 +44,15 @@ namespace Yogging.Models.ViewModels
             TagName = tagName;
         }
 
-        public int Id { get; }
+        public Guid Id { get; }
 
         public string Name { get; }
 
         [Display(Name = "Created Date")]
-        public string CreatedDate { get; }
+        public DateTime CreatedDate { get; }
 
         [Display(Name = "Last Updated Date")]
-        public string LastUpdated { get; }
+        public DateTime LastUpdated { get; }
 
         public Priority Priority { get; }
 
@@ -67,19 +68,19 @@ namespace Yogging.Models.ViewModels
         public StoryStatus Status { get; }
 
         [Display(Name = "User")]
-        public int? UserId { get; }
+        public Guid? UserId { get; }
 
         [Display(Name = "Assigned User")]
         public string UserName { get; }
 
         [Display(Name = "Sprint Id")]
-        public int? SprintId { get; }
+        public Guid? SprintId { get; }
 
         [Display(Name = "Sprint")]
         public string SprintName { get; }
 
         [Display(Name = "Tag Id")]
-        public int? TagId { get; }
+        public Guid? TagId { get; }
 
         public string TagColour { get; }
 

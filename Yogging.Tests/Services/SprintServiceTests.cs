@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using NSubstitute;
@@ -29,7 +30,7 @@ namespace Yogging.Tests.Services
         public void GetAllActiveSprints()
         {
             // given
-            var activeSprintId = _fixture.Create<int>();
+            var activeSprintId = _fixture.Create<Guid>();
             var activeSprint = _fixture
                 .Build<Sprint>()
                 .With(x => x.Id, activeSprintId)
@@ -65,7 +66,7 @@ namespace Yogging.Tests.Services
         public void GetAllClosedSprints()
         {
             // given
-            var closedSprintId = _fixture.Create<int>();
+            var closedSprintId = _fixture.Create<Guid>();
             var activeSprint = _fixture
                 .Build<Sprint>()
                 .With(x => x.Status, SprintStatus.Open)

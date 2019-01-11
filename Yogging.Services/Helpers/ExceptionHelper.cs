@@ -10,7 +10,7 @@ namespace Yogging.Services.Helpers
         public static void LogException(Exception exc, string source)
         {
             // Get the absolute path to the log file
-            var todaysDate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            var todaysDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd");
             var logFolder = WebConfigurationManager.AppSettings["ErrorLogFolder"];
             var logFile = logFolder + "ErrorLog_" + todaysDate + ".txt";
             logFile = HttpContext.Current.Server.MapPath(logFile);

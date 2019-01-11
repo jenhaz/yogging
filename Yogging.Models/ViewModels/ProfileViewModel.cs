@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Yogging.Models.ViewModels
 {
     public class ProfileViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "Full name")]
         public string FullName { get; set; }

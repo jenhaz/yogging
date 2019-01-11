@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Yogging.Models.ViewModels
 {
     public class UserViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "First Name")]
         public string FirstName { get; set; }

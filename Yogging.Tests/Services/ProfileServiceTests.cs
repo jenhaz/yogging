@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using NSubstitute;
@@ -25,7 +26,7 @@ namespace Yogging.Tests.Services
         public void GetAllProfiles_ReturnsProfiles()
         {
             // given
-            var profileId = _fixture.Create<int>();
+            var profileId = _fixture.Create<Guid>();
             var profile = _fixture.Build<Profile>().With(x => x.Id, profileId).Create();
             var profiles = new List<Profile>
             {

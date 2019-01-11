@@ -18,10 +18,6 @@ namespace Yogging.Services.Implementations
             _service = service;
         }
 
-        /// <summary>
-        /// Get all tags from Repository and convert to viewmodel
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<TagViewModel> GetAllTags()
         {
             var tags = _repository
@@ -31,11 +27,6 @@ namespace Yogging.Services.Implementations
             return tags;
         }
 
-        /// <summary>
-        /// Get Tag by its ID and convert to viewmodel
-        /// </summary>
-        /// <param name="id">ID of the particular tag</param>
-        /// <returns></returns>
         public TagViewModel GetTagById(int? id)
         {
             var tag = _repository
@@ -47,11 +38,6 @@ namespace Yogging.Services.Implementations
             return tag;
         }
 
-        /// <summary>
-        /// Convert tag to viewmodel
-        /// </summary>
-        /// <param name="tag">Tag from db</param>
-        /// <returns></returns>
         private TagViewModel GetTag(Tag tag)
         {
             return new TagViewModel

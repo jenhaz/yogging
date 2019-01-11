@@ -18,10 +18,6 @@ namespace Yogging.Services.Implementations
             _service = service;
         }
 
-        /// <summary>
-        /// Get all users from Repository and convert to viewmodel
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<UserViewModel> GetAllUsers()
         {
             var users = _repository
@@ -31,10 +27,6 @@ namespace Yogging.Services.Implementations
             return users;
         }
 
-        /// <summary>
-        /// Get all users that aren't inactive from the Repository and convert to viewmodel
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<UserViewModel> GetAllActiveUsers()
         {
             var users = _repository
@@ -45,11 +37,6 @@ namespace Yogging.Services.Implementations
             return users;
         }
 
-        /// <summary>
-        /// Change bool to a readable string
-        /// </summary>
-        /// <param name="isInactive">Bool for whether user is inactive or not</param>
-        /// <returns></returns>
         public string UserIsInactive (bool isInactive)
         {
             var words = isInactive ? "Inactive" : "Active";
@@ -57,11 +44,6 @@ namespace Yogging.Services.Implementations
             return words;
         }
 
-        /// <summary>
-        /// Convert user to viewmodel
-        /// </summary>
-        /// <param name="user">User from db</param>
-        /// <returns></returns>
         private UserViewModel GetUser(User user)
         {
             return new UserViewModel

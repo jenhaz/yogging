@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Yogging.DAL.Repository;
 using Yogging.Models;
@@ -17,10 +18,6 @@ namespace Yogging.Services.Implementations
             _repository = repository;
         }
 
-        /// <summary>
-        /// Get all stories from Repository and convert to viewmodel
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<StoryViewModel> GetAllStories()
         {
             var stories = _repository
@@ -30,12 +27,7 @@ namespace Yogging.Services.Implementations
             return stories;
         }
 
-        /// <summary>
-        /// Get all stories by sprint ID and convert to viewmodel
-        /// </summary>
-        /// <param name="sprintId">ID of the particular sprint</param>
-        /// <returns></returns>
-        public IEnumerable<StoryViewModel> GetStoriesBySprint(int sprintId)
+        public IEnumerable<StoryViewModel> GetStoriesBySprint(Guid sprintId)
         {
             var stories = _repository
                 .GetStories()
@@ -45,12 +37,7 @@ namespace Yogging.Services.Implementations
             return stories;
         }
 
-        /// <summary>
-        /// Get all stories by Tag and convert to viewmodel
-        /// </summary>
-        /// <param name="tagId">ID of the particular tag</param>
-        /// <returns></returns>
-        public IEnumerable<StoryViewModel> GetStoriesByTag(int tagId)
+        public IEnumerable<StoryViewModel> GetStoriesByTag(Guid tagId)
         {
             var stories = _repository
                 .GetStories()
@@ -60,12 +47,7 @@ namespace Yogging.Services.Implementations
             return stories;
         }
 
-        /// <summary>
-        /// Get all stories by the assigned user and convert to viewmodel
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        public IEnumerable<StoryViewModel> GetStoriesByAssignedUser(int userId)
+        public IEnumerable<StoryViewModel> GetStoriesByAssignedUser(Guid userId)
         {
             var stories = _repository
                 .GetStories()
@@ -75,11 +57,6 @@ namespace Yogging.Services.Implementations
             return stories;
         }
 
-        /// <summary>
-        /// Get all stories by their status and convert to viewmodel
-        /// </summary>
-        /// <param name="status"></param>
-        /// <returns></returns>
         public IEnumerable<StoryViewModel> GetStoriesByStatus(StoryStatus status)
         {
             var stories = _repository
@@ -90,19 +67,14 @@ namespace Yogging.Services.Implementations
             return stories;
         }
 
-        /// <summary>
-        /// Convert story to viewmodel
-        /// </summary>
-        /// <param name="x">Story stored in db</param>
-        /// <returns></returns>
         public StoryViewModel GetStory(Story x)
         {
             return new StoryViewModel
             (
                 x.Id,
                 !string.IsNullOrEmpty(x.Name) ? x.Name : "Sprint " + x.Id,
-                !string.IsNullOrEmpty(x.CreatedDate) ? x.CreatedDate : string.Empty,
-                !string.IsNullOrEmpty(x.LastUpdated) ? x.LastUpdated : string.Empty,
+                x.CreatedDate,
+                x.LastUpdated,
                 x.Priority,
                 x.Type,
                 !string.IsNullOrEmpty(x.Description) ? x.Description : string.Empty,
@@ -125,11 +97,6 @@ namespace Yogging.Services.Implementations
             );
         }
 
-        /// <summary>
-        /// Convert viewmodel to db model
-        /// </summary>
-        /// <param name="x">Story viewmodel</param>
-        /// <returns></returns>
         public Story PutStory(StoryViewModel x)
         {
             return new Story

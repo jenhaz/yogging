@@ -28,10 +28,6 @@ namespace Yogging.Services.Implementations
             }
         }
 
-        /// <summary>
-        /// Returns list of Blog Posts using the view model
-        /// </summary>
-        /// <returns></returns>
         public BlogViewModel GetAllBlogPosts()
         {
             var url = $"https://www.googleapis.com/blogger/v3/blogs/{_blogId}/posts?key={_key}";
@@ -64,11 +60,6 @@ namespace Yogging.Services.Implementations
             };
         }
 
-        /// <summary>
-        /// Converts model to view model
-        /// </summary>
-        /// <param name="post">The post retrieved from the API</param>
-        /// <returns></returns>
         private BlogPostViewModel GetBlogPostViewModel(BlogPost post)
         {
             var firstImg = GetFirstImageInHtml(post.PostContent);
@@ -85,11 +76,6 @@ namespace Yogging.Services.Implementations
             };
         }
 
-        /// <summary>
-        /// Converts the date retrieved from the API to something better looking
-        /// </summary>
-        /// <param name="date">The date retrieved from the API</param>
-        /// <returns></returns>
         private string GetNiceDate(string date)
         {
             var stringDate = Convert.ToDateTime(date).ToString("dd/MM/yyyy");
@@ -97,11 +83,6 @@ namespace Yogging.Services.Implementations
             return stringDate;
         }
 
-        /// <summary>
-        /// Gets the first image from the HTML retrieved from the API
-        /// </summary>
-        /// <param name="postContent">The string of HTML from the body of the blog post</param>
-        /// <returns></returns>
         private string GetFirstImageInHtml(string postContent)
         {
             var htmlDocument = new HtmlDocument();

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Yogging.DAL.Repository;
 using Yogging.Models;
@@ -21,10 +22,6 @@ namespace Yogging.Services.Implementations
             _service = service;
         }
 
-        /// <summary>
-        /// Get all Sprints from Repository that aren't closed and convert to list of viewmodels
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<SprintViewModel> GetAllActiveSprints()
         {
             var sprints = _repository
@@ -35,10 +32,6 @@ namespace Yogging.Services.Implementations
             return sprints;
         }
 
-        /// <summary>
-        /// Get all Sprints from Repository that are closed and convert to list of viewmodels
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<SprintViewModel> GetAllClosedSprints()
         {
             var sprints = _repository
@@ -49,11 +42,6 @@ namespace Yogging.Services.Implementations
             return sprints;
         }
 
-        /// <summary>
-        /// Convert Sprint to viewmodel
-        /// </summary>
-        /// <param name="sprint">Sprint retrieved from db</param>
-        /// <returns></returns>
         public SprintViewModel GetSprint(Sprint sprint)
         {
             return new SprintViewModel
@@ -71,11 +59,6 @@ namespace Yogging.Services.Implementations
             };
         }
 
-        /// <summary>
-        /// Convert viewmodel into model for the db
-        /// </summary>
-        /// <param name="sprint">The viewmodel</param>
-        /// <returns></returns>
         public Sprint PutSprint(SprintViewModel sprint)
         {
             return new Sprint
@@ -88,12 +71,7 @@ namespace Yogging.Services.Implementations
             };
         }
 
-        /// <summary>
-        /// Adds together points for each story in a sprint
-        /// </summary>
-        /// <param name="sprintId">ID for the particular sprint</param>
-        /// <returns></returns>
-        private int GetSprintPointTotal(int sprintId)
+        private int GetSprintPointTotal(Guid sprintId)
         {
             var stories = _service.GetStoriesBySprint(sprintId);
             var total = 0;
@@ -107,13 +85,7 @@ namespace Yogging.Services.Implementations
             return total;
         }
 
-        /// <summary>
-        /// Adds together points for each story in a sprint, based on story's status
-        /// </summary>
-        /// <param name="sprintId">ID for the particular sprint</param>
-        /// <param name="status">The status of the stories</param>
-        /// <returns></returns>
-        private int GetSprintPointTotal(int sprintId, StoryStatus status)
+        private int GetSprintPointTotal(Guid sprintId, StoryStatus status)
         {
             var stories = _service.GetStoriesByStatus(status)
                 .Where(x => x.SprintId.Equals(sprintId));

@@ -79,8 +79,8 @@ namespace Yogging.Controllers
             {
                 try
                 {
-                    story.CreatedDate = DateTime.Now.ToString();
-                    story.LastUpdated = DateTime.Now.ToString();
+                    story.CreatedDate = DateTime.UtcNow;
+                    story.LastUpdated = DateTime.UtcNow;
                     _db.Stories.Add(story);
                     _db.SaveChanges();
                     return RedirectToAction("Index");
@@ -134,7 +134,7 @@ namespace Yogging.Controllers
                 try
                 {
                     _db.Stories.Attach(story);
-                    story.LastUpdated = DateTime.Now.ToString();
+                    story.LastUpdated = DateTime.UtcNow;
                     _db.Entry(story).State = EntityState.Modified;
                     _db.Entry(story).Property("CreatedDate").IsModified = false;
                     var task = _db.SaveChangesAsync();

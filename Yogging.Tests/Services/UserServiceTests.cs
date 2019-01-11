@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using NSubstitute;
@@ -29,7 +30,7 @@ namespace Yogging.Tests.Services
         public void GetAllUsers_ReturnsUsers()
         {
             // given
-            var userId = _fixture.Create<int>();
+            var userId = _fixture.Create<Guid>();
             var users = new List<User>
             {
                 new User
@@ -60,8 +61,8 @@ namespace Yogging.Tests.Services
         public void GetAllActiveUsers_ReturnsActiveUsers()
         {
             // given
-            var activeUserId = _fixture.Create<int>();
-            var inactiveUserId = _fixture.Create<int>();
+            var activeUserId = _fixture.Create<Guid>();
+            var inactiveUserId = _fixture.Create<Guid>();
             var users = new List<User>
             {
                 new User
