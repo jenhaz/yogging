@@ -109,15 +109,19 @@ namespace Yogging.Services.Implementations
                 !string.IsNullOrEmpty(x.AcceptanceCriteria) ? x.AcceptanceCriteria : string.Empty,
                 x.Points,
                 x.Status,
-                x.User?.Id,
-                !string.IsNullOrEmpty(x.User?.FirstName) && !string.IsNullOrEmpty(x.User?.LastName)
-                    ? x.User?.FirstName + " " + x.User?.LastName
-                    : string.Empty,
-                x.Sprint?.Id,
-                !string.IsNullOrEmpty(x.Sprint?.Name) ? x.Sprint?.Name : string.Empty,
-                x.Tag?.Id,
-                !string.IsNullOrEmpty(x.Tag?.Colour) ? x.Tag?.Colour : "#ffffff",
-                !string.IsNullOrEmpty(x.Tag?.Name) ? x.Tag?.Name : string.Empty
+                x.UserId,
+                string.Empty,
+                //!string.IsNullOrEmpty(x.User?.FirstName) && !string.IsNullOrEmpty(x.User?.LastName)
+                //    ? x.User?.FirstName + " " + x.User?.LastName
+                //    : string.Empty,
+                x.SprintId,
+                string.Empty,
+                //!string.IsNullOrEmpty(x.Sprint?.Name) ? x.Sprint?.Name : string.Empty,
+                x.TagId,
+                "#ffffff",
+                //!string.IsNullOrEmpty(x.Tag?.Colour) ? x.Tag?.Colour : "#ffffff",
+                string.Empty
+                //!string.IsNullOrEmpty(x.Tag?.Name) ? x.Tag?.Name : string.Empty
             );
         }
 

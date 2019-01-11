@@ -44,14 +44,22 @@ namespace Yogging.Services.Implementations
                 Blurb = profile.Blurb,
                 LongerBlurb = profile.LongerBlurb,
                 InstagramUsername = profile.InstagramUsername,
-                InstagramUrl = !string.IsNullOrEmpty(profile.InstagramUsername) ? "https://www.instagram.com/" + profile.InstagramUsername : string.Empty,
+                InstagramUrl = !string.IsNullOrEmpty(profile.InstagramUsername) 
+                    ? "https://www.instagram.com/" + profile.InstagramUsername 
+                    : string.Empty,
                 LinkedInUsername = profile.LinkedInUsername,
-                LinkedInUrl = !string.IsNullOrEmpty(profile.LinkedInUsername) ? "https://www.linkedin.com/in/" + profile.LinkedInUsername : string.Empty,
+                LinkedInUrl = !string.IsNullOrEmpty(profile.LinkedInUsername) 
+                    ? "https://www.linkedin.com/in/" + profile.LinkedInUsername 
+                    : string.Empty,
                 TwitterUsername = profile.TwitterUsername,
-                TwitterUrl = !string.IsNullOrEmpty(profile.TwitterUsername) ? "https://www.twitter.com/" + profile.TwitterUsername : string.Empty,
+                TwitterUrl = !string.IsNullOrEmpty(profile.TwitterUsername) 
+                    ? "https://www.twitter.com/" + profile.TwitterUsername 
+                    : string.Empty,
                 BlogUrl = profile.BlogUrl,
                 GitHubUsername = profile.GitHubUsername,
-                GitHubUrl = !string.IsNullOrEmpty(profile.GitHubUsername) ? "https://www.github.com/" + profile.GitHubUsername : string.Empty,
+                GitHubUrl = !string.IsNullOrEmpty(profile.GitHubUsername) 
+                    ? "https://www.github.com/" + profile.GitHubUsername 
+                    : string.Empty,
                 CurrentJobTitle = profile.CurrentJobTitle,
                 ContactEmailAddress = profile.ContactEmailAddress
             };
