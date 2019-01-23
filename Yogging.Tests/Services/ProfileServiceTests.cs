@@ -32,10 +32,10 @@ namespace Yogging.Tests.Services
                 profile
             };
 
-            _profileRepository.GetProfiles().Returns(profiles);
+            _profileRepository.GetAll().Returns(profiles);
 
             // when
-            var result = new ProfileService(_profileRepository).GetAllProfiles().ToList();
+            var result = new ProfileService(_profileRepository).GetAll().ToList();
 
             // then
             Assert.That(result, Is.Not.Null);

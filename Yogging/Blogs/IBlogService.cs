@@ -4,7 +4,7 @@ namespace Yogging.Blogs
 {
     public interface IBlogService
     {
-        BlogViewModel GetAllBlogPosts();
-        BlogViewModel GetAllBlogPosts(string nextPageToken);
+        BlogViewModel GetAll();
+        BlogViewModel GetAll(string nextPageToken);
     }
 }

@@ -14,7 +14,7 @@ namespace Yogging.Controllers
 
         public ActionResult Index()
         {
-            var posts = _blogService.GetAllBlogPosts();
+            var posts = _blogService.GetAll();
 
             return View(posts);
         }
@@ -26,7 +26,7 @@ namespace Yogging.Controllers
                 return null;
             }
 
-            var morePosts = _blogService.GetAllBlogPosts(nextPageToken);
+            var morePosts = _blogService.GetAll(nextPageToken);
             return PartialView("_BlogPostsList", morePosts);
         }
     }

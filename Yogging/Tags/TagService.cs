@@ -12,40 +12,65 @@ namespace Yogging.Tags
         private readonly ITagRepository _repository;
         private readonly IStoryService _service;
 
-        public TagService(ITagRepository repository, IStoryService service)
+        public TagService(
+            ITagRepository repository, 
+            IStoryService service)
         {
             _repository = repository;
             _service = service;
         }
 
-        public IEnumerable<TagViewModel> GetAllTags()
+        public IEnumerable<TagViewModel> GetAll()
         {
             var tags = _repository
-                .GetTags()
-                .Select(GetTag);
+                .GetAll()
+                .Select(GetViewModel);
 
             return tags;
         }
 
-        public TagViewModel GetTagById(Guid? id)
+        public TagViewModel GetById(Guid id)
         {
-            var tag = _repository
-                .GetTags()
-                .Where(y => y.Id.Equals(id))
-                .Select(GetTag)
-                .FirstOrDefault();
+            var tag = _repository.GetById(id);
 
-            return tag;
+            return GetViewModel(tag);
         }
 
-        private TagViewModel GetTag(Tag tag)
+        public void Create(TagViewModel viewModel)
+        {
+            var tag = GetTag(viewModel);
+            _repository.Create(tag);
+        }
+
+        public void Update(TagViewModel viewModel)
+        {
+            var tag = GetTag(viewModel);
+            _repository.Update(tag);
+        }
+
+        public void Delete(TagViewModel viewModel)
+        {
+            var tag = GetTag(viewModel);
+            _repository.Delete(tag);
+        }
+
+        private static TagViewModel GetViewModel(Tag tag)
         {
             return new TagViewModel
             {
                 Id = tag.Id,
                 Name = tag.Name,
-                Stories = _service.GetStoriesByTag(tag.Id),
                 Colour = tag.Colour
+            };
+        }
+
+        private static Tag GetTag(TagViewModel viewModel)
+        {
+            return new Tag
+            {
+                Id = viewModel.Id,
+                Name = viewModel.Name,
+                Colour = viewModel.Colour
             };
         }
     }

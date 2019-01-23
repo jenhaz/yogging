@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Net;
 using System.Web.Mvc;
-using Yogging.DAL.Context;
-using Yogging.Domain.Users;
 using Yogging.Helpers;
 using Yogging.Users;
+using Yogging.ViewModels;
 
 namespace Yogging.Controllers
 {
@@ -13,36 +10,30 @@ namespace Yogging.Controllers
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
-        private readonly YoggingContext _db;
 
-        public UsersController(
-            IUserService userService, 
-            YoggingContext db)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
-            _db = db;
         }
 
         // GET: Users
         public ActionResult Index()
         {
-            var users = _userService.GetAllActiveUsers();
+            var users = _userService.GetActive();
 
             return View(users);
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var user = _db.Users.Find(id);
+            var user = _userService.GetById(id);
+
             if (user == null)
             {
                 return HttpNotFound();
             }
+
             return View(user);
         }
 
@@ -57,14 +48,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,EmailAddress,IsInactive")] User user)
+        public ActionResult Create(UserViewModel user)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _db.Users.Add(user);
-                    _db.SaveChanges();
+                    _userService.Create(user);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -79,17 +69,15 @@ namespace Yogging.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var user = _db.Users.Find(id);
+            var user = _userService.GetById(id);
+
             if (user == null)
             {
                 return HttpNotFound();
             }
+
             return View(user);
         }
 
@@ -98,14 +86,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,EmailAddress,IsInactive")] User user)
+        public ActionResult Edit(UserViewModel user)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _db.Entry(user).State = EntityState.Modified;
-                    _db.SaveChanges();
+                    _userService.Update(user);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -119,32 +106,29 @@ namespace Yogging.Controllers
         }
 
         // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var user = _db.Users.Find(id);
+            var user = _userService.GetById(id);
+
             if (user == null)
             {
                 return HttpNotFound();
             }
+
             return View(user);
         }
 
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
             try
             {
-                var user = _db.Users.Find(id);
+                var user = _userService.GetById(id);
                 if (user != null)
                 {
-                    _db.Users.Remove(user);
-                    _db.SaveChanges();
+                    _userService.Delete(user);
                 }
                 return RedirectToAction("Index");
             }
@@ -154,15 +138,6 @@ namespace Yogging.Controllers
                 ViewBag.ErrorMessage = "Error deleting user";
                 return View("~/Views/Shared/Error.cshtml");
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

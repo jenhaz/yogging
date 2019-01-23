@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Yogging.DAL.Profiles;
 using Yogging.Domain.Profiles;
 using Yogging.ViewModels;
 
@@ -14,16 +16,34 @@ namespace Yogging.Profiles
             _repository = repository;
         }
 
-        public IEnumerable<ProfileViewModel> GetAllProfiles()
+        public void Create(ProfileViewModel viewModel)
+        {
+            var profile = GetProfile(viewModel);
+            _repository.Create(profile);
+        }
+
+        public void Update(ProfileViewModel viewModel)
+        {
+            var profile = GetProfile(viewModel);
+            _repository.Update(profile);
+        }
+
+        public ProfileViewModel GetById(Guid id)
+        {
+            var profile = _repository.GetById(id);
+            return GetViewModel(profile);
+        }
+
+        public IEnumerable<ProfileViewModel> GetAll()
         {
             var profiles = _repository
-                .GetProfiles()
-                .Select(GetProfile);
+                .GetAll()
+                .Select(GetViewModel);
 
             return profiles;
         }
 
-        public ProfileViewModel GetProfile(Profile profile)
+        private ProfileViewModel GetViewModel(Profile profile)
         {
             return new ProfileViewModel
             {
@@ -54,7 +74,7 @@ namespace Yogging.Profiles
             };
         }
 
-        public Profile PutProfile(ProfileViewModel vm)
+        private Profile GetProfile(ProfileViewModel vm)
         {
             return new Profile
             {

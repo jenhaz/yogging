@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Net;
 using System.Web.Mvc;
-using Yogging.DAL.Context;
-using Yogging.Domain.Sprints;
 using Yogging.Helpers;
 using Yogging.Sprints;
 using Yogging.ViewModels;
@@ -14,47 +10,38 @@ namespace Yogging.Controllers
     public class SprintsController : Controller
     {
         private readonly ISprintService _sprintService;
-        private readonly YoggingContext _db;
 
-        public SprintsController(
-            ISprintService sprintService, 
-            YoggingContext db)
+        public SprintsController(ISprintService sprintService)
         {
             _sprintService = sprintService;
-            _db = db;
         }
 
         // GET: Sprints
         public ActionResult Index()
         {
-            var sprints = _sprintService.GetAllActiveSprints();
+            var sprints = _sprintService.GetActive();
 
             return View(sprints);
         }
 
         public ActionResult Finished()
         {
-            var sprints = _sprintService.GetAllClosedSprints();
+            var sprints = _sprintService.GetClosed();
 
             return View(sprints);
         }
 
         // GET: Sprints/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var sprint = _db.Sprints.Find(id);
+            var sprint = _sprintService.GetById(id);
+
             if (sprint == null)
             {
                 return HttpNotFound();
             }
 
-            var viewModel = _sprintService.GetSprint(sprint);
-
-            return View(viewModel);
+            return View(sprint);
         }
 
         // GET: Sprints/Create
@@ -68,14 +55,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,StartDate,EndDate,Status")] Sprint sprint)
+        public ActionResult Create(SprintViewModel sprint)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _db.Sprints.Add(sprint);
-                    _db.SaveChanges();
+                    _sprintService.Create(sprint);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -90,21 +76,15 @@ namespace Yogging.Controllers
         }
 
         // GET: Sprints/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var sprint = _db.Sprints.Find(id);
+            var sprint = _sprintService.GetById(id);
             if (sprint == null)
             {
                 return HttpNotFound();
             }
 
-            var viewModel = _sprintService.GetSprint(sprint);
-
-            return View(viewModel);
+            return View(sprint);
         }
 
         // POST: Sprints/Edit/5
@@ -112,16 +92,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-         public ActionResult Edit(SprintViewModel viewModel)
+        public ActionResult Edit(SprintViewModel viewModel)
         {
-            var sprint = _sprintService.PutSprint(viewModel);
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _db.Entry(sprint).State = EntityState.Modified;
-                    _db.SaveChanges();
+                    _sprintService.Update(viewModel);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -135,13 +112,9 @@ namespace Yogging.Controllers
         }
 
         // GET: Sprints/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var sprint = _db.Sprints.Find(id);
+            var sprint = _sprintService.GetById(id);
             if (sprint == null)
             {
                 return HttpNotFound();
@@ -152,15 +125,14 @@ namespace Yogging.Controllers
         // POST: Sprints/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
             try
             {
-                var sprint = _db.Sprints.Find(id);
+                var sprint = _sprintService.GetById(id);
                 if (sprint != null)
                 {
-                    _db.Sprints.Remove(sprint);
-                    _db.SaveChanges();
+                    _sprintService.Delete(sprint);
                 }
                 return RedirectToAction("Index");
             }
@@ -170,15 +142,6 @@ namespace Yogging.Controllers
                 ViewBag.ErrorMessage = "Error deleting sprint";
                 return View("~/Views/Shared/Error.cshtml");
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

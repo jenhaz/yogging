@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Yogging.Domain.Users;
 using Yogging.Stories;
 using Yogging.Users;
+using Yogging.ViewModels;
 
 namespace Yogging.Tests.Services
 {
@@ -42,10 +43,10 @@ namespace Yogging.Tests.Services
                     Stories = null
                 }
             };
-            _userRepository.GetUsers().Returns(users);
+            _userRepository.GetAll().Returns(users);
 
             // when
-            var result = new UserService(_userRepository, _storyService).GetAllUsers().ToList();
+            var result = new UserService(_userRepository, _storyService).GetAll().ToList();
 
             // then
             var actual = result.FirstOrDefault(x => x.Id == userId);
@@ -83,10 +84,10 @@ namespace Yogging.Tests.Services
                     Stories = null
                 }
             };
-            _userRepository.GetUsers().Returns(users);
+            _userRepository.GetAll().Returns(users);
 
             // when
-            var result = new UserService(_userRepository, _storyService).GetAllActiveUsers().ToList();
+            var result = new UserService(_userRepository, _storyService).GetActive().ToList();
 
             // then
             Assert.That(result.Count, Is.EqualTo(1));
@@ -103,26 +104,38 @@ namespace Yogging.Tests.Services
         public void InactiveUser_ReturnsInactive()
         {
             // given
-            const bool isInactive = true;
+            var userId = _fixture.Create<Guid>();
+            var user = _fixture.Build<User>()
+                .With(x => x.Id, userId)
+                .With(x => x.IsInactive, true)
+                .Create();
+
+            _userRepository.GetById(userId).Returns(user);
 
             // when
-            var result = new UserService(_userRepository, _storyService).UserIsInactive(isInactive);
+            var result = new UserService(_userRepository, _storyService).GetById(userId);
 
             // then
-            Assert.AreEqual("Inactive", result);
+            Assert.AreEqual("Inactive", result.IsInactive);
         }
 
         [Test]
         public void ActiveUser_ReturnsActive()
         {
             // given
-            const bool isInactive = false;
+            var userId = _fixture.Create<Guid>();
+            var user = _fixture.Build<User>()
+                .With(x => x.Id, userId)
+                .With(x => x.IsInactive, false)
+                .Create();
+
+            _userRepository.GetById(userId).Returns(user);
 
             // when
-            var result = new UserService(_userRepository, _storyService).UserIsInactive(isInactive);
+            var result = new UserService(_userRepository, _storyService).GetById(userId);
 
             // then
-            Assert.AreEqual("Active", result);
+            Assert.AreEqual("Active", result.IsInactive);
         }
     }
 }

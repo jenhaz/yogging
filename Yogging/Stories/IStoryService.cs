@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Yogging.Domain.Stories;
 using Yogging.ViewModels;
 
@@ -7,12 +8,14 @@ namespace Yogging.Stories
 {
     public interface IStoryService
     {
-        IEnumerable<StoryViewModel> GetAllStories();
-        IEnumerable<StoryViewModel> GetStoriesBySprint(Guid sprintId);
-        IEnumerable<StoryViewModel> GetStoriesByTag(Guid tagId);
-        IEnumerable<StoryViewModel> GetStoriesByAssignedUser(Guid userId);
-        IEnumerable<StoryViewModel> GetStoriesByStatus(StoryStatus status);
-        StoryViewModel GetStory(Story x);
-        Story PutStory(StoryViewModel x);
+        IEnumerable<StoryViewModel> GetAll();
+        StoryViewModel GetById(Guid id);
+        IEnumerable<StoryViewModel> GetBySprint(Guid sprintId);
+        IEnumerable<StoryViewModel> GetByTag(Guid tagId);
+        IEnumerable<StoryViewModel> GetByAssignedUser(Guid userId);
+        IEnumerable<StoryViewModel> GetByStatus(StoryStatus status);
+        void Create(StoryViewModel viewModel);
+        Task Update(StoryViewModel viewModel);
+        void Delete(StoryViewModel viewModel);
     }
 }

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Net;
 using System.Web.Mvc;
-using Yogging.DAL.Context;
-using Yogging.Domain.Tags;
 using Yogging.Helpers;
 using Yogging.Tags;
+using Yogging.ViewModels;
 
 namespace Yogging.Controllers
 {
@@ -13,36 +10,30 @@ namespace Yogging.Controllers
     public class TagsController : Controller
     {
         private readonly ITagService _tagService;
-        private readonly YoggingContext _db;
 
-        public TagsController(
-            ITagService tagService, 
-            YoggingContext db)
+        public TagsController(ITagService tagService)
         {
             _tagService = tagService;
-            _db = db;
         }
 
         // GET: Tags
         public ActionResult Index()
         {
-            var tags = _tagService.GetAllTags();
+            var tags = _tagService.GetAll();
 
             return View(tags);
         }
 
         // GET: Tags/Details/5
-        public ActionResult Details(Guid? id)
+        public ActionResult Details(Guid id)
         {
-            if (id == Guid.Empty || id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var tag = _tagService.GetTagById(id);
+            var tag = _tagService.GetById(id);
+
             if (tag == null)
             {
                 return HttpNotFound();
             }
+
             return View(tag);
         }
 
@@ -57,14 +48,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Colour")] Tag tag)
+        public ActionResult Create(TagViewModel tag)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _db.Tags.Add(tag);
-                    _db.SaveChanges();
+                    _tagService.Create(tag);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -79,17 +69,15 @@ namespace Yogging.Controllers
         }
 
         // GET: Tags/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var tag = _db.Tags.Find(id);
+            var tag = _tagService.GetById(id);
+
             if (tag == null)
             {
                 return HttpNotFound();
             }
+
             return View(tag);
         }
 
@@ -98,14 +86,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Colour")] Tag tag)
+        public ActionResult Edit(TagViewModel tag)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _db.Entry(tag).State = EntityState.Modified;
-                    _db.SaveChanges();
+                    _tagService.Update(tag);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -119,32 +106,29 @@ namespace Yogging.Controllers
         }
 
         // GET: Tags/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var tag = _db.Tags.Find(id);
+            var tag = _tagService.GetById(id);
+
             if (tag == null)
             {
                 return HttpNotFound();
             }
+
             return View(tag);
         }
 
         // POST: Tags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
             try
             {
-                var tag = _db.Tags.Find(id);
+                var tag = _tagService.GetById(id);
                 if (tag != null)
                 {
-                    _db.Tags.Remove(tag);
-                    _db.SaveChanges();
+                    _tagService.Delete(tag);
                 }
                 return RedirectToAction("Index");
             }
@@ -154,15 +138,6 @@ namespace Yogging.Controllers
                 ViewBag.ErrorMessage = "Error deleting tag";
                 return View("~/Views/Shared/Error.cshtml");
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

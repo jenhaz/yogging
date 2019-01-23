@@ -44,10 +44,10 @@ namespace Yogging.Tests.Services
                 closedSprint
             };
 
-            _sprintRepository.GetSprints().Returns(sprints);
+            _sprintRepository.GetAll().Returns(sprints);
 
             // when
-            var result = new SprintService(_sprintRepository, _storyService).GetAllActiveSprints().ToList();
+            var result = new SprintService(_sprintRepository, _storyService).GetActive().ToList();
 
             // then
             Assert.That(result.Count, Is.EqualTo(1));
@@ -80,10 +80,10 @@ namespace Yogging.Tests.Services
                 closedSprint
             };
 
-            _sprintRepository.GetSprints().Returns(sprints);
+            _sprintRepository.GetAll().Returns(sprints);
 
             // when
-            var result = new SprintService(_sprintRepository, _storyService).GetAllClosedSprints().ToList();
+            var result = new SprintService(_sprintRepository, _storyService).GetClosed().ToList();
 
             // then
             Assert.That(result.Count, Is.EqualTo(1));

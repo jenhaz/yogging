@@ -1,4 +1,4 @@
-﻿@model Yogging.Domain.Stories.Story
+﻿@model Yogging.ViewModels.StoryViewModel
 
 @{
     ViewBag.Title = "Delete story";
@@ -11,27 +11,27 @@
     <div>
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Sprint.Name)
+                @Html.DisplayNameFor(model => model.SprintName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Sprint.Name)
+                @Html.DisplayFor(model => model.SprintName)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Tag.Name)
+                @Html.DisplayNameFor(model => model.TagName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Tag.Name)
+                @Html.DisplayFor(model => model.TagName)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.User.FirstName)
+                @Html.DisplayNameFor(model => model.UserName)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.User.FirstName)
+                @Html.DisplayFor(model => model.UserName)
             </dd>
 
             <dt>

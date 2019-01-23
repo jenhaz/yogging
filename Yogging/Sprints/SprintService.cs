@@ -21,27 +21,56 @@ namespace Yogging.Sprints
             _service = service;
         }
 
-        public IEnumerable<SprintViewModel> GetAllActiveSprints()
+        public IEnumerable<SprintViewModel> GetAll()
+        {
+            return _repository.GetAll().Select(GetViewModel);
+        }
+
+        public IEnumerable<SprintViewModel> GetActive()
         {
             var sprints = _repository
-                .GetSprints()
+                .GetAll()
                 .Where(y => y.Status != SprintStatus.Closed)
-                .Select(GetSprint);
+                .Select(GetViewModel);
 
             return sprints;
         }
 
-        public IEnumerable<SprintViewModel> GetAllClosedSprints()
+        public IEnumerable<SprintViewModel> GetClosed()
         {
             var sprints = _repository
-                .GetSprints()
+                .GetAll()
                 .Where(y => y.Status == SprintStatus.Closed)
-                .Select(GetSprint);
+                .Select(GetViewModel);
 
             return sprints;
         }
 
-        public SprintViewModel GetSprint(Sprint sprint)
+        public SprintViewModel GetById(Guid id)
+        {
+            var sprint = _repository.GetById(id);
+            return GetViewModel(sprint);
+        }
+
+        public void Create(SprintViewModel viewModel)
+        {
+            var sprint = GetSprint(viewModel);
+            _repository.Create(sprint);
+        }
+
+        public void Update(SprintViewModel viewModel)
+        {
+            var sprint = GetSprint(viewModel);
+            _repository.Update(sprint);
+        }
+
+        public void Delete(SprintViewModel viewModel)
+        {
+            var sprint = GetSprint(viewModel);
+            _repository.Delete(sprint);
+        }
+
+        private SprintViewModel GetViewModel(Sprint sprint)
         {
             return new SprintViewModel
             {
@@ -49,7 +78,7 @@ namespace Yogging.Sprints
                 Name = sprint.Name,
                 StartDate = sprint.StartDate,
                 EndDate = sprint.EndDate,
-                Stories = _service.GetStoriesBySprint(sprint.Id),
+                Stories = _service.GetBySprint(sprint.Id),
                 Status = sprint.Status,
                 SprintPointTotal = GetSprintPointTotal(sprint.Id),
                 TotalPointsToDo = GetSprintPointTotal(sprint.Id, StoryStatus.ToDo),
@@ -58,7 +87,7 @@ namespace Yogging.Sprints
             };
         }
 
-        public Sprint PutSprint(SprintViewModel sprint)
+        private static Sprint GetSprint(SprintViewModel sprint)
         {
             return new Sprint
             {
@@ -72,7 +101,7 @@ namespace Yogging.Sprints
 
         private int GetSprintPointTotal(Guid sprintId)
         {
-            var stories = _service.GetStoriesBySprint(sprintId);
+            var stories = _service.GetBySprint(sprintId);
             var total = 0;
 
             foreach(var story in stories)
@@ -86,7 +115,7 @@ namespace Yogging.Sprints
 
         private int GetSprintPointTotal(Guid sprintId, StoryStatus status)
         {
-            var stories = _service.GetStoriesByStatus(status)
+            var stories = _service.GetByStatus(status)
                 .Where(x => x.SprintId.Equals(sprintId));
             var total = 0;
 

@@ -35,10 +35,10 @@ namespace Yogging.Tests.Services
             {
                 story
             };
-            _storyRepository.GetStories().Returns(stories);
+            _storyRepository.GetAll().Returns(stories);
 
             // when
-            var result = new StoryService(_storyRepository).GetAllStories().ToList();
+            var result = new StoryService(_storyRepository).GetAll().ToList();
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -78,10 +78,10 @@ namespace Yogging.Tests.Services
                 storyNotInSprint
             };
 
-            _storyRepository.GetStories().Returns(stories);
+            _storyRepository.GetAll().Returns(stories);
 
             // when
-            var result = new StoryService(_storyRepository).GetStoriesBySprint(sprintId).ToList();
+            var result = new StoryService(_storyRepository).GetBySprint(sprintId).ToList();
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -121,10 +121,10 @@ namespace Yogging.Tests.Services
                 storyWithoutTag
             };
 
-            _storyRepository.GetStories().Returns(stories);
+            _storyRepository.GetAll().Returns(stories);
 
             // when
-            var result = new StoryService(_storyRepository).GetStoriesByTag(tagId).ToList();
+            var result = new StoryService(_storyRepository).GetByTag(tagId).ToList();
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -172,10 +172,10 @@ namespace Yogging.Tests.Services
                 storyWithoutStatus
             };
 
-            _storyRepository.GetStories().Returns(stories);
+            _storyRepository.GetAll().Returns(stories);
 
             // when
-            var result = new StoryService(_storyRepository).GetStoriesByStatus(filterStatus).ToList();
+            var result = new StoryService(_storyRepository).GetByStatus(filterStatus).ToList();
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -196,12 +196,19 @@ namespace Yogging.Tests.Services
         [Test]
         public void MissingTag_ReturnsNull()
         {
+            // given
+            var storyId = _fixture.Create<Guid>();
             var story = _fixture.Build<Story>()
                 .With(x => x.TagId, null)
+                .With(x => x.Id, storyId)
                 .Create();
 
-            var result = new StoryService(_storyRepository).GetStory(story);
+            _storyRepository.GetById(storyId).Returns(story);
 
+            // when
+            var result = new StoryService(_storyRepository).GetById(storyId);
+
+            // then
             Assert.AreEqual("#ffffff", result.TagColour);
             Assert.AreEqual(string.Empty, result.TagName);
             Assert.AreEqual(null, result.TagId);
@@ -210,12 +217,19 @@ namespace Yogging.Tests.Services
         [Test]
         public void MissingUser_ReturnsNull()
         {
+            // given
+            var storyId = _fixture.Create<Guid>();
             var story = _fixture.Build<Story>()
                 .With(x => x.UserId, null)
+                .With(x => x.Id, storyId)
                 .Create();
 
-            var result = new StoryService(_storyRepository).GetStory(story);
+            _storyRepository.GetById(storyId).Returns(story);
 
+            // when
+            var result = new StoryService(_storyRepository).GetById(storyId);
+
+            // then
             Assert.AreEqual(null, result.UserId);
             Assert.AreEqual(string.Empty, result.UserName);
         }
@@ -223,12 +237,19 @@ namespace Yogging.Tests.Services
         [Test]
         public void MissingSprint_ReturnsNull()
         {
+            // given
+            var storyId = _fixture.Create<Guid>();
             var story = _fixture.Build<Story>()
                 .With(x => x.SprintId, null)
+                .With(x => x.Id, storyId)
                 .Create();
 
-            var result = new StoryService(_storyRepository).GetStory(story);
+            _storyRepository.GetById(storyId).Returns(story);
 
+            // when
+            var result = new StoryService(_storyRepository).GetById(storyId);
+
+            // then
             Assert.AreEqual(null, result.SprintId);
             Assert.AreEqual(string.Empty, result.SprintName);
         }

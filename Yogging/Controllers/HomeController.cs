@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Net;
 using System.Web.Mvc;
-using Yogging.DAL.Context;
-using Yogging.Domain.Profiles;
 using Yogging.Helpers;
 using Yogging.Profiles;
 using Yogging.Spotify;
@@ -15,16 +11,13 @@ namespace Yogging.Controllers
     {
         private readonly IProfileService _profileService;
         private readonly ISpotifyService _spotifyService;
-        private readonly YoggingContext _db;
 
         public HomeController(
             IProfileService profileService, 
-            ISpotifyService spotifyService, 
-            YoggingContext db)
+            ISpotifyService spotifyService)
         {
             _profileService = profileService;
             _spotifyService = spotifyService;
-            _db = db;
         }
 
         public ActionResult Index()
@@ -35,7 +28,7 @@ namespace Yogging.Controllers
 
         public ActionResult About()
         {
-            var profiles = _profileService.GetAllProfiles();
+            var profiles = _profileService.GetAll();
 
             return View(profiles);
         }
@@ -58,14 +51,13 @@ namespace Yogging.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProfile([Bind(Include = "Id,FullName,ImageUrl,Blurb,LongerBlurb,InstagramUsername,LinkedInUsername,TwitterUsername,BlogUrl,GitHubUsername,CurrentJobTitle,ContactEmailAddress")] Profile profile)
+        public ActionResult CreateProfile(ProfileViewModel profile)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _db.Profiles.Add(profile);
-                    _db.SaveChanges();
+                    _profileService.Create(profile);
                     return RedirectToAction("About");
                 }
                 catch (Exception e)
@@ -81,21 +73,16 @@ namespace Yogging.Controllers
 
         // GET: Home/EditProfile/5
         [Authorize]
-        public ActionResult EditProfile(int? id)
+        public ActionResult EditProfile(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var profile = _db.Profiles.Find(id);
+            var profile = _profileService.GetById(id);
+
             if (profile == null)
             {
                 return HttpNotFound();
             }
 
-            var viewModel = _profileService.GetProfile(profile);
-
-            return View(viewModel);
+            return View(profile);
         }
 
         // POST: Home/EditProfile/5
@@ -104,14 +91,11 @@ namespace Yogging.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditProfile(ProfileViewModel viewModel)
         {
-            var profile = _profileService.PutProfile(viewModel);
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _db.Entry(profile).State = EntityState.Modified;
-                    _db.SaveChanges();
+                    _profileService.Update(viewModel);
                     return RedirectToAction("About");
                 }
                 catch (Exception e)

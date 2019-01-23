@@ -29,18 +29,19 @@ namespace Yogging.Tests.Services
         {
             // given
             var tagId = Guid.NewGuid();
-            var tag = _fixture
-                .Build<Tag>()
+            var tag = _fixture.Build<Tag>()
                 .With(x => x.Id, tagId)
                 .Create();
+
             var tags = new List<Tag>
             {
                 tag
             };
-            _tagRepository.GetTags().Returns(tags);
+
+            _tagRepository.GetAll().Returns(tags);
 
             // when
-            var result = new TagService(_tagRepository, _storyService).GetAllTags().ToList();
+            var result = new TagService(_tagRepository, _storyService).GetAll().ToList();
 
             // then
             Assert.That(result.Count, Is.EqualTo(1));
@@ -56,18 +57,14 @@ namespace Yogging.Tests.Services
         {
             // given
             var tagId = Guid.NewGuid();
-            var tag = _fixture
-                .Build<Tag>()
+            var tag = _fixture.Build<Tag>()
                 .With(x => x.Id, tagId)
                 .Create();
-            var tags = new List<Tag>
-            {
-                tag
-            };
-            _tagRepository.GetTags().Returns(tags);
+
+            _tagRepository.GetById(tagId).Returns(tag);
 
             // when
-            var result = new TagService(_tagRepository, _storyService).GetTagById(tagId);
+            var result = new TagService(_tagRepository, _storyService).GetById(tagId);
 
             // then
             Assert.That(result, Is.Not.Null);

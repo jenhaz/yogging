@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Yogging.Domain.Stories;
 using Yogging.ViewModels;
 
@@ -15,56 +16,80 @@ namespace Yogging.Stories
             _repository = repository;
         }
 
-        public IEnumerable<StoryViewModel> GetAllStories()
+        public IEnumerable<StoryViewModel> GetAll()
         {
             var stories = _repository
-                .GetStories()
-                .Select(GetStory);
+                .GetAll()
+                .Select(GetViewModel);
 
             return stories;
         }
 
-        public IEnumerable<StoryViewModel> GetStoriesBySprint(Guid sprintId)
+        public StoryViewModel GetById(Guid id)
+        {
+            var story = _repository.GetById(id);
+            return GetViewModel(story);
+        }
+
+        public IEnumerable<StoryViewModel> GetBySprint(Guid sprintId)
         {
             var stories = _repository
-                .GetStories()
+                .GetAll()
                 .Where(y => y.SprintId.Equals(sprintId))
-                .Select(GetStory);
+                .Select(GetViewModel);
 
             return stories;
         }
 
-        public IEnumerable<StoryViewModel> GetStoriesByTag(Guid tagId)
+        public IEnumerable<StoryViewModel> GetByTag(Guid tagId)
         {
             var stories = _repository
-                .GetStories()
+                .GetAll()
                 .Where(y => y.TagId.Equals(tagId))
-                .Select(GetStory);
+                .Select(GetViewModel);
 
             return stories;
         }
 
-        public IEnumerable<StoryViewModel> GetStoriesByAssignedUser(Guid userId)
+        public IEnumerable<StoryViewModel> GetByAssignedUser(Guid userId)
         {
             var stories = _repository
-                .GetStories()
+                .GetAll()
                 .Where(y => y.UserId.Equals(userId))
-                .Select(GetStory);
+                .Select(GetViewModel);
 
             return stories;
         }
 
-        public IEnumerable<StoryViewModel> GetStoriesByStatus(StoryStatus status)
+        public IEnumerable<StoryViewModel> GetByStatus(StoryStatus status)
         {
             var stories = _repository
-                .GetStories()
+                .GetAll()
                 .Where(y => y.Status.Equals(status))
-                .Select(GetStory);
+                .Select(GetViewModel);
 
             return stories;
         }
 
-        public StoryViewModel GetStory(Story x)
+        public void Create(StoryViewModel viewModel)
+        {
+            var story = PutStory(viewModel);
+            _repository.Create(story);
+        }
+
+        public async Task Update(StoryViewModel viewModel)
+        {
+            var story = PutStory(viewModel);
+            await _repository.Update(story);
+        }
+
+        public void Delete(StoryViewModel viewModel)
+        {
+            var story = PutStory(viewModel);
+            _repository.Delete(story);
+        }
+
+        private StoryViewModel GetViewModel(Story x)
         {
             return new StoryViewModel
             (
@@ -94,7 +119,7 @@ namespace Yogging.Stories
             );
         }
 
-        public Story PutStory(StoryViewModel x)
+        private Story PutStory(StoryViewModel x)
         {
             return new Story
             {

@@ -64,11 +64,16 @@
       <DependentUpon>201805111446442_github.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Profiles\ProfileDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Profiles\ProfileRepository.cs" />
+    <Compile Include="Sprints\SprintDao.cs" />
     <Compile Include="Sprints\SprintRepository.cs" />
+    <Compile Include="Stories\StoryDao.cs" />
     <Compile Include="Stories\StoryRepository.cs" />
+    <Compile Include="Tags\TagDao.cs" />
     <Compile Include="Tags\TagRepository.cs" />
+    <Compile Include="Users\UserDao.cs" />
     <Compile Include="Users\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

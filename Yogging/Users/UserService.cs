@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Yogging.Domain.Users;
 using Yogging.Stories;
@@ -11,39 +12,71 @@ namespace Yogging.Users
         private readonly IUserRepository _repository;
         private readonly IStoryService _service;
 
-        public UserService(IUserRepository repository, IStoryService service)
+        public UserService(
+            IUserRepository repository, 
+            IStoryService service)
         {
             _repository = repository;
             _service = service;
         }
 
-        public IEnumerable<UserViewModel> GetAllUsers()
+        public IEnumerable<UserViewModel> GetAll()
         {
             var users = _repository
-                .GetUsers()
-                .Select(GetUser);
+                .GetAll()
+                .Select(GetViewModel);
 
             return users;
         }
 
-        public IEnumerable<UserViewModel> GetAllActiveUsers()
+        public UserViewModel GetById(Guid id)
+        {
+            var user = _repository.GetById(id);
+
+            return GetViewModel(user);
+        }
+
+        public IEnumerable<UserViewModel> GetActive()
         {
             var users = _repository
-                .GetUsers()
+                .GetAll()
                 .Where(y => !y.IsInactive)
-                .Select(GetUser);
+                .Select(GetViewModel);
 
             return users;
         }
 
-        public string UserIsInactive (bool isInactive)
+        public void Create(UserViewModel viewModel)
+        {
+            var user = GetUser(viewModel);
+            _repository.Create(user);
+        }
+
+        public void Update(UserViewModel viewModel)
+        {
+            var user = GetUser(viewModel);
+            _repository.Update(user);
+        }
+
+        public void Delete(UserViewModel viewModel)
+        {
+            var user = GetUser(viewModel);
+            _repository.Delete(user);
+        }
+
+        private static string UserIsInactive(bool isInactive)
         {
             var words = isInactive ? "Inactive" : "Active";
 
             return words;
         }
 
-        private UserViewModel GetUser(User user)
+        private static bool UserIsInactive(string isInactive)
+        {
+            return isInactive.Equals("Inactive");
+        }
+
+        private UserViewModel GetViewModel(User user)
         {
             return new UserViewModel
             {
@@ -52,7 +85,19 @@ namespace Yogging.Users
                 LastName = user.LastName,
                 EmailAddress = user.EmailAddress,
                 IsInactive = UserIsInactive(user.IsInactive),
-                Stories = _service.GetStoriesByAssignedUser(user.Id)
+                Stories = _service.GetByAssignedUser(user.Id)
+            };
+        }
+
+        private User GetUser(UserViewModel viewModel)
+        {
+            return new User
+            {
+                Id = viewModel.Id,
+                FirstName = viewModel.FirstName,
+                LastName = viewModel.LastName,
+                EmailAddress = viewModel.EmailAddress,
+                IsInactive = UserIsInactive(viewModel.IsInactive)
             };
         }
     }

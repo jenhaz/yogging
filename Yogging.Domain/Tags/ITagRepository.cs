@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Yogging.Domain.Tags
 {
     public interface ITagRepository
     {
-        IEnumerable<Tag> GetTags();
-        Tag GetTagById(int? id);
+        IEnumerable<Tag> GetAll();
+        Tag GetById(Guid id);
+        void Create(Tag tag);
+        void Update(Tag tag);
+        void Delete(Tag tag);
     }
 }

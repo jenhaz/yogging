@@ -1,9 +1,10 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using Yogging.Domain.Profiles;
-using Yogging.Domain.Sprints;
-using Yogging.Domain.Stories;
-using Yogging.Domain.Tags;
+using Yogging.DAL.Profiles;
+using Yogging.DAL.Sprints;
+using Yogging.DAL.Stories;
+using Yogging.DAL.Tags;
+using Yogging.DAL.Users;
 using Yogging.Domain.Users;
 
 namespace Yogging.DAL.Context
@@ -14,11 +15,11 @@ namespace Yogging.DAL.Context
         {
         }
 
-        public DbSet<Story> Stories { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Sprint> Sprints { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<StoryDao> Stories { get; set; }
+        public DbSet<UserDao> Users { get; set; }
+        public DbSet<SprintDao> Sprints { get; set; }
+        public DbSet<TagDao> Tags { get; set; }
+        public DbSet<ProfileDao> Profiles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

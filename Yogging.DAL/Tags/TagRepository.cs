@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net.Mail;
 using Yogging.DAL.Context;
 using Yogging.Domain.Tags;
 
@@ -14,18 +17,59 @@ namespace Yogging.DAL.Tags
             _db = db;
         }
 
-        public IEnumerable<Tag> GetTags()
+        public IEnumerable<Tag> GetAll()
         {
-            var query = _db.Tags.OrderBy(x => x.Name);
+            var tags = _db.Tags.Select(x => MapTo(x)).OrderBy(x => x.Name);
 
-            return query.ToList();
+            return tags.ToList();
         }
 
-        public Tag GetTagById(int? id)
+        public Tag GetById(Guid id)
         {
-            var query = _db.Tags.FirstOrDefault(x => x.Id.Equals(id));
+            var tag = _db.Tags.FirstOrDefault(x => x.Id == id);
 
-            return query;
+            return MapTo(tag);
+        }
+
+        public void Create(Tag tag)
+        {
+            var dao = MapTo(tag);
+            _db.Tags.Add(dao);
+            _db.SaveChanges();
+        }
+
+        public void Update(Tag tag)
+        {
+            var dao = MapTo(tag);
+            _db.Entry(dao).State = EntityState.Modified;
+            _db.SaveChanges();
+        }
+
+        public void Delete(Tag tag)
+        {
+            var dao = MapTo(tag);
+            _db.Tags.Remove(dao);
+            _db.SaveChanges();
+        }
+
+        private static Tag MapTo(TagDao dao)
+        {
+            return new Tag
+            {
+                Id = dao.Id,
+                Colour = dao.Colour,
+                Name = dao.Name
+            };
+        }
+
+        private static TagDao MapTo(Tag tag)
+        {
+            return new TagDao
+            {
+                Id = tag.Id,
+                Colour = tag.Colour,
+                Name = tag.Name
+            };
         }
     }
 }

@@ -1,9 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Yogging.Domain.Stories
 {
     public interface IStoryRepository
     {
-        IEnumerable<Story> GetStories();
+        IEnumerable<Story> GetAll();
+        Story GetById(Guid id);
+        void Create(Story story);
+        Task Update(Story story);
+        void Delete(Story story);
     }
 }
