@@ -5,10 +5,8 @@ using AutoFixture;
 using NSubstitute;
 using NUnit.Framework;
 using Yogging.Domain.Sprints;
-using Yogging.Models;
-using Yogging.Models.Enums;
-using Yogging.Services.Implementations;
-using Yogging.Services.Interfaces;
+using Yogging.Sprints;
+using Yogging.Stories;
 
 namespace Yogging.Tests.Services
 {

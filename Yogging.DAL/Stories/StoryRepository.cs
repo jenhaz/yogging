@@ -2,9 +2,8 @@
 using System.Linq;
 using Yogging.DAL.Context;
 using Yogging.Domain.Stories;
-using Yogging.Models;
 
-namespace Yogging.DAL.Repository
+namespace Yogging.DAL.Stories
 {
     public class StoryRepository : IStoryRepository
     {

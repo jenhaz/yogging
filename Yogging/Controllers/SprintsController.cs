@@ -3,10 +3,10 @@ using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
-using Yogging.Models;
-using Yogging.Models.ViewModels;
-using Yogging.Services.Helpers;
-using Yogging.Services.Interfaces;
+using Yogging.Domain.Sprints;
+using Yogging.Helpers;
+using Yogging.Sprints;
+using Yogging.ViewModels;
 
 namespace Yogging.Controllers
 {

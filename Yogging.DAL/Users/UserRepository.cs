@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Yogging.DAL.Context;
-using Yogging.DAL.Repository;
 using Yogging.Domain.Users;
-using Yogging.Models;
 
 namespace Yogging.DAL.Users
 {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Yogging.Models;
-using Yogging.Models.ViewModels;
+using Yogging.ViewModels;
 
 namespace Yogging.Controllers
 {

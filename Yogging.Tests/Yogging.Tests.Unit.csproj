@@ -131,14 +131,6 @@
       <Project>{df4f9e6f-e161-408b-84fc-f4ddd44cab5f}</Project>
       <Name>Yogging.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Yogging.Models\Yogging.Models.csproj">
-      <Project>{23be9a8b-b728-4cff-89c5-d03947855364}</Project>
-      <Name>Yogging.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Yogging.Services\Yogging.Services.csproj">
-      <Project>{477CCBC2-6CD7-4ED4-9681-BCD69C5C5BEE}</Project>
-      <Name>Yogging.Services</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Yogging\Yogging.Web.csproj">
       <Project>{3D007FF7-00DF-4AB2-8F85-9CE42B1BDE54}</Project>
       <Name>Yogging.Web</Name>

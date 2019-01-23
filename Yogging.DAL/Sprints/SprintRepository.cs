@@ -2,9 +2,8 @@
 using System.Linq;
 using Yogging.DAL.Context;
 using Yogging.Domain.Sprints;
-using Yogging.Models;
 
-namespace Yogging.DAL.Repository
+namespace Yogging.DAL.Sprints
 {
     public class SprintRepository : ISprintRepository
     {

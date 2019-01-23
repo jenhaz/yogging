@@ -3,10 +3,11 @@ using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
-using Yogging.Models;
-using Yogging.Models.ViewModels;
-using Yogging.Services.Helpers;
-using Yogging.Services.Interfaces;
+using Yogging.Domain.Profiles;
+using Yogging.Helpers;
+using Yogging.Profiles;
+using Yogging.Spotify;
+using Yogging.ViewModels;
 
 namespace Yogging.Controllers
 {

@@ -2,9 +2,8 @@
 using System.Linq;
 using Yogging.DAL.Context;
 using Yogging.Domain.Tags;
-using Yogging.Models;
 
-namespace Yogging.DAL.Repository
+namespace Yogging.DAL.Tags
 {
     public class TagRepository : ITagRepository
     {

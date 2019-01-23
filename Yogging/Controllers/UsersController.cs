@@ -3,9 +3,9 @@ using System.Data.Entity;
 using System.Net;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
-using Yogging.Models;
-using Yogging.Services.Helpers;
-using Yogging.Services.Interfaces;
+using Yogging.Domain.Users;
+using Yogging.Helpers;
+using Yogging.Users;
 
 namespace Yogging.Controllers
 {

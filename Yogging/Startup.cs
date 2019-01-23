@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.Owin;
 using Owin;
-using Yogging.Models;
-using Yogging.Models.ViewModels;
+using Yogging.Domain.Sprints;
+using Yogging.Domain.Stories;
+using Yogging.Domain.Tags;
+using Yogging.Domain.Users;
+using Yogging.ViewModels;
 
 [assembly: OwinStartupAttribute(typeof(Yogging.Startup))]
 namespace Yogging

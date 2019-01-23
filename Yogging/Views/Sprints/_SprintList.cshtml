@@ -1,8 +1,8 @@
-﻿@using Yogging.Models.ViewModels
-@model IEnumerable<SprintViewModel>
+﻿@using Yogging.Domain.Sprints
+@model IEnumerable<Yogging.ViewModels.SprintViewModel>
 
 @{
-    var isClosed = Yogging.Models.Enums.SprintStatus.Closed;
+    var isClosed = SprintStatus.Closed;
 }
 
 @foreach (var item in Model)

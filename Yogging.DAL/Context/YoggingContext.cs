@@ -1,6 +1,10 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using Yogging.Models;
+using Yogging.Domain.Profiles;
+using Yogging.Domain.Sprints;
+using Yogging.Domain.Stories;
+using Yogging.Domain.Tags;
+using Yogging.Domain.Users;
 
 namespace Yogging.DAL.Context
 {

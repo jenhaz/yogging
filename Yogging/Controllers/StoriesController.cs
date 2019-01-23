@@ -4,10 +4,10 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Yogging.DAL.Context;
-using Yogging.Models;
-using Yogging.Models.ViewModels;
-using Yogging.Services.Helpers;
-using Yogging.Services.Interfaces;
+using Yogging.Domain.Stories;
+using Yogging.Helpers;
+using Yogging.Stories;
+using Yogging.ViewModels;
 
 namespace Yogging.Controllers
 {

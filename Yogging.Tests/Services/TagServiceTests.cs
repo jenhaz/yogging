@@ -5,9 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Yogging.Domain.Tags;
-using Yogging.Models;
-using Yogging.Services.Implementations;
-using Yogging.Services.Interfaces;
+using Yogging.Stories;
+using Yogging.Tags;
 
 namespace Yogging.Tests.Services
 {

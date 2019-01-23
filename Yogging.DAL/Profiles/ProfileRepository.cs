@@ -2,9 +2,8 @@
 using System.Linq;
 using Yogging.DAL.Context;
 using Yogging.Domain.Profiles;
-using Yogging.Models;
 
-namespace Yogging.DAL.Repository
+namespace Yogging.DAL.Profiles
 {
     public class ProfileRepository : IProfileRepository
     {

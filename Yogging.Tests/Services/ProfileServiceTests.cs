@@ -5,8 +5,7 @@ using AutoFixture;
 using NSubstitute;
 using NUnit.Framework;
 using Yogging.Domain.Profiles;
-using Yogging.Models;
-using ProfileService = Yogging.Services.Implementations.ProfileService;
+using ProfileService = Yogging.Profiles.ProfileService;
 
 namespace Yogging.Tests.Services
 {
