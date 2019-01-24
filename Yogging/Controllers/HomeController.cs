@@ -9,11 +9,11 @@ namespace Yogging.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProfileService _profileService;
+        private readonly ProfileService _profileService;
         private readonly ISpotifyService _spotifyService;
 
         public HomeController(
-            IProfileService profileService, 
+            ProfileService profileService, 
             ISpotifyService spotifyService)
         {
             _profileService = profileService;
@@ -23,12 +23,18 @@ namespace Yogging.Controllers
         public ActionResult Index()
         {
             ViewBag.IsHome = true;
+
             return View();
         }
 
         public ActionResult About()
         {
             var profiles = _profileService.GetAll();
+
+            if (profiles == null)
+            {
+                return View();
+            }
 
             return View(profiles);
         }

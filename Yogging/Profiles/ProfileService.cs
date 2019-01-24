@@ -36,10 +36,9 @@ namespace Yogging.Profiles
         public IEnumerable<ProfileViewModel> GetAll()
         {
             var profiles = _repository
-                .GetAll()
-                .Select(GetViewModel);
+                .GetAll();
 
-            return profiles;
+            return profiles?.Select(GetViewModel);
         }
 
         private static ProfileViewModel GetViewModel(Profile profile)

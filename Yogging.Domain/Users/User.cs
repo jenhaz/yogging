@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Yogging.Domain.Stories;
 
 namespace Yogging.Domain.Users
 {
@@ -11,7 +9,5 @@ namespace Yogging.Domain.Users
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
         public bool IsInactive { get; set; }
-        
-        public virtual ICollection<Story> Stories { get; set; }
     }
 }

@@ -9,20 +9,20 @@ namespace Yogging.Users
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _repository;
-        private readonly IStoryService _service;
+        private readonly IUserRepository _userRepository;
+        private readonly IStoryService _storyService;
 
         public UserService(
-            IUserRepository repository, 
-            IStoryService service)
+            IUserRepository userRepository, 
+            IStoryService storyService)
         {
-            _repository = repository;
-            _service = service;
+            _userRepository = userRepository;
+            _storyService = storyService;
         }
 
         public IEnumerable<UserViewModel> GetAll()
         {
-            var users = _repository
+            var users = _userRepository
                 .GetAll()
                 .Select(GetViewModel);
 
@@ -31,14 +31,14 @@ namespace Yogging.Users
 
         public UserViewModel GetById(Guid id)
         {
-            var user = _repository.GetById(id);
+            var user = _userRepository.GetById(id);
 
             return GetViewModel(user);
         }
 
         public IEnumerable<UserViewModel> GetActive()
         {
-            var users = _repository
+            var users = _userRepository
                 .GetAll()
                 .Where(y => !y.IsInactive)
                 .Select(GetViewModel);
@@ -49,19 +49,19 @@ namespace Yogging.Users
         public void Create(UserViewModel viewModel)
         {
             var user = GetUser(viewModel);
-            _repository.Create(user);
+            _userRepository.Create(user);
         }
 
         public void Update(UserViewModel viewModel)
         {
             var user = GetUser(viewModel);
-            _repository.Update(user);
+            _userRepository.Update(user);
         }
 
         public void Delete(UserViewModel viewModel)
         {
             var user = GetUser(viewModel);
-            _repository.Delete(user);
+            _userRepository.Delete(user);
         }
 
         private static string UserIsInactive(bool isInactive)
@@ -85,7 +85,7 @@ namespace Yogging.Users
                 LastName = user.LastName,
                 EmailAddress = user.EmailAddress,
                 IsInactive = UserIsInactive(user.IsInactive),
-                Stories = _service.GetByAssignedUser(user.Id)
+                Stories = _storyService.GetByAssignedUser(user.Id)
             };
         }
 

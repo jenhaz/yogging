@@ -13,7 +13,7 @@ namespace Yogging.DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201803201657246_init"; }
+            get { return "201901241437103_init"; }
         }
         
         string IMigrationMetadata.Source

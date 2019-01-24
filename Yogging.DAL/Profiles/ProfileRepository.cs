@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using Yogging.DAL.Context;
 using Yogging.Domain.Profiles;
 
@@ -19,9 +18,14 @@ namespace Yogging.DAL.Profiles
 
         public IEnumerable<Profile> GetAll()
         {
-            var query = _db.Profiles.Select(x => MapTo(x)).OrderBy(x => x.Id);
+            var profiles = _db.Profiles.OrderBy(x => x.Id);
 
-            return query.ToList();
+            if (profiles.Any())
+            {
+                return profiles.Select(x => MapTo(x));
+            }
+
+            return null;
         }
 
         public Profile GetById(Guid id)
@@ -41,7 +45,7 @@ namespace Yogging.DAL.Profiles
         public void Update(Profile profile)
         {
             var dao = MapTo(profile);
-            _db.Entry(profile).State = EntityState.Modified;
+            _db.Entry(dao).State = EntityState.Modified;
             _db.SaveChanges();
         }
 

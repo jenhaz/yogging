@@ -33,7 +33,7 @@ namespace Yogging.DAL.Stories
 
         public IEnumerable<Story> GetBySprintId(Guid id)
         {
-            var stories = _db.Stories.Where(x => x.SprintId == id).Select(x => MapTo(x));
+            var stories = _db.Stories.Where(x => x.Sprint.Id == id).Select(x => MapTo(x));
 
             return stories;
         }
@@ -78,9 +78,9 @@ namespace Yogging.DAL.Stories
                 Description = dao.Description,
                 Points = dao.Points,
                 Status = (StoryStatus)Enum.Parse(typeof(StoryStatus), dao.Status),
-                UserId = dao.UserId,
-                SprintId = dao.SprintId,
-                TagId = dao.TagId
+                UserId = dao.User.Id,
+                SprintId = dao.Sprint.Id,
+                TagId = dao.Tag.Id
             };
         }
 

@@ -4,59 +4,63 @@
     ViewBag.Title = "About";
 }
 
-@foreach (var profile in Model)
+@if (Model != null)
 {
-    <div class="profile">
-        <div class="profile__header">
-            <div class="profile__name">
 
-                <h1>
-                    @profile.FullName
-                </h1>
-
-                @if (!string.IsNullOrEmpty(profile.CurrentJobTitle))
-                {
-                    <div class="profile__job">
-                        @profile.CurrentJobTitle
-                    </div>
-                }
-
-                @Html.Partial("_ProfileContact", profile)
-
-            </div>
-
-            <div class="profile__image">
-                @if (!string.IsNullOrEmpty(profile.ImageUrl))
-                {
-                    <img src="@profile.ImageUrl" alt="@profile.FullName" />
-                }
-            </div>
-        </div>
-
-        <div>
-
-            @if (!string.IsNullOrEmpty(profile.Blurb))
-            {
-                <p>
-                    @profile.Blurb
-                </p>
-            }
-
-            @if (!string.IsNullOrEmpty(profile.LongerBlurb))
-            {
-                <p>
-                    @profile.LongerBlurb
-                </p>
-            }
-
-        </div>
-    </div>
-
-    if (User.Identity.IsAuthenticated)
+    foreach (var profile in Model)
     {
-        <p>
-            @Html.ActionLink("Edit", "EditProfile", new { id = profile.Id })
-        </p>
+        <div class="profile">
+            <div class="profile__header">
+                <div class="profile__name">
+
+                    <h1>
+                        @profile.FullName
+                    </h1>
+
+                    @if (!string.IsNullOrEmpty(profile.CurrentJobTitle))
+                    {
+                        <div class="profile__job">
+                            @profile.CurrentJobTitle
+                        </div>
+                    }
+
+                    @Html.Partial("_ProfileContact", profile)
+
+                </div>
+
+                <div class="profile__image">
+                    @if (!string.IsNullOrEmpty(profile.ImageUrl))
+                    {
+                        <img src="@profile.ImageUrl" alt="@profile.FullName" />
+                    }
+                </div>
+            </div>
+
+            <div>
+
+                @if (!string.IsNullOrEmpty(profile.Blurb))
+                {
+                    <p>
+                        @profile.Blurb
+                    </p>
+                }
+
+                @if (!string.IsNullOrEmpty(profile.LongerBlurb))
+                {
+                    <p>
+                        @profile.LongerBlurb
+                    </p>
+                }
+
+            </div>
+        </div>
+
+        if (User.Identity.IsAuthenticated)
+        {
+            <p>
+                @Html.ActionLink("Edit", "EditProfile", new { id = profile.Id })
+            </p>
+        }
     }
 }
 

@@ -43,25 +43,18 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\YoggingContext.cs" />
-    <Compile Include="Migrations\201803201657246_init.cs" />
-    <Compile Include="Migrations\201803201657246_init.Designer.cs">
-      <DependentUpon>201803201657246_init.cs</DependentUpon>
+    <Compile Include="Migrations\201901241437103_init.cs" />
+    <Compile Include="Migrations\201901241437103_init.Designer.cs">
+      <DependentUpon>201901241437103_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804091031231_tagcolour.cs" />
-    <Compile Include="Migrations\201804091031231_tagcolour.Designer.cs">
-      <DependentUpon>201804091031231_tagcolour.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805020944038_addprofile.cs" />
-    <Compile Include="Migrations\201805020944038_addprofile.Designer.cs">
-      <DependentUpon>201805020944038_addprofile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805111446442_github.cs" />
-    <Compile Include="Migrations\201805111446442_github.Designer.cs">
-      <DependentUpon>201805111446442_github.cs</DependentUpon>
+    <Compile Include="Migrations\201901241440295_rename-tables.cs" />
+    <Compile Include="Migrations\201901241440295_rename-tables.Designer.cs">
+      <DependentUpon>201901241440295_rename-tables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\ProfileDao.cs" />
@@ -87,17 +80,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803201657246_init.resx">
-      <DependentUpon>201803201657246_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901241437103_init.resx">
+      <DependentUpon>201901241437103_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804091031231_tagcolour.resx">
-      <DependentUpon>201804091031231_tagcolour.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805020944038_addprofile.resx">
-      <DependentUpon>201805020944038_addprofile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805111446442_github.resx">
-      <DependentUpon>201805111446442_github.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901241440295_rename-tables.resx">
+      <DependentUpon>201901241440295_rename-tables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

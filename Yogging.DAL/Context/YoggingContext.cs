@@ -5,7 +5,6 @@ using Yogging.DAL.Sprints;
 using Yogging.DAL.Stories;
 using Yogging.DAL.Tags;
 using Yogging.DAL.Users;
-using Yogging.Domain.Users;
 
 namespace Yogging.DAL.Context
 {

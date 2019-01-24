@@ -7,13 +7,13 @@ namespace Yogging.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addprofile : IMigrationMetadata
+    public sealed partial class renametables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addprofile));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(renametables));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805020944038_addprofile"; }
+            get { return "201901241440295_rename-tables"; }
         }
         
         string IMigrationMetadata.Source
