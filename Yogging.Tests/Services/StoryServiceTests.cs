@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoFixture;
 using NSubstitute;
 using NUnit.Framework;
 using Yogging.Domain.Stories;
 using Yogging.Stories;
+using Yogging.ViewModels;
 
 namespace Yogging.Tests.Services
 {
@@ -14,16 +16,49 @@ namespace Yogging.Tests.Services
     {
         private Fixture _fixture;
         private IStoryRepository _storyRepository;
+        private StoryService _subject;
 
         [SetUp]
         public void SetUp()
         {
             _fixture = new Fixture();
             _storyRepository = Substitute.For<IStoryRepository>();
+            _subject = new StoryService(_storyRepository);
         }
 
         [Test]
-        public void GetAllStories_ReturnsAllStories()
+        public void GetById()
+        {
+            // given
+            var storyId = _fixture.Create<Guid>();
+            var story = _fixture.Build<Story>()
+                .With(x => x.Id, storyId)
+                .Create();
+
+            _storyRepository.GetById(storyId).Returns(story);
+
+            // when
+            var result = _subject.GetById(storyId);
+
+            // then
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Id, Is.EqualTo(story.Id));
+            Assert.That(result.Name, Is.EqualTo(story.Name));
+            Assert.That(result.CreatedDate, Is.EqualTo(story.CreatedDate));
+            Assert.That(result.LastUpdated, Is.EqualTo(story.LastUpdated));
+            Assert.That(result.Priority, Is.EqualTo(story.Priority));
+            Assert.That(result.Type, Is.EqualTo(story.Type));
+            Assert.That(result.Description, Is.EqualTo(story.Description));
+            Assert.That(result.AcceptanceCriteria, Is.EqualTo(story.AcceptanceCriteria));
+            Assert.That(result.Points, Is.EqualTo(story.Points));
+            Assert.That(result.Status, Is.EqualTo(story.Status));
+            Assert.That(result.UserId, Is.EqualTo(story.UserId));
+            Assert.That(result.SprintId, Is.EqualTo(story.SprintId));
+            Assert.That(result.TagId, Is.EqualTo(story.TagId));
+        }
+
+        [Test]
+        public void GetAllStories()
         {
             // given
             var storyId = _fixture.Create<Guid>();
@@ -31,14 +66,16 @@ namespace Yogging.Tests.Services
                 .Build<Story>()
                 .With(x => x.Id, storyId)
                 .Create();
+
             var stories = new List<Story>
             {
                 story
             };
+
             _storyRepository.GetAll().Returns(stories);
 
             // when
-            var result = new StoryService(_storyRepository).GetAll().ToList();
+            var result = _subject.GetAll().ToList();
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -56,7 +93,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetAllStoriesBySprint_ReturnsAllStoriesBySprint()
+        public void GetAllStoriesBySprint()
         {
             // given
             var sprintId = _fixture.Create<Guid>();
@@ -75,7 +112,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetBySprintId(sprintId).Returns(stories);
 
             // when
-            var result = new StoryService(_storyRepository).GetBySprint(sprintId).ToList();
+            var result = _subject.GetBySprint(sprintId).ToList();
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -95,7 +132,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetAllStoriesByTag_ReturnsAllStoriesByTag()
+        public void GetAllStoriesByTag()
         {
             // given
             var tagId = _fixture.Create<Guid>();
@@ -118,7 +155,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetAll().Returns(stories);
 
             // when
-            var result = new StoryService(_storyRepository).GetByTag(tagId).ToList();
+            var result = _subject.GetByTag(tagId).ToList();
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -143,7 +180,7 @@ namespace Yogging.Tests.Services
         [TestCase(StoryStatus.ToDo, StoryStatus.InProgress)]
         [TestCase(StoryStatus.Done, StoryStatus.ToDo)]
         [TestCase(StoryStatus.InProgress, StoryStatus.Done)]
-        public void GetAllStoriesByStatus_ReturnsAllStoriesWithStatus(
+        public void GetAllStoriesByStatus(
             StoryStatus filterStatus, 
             StoryStatus otherStatus)
         {
@@ -169,7 +206,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetAll().Returns(stories);
 
             // when
-            var result = new StoryService(_storyRepository).GetByStatus(filterStatus).ToList();
+            var result = _subject.GetByStatus(filterStatus).ToList();
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -200,7 +237,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetById(storyId).Returns(story);
 
             // when
-            var result = new StoryService(_storyRepository).GetById(storyId);
+            var result = _subject.GetById(storyId);
 
             // then
             Assert.AreEqual("#ffffff", result.TagColour);
@@ -221,7 +258,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetById(storyId).Returns(story);
 
             // when
-            var result = new StoryService(_storyRepository).GetById(storyId);
+            var result = _subject.GetById(storyId);
 
             // then
             Assert.AreEqual(null, result.UserId);
@@ -241,11 +278,50 @@ namespace Yogging.Tests.Services
             _storyRepository.GetById(storyId).Returns(story);
 
             // when
-            var result = new StoryService(_storyRepository).GetById(storyId);
+            var result = _subject.GetById(storyId);
 
             // then
             Assert.AreEqual(null, result.SprintId);
             Assert.AreEqual(string.Empty, result.SprintName);
+        }
+
+        [Test]
+        public void Create()
+        {
+            // given
+            var story = _fixture.Create<StoryViewModel>();
+
+            // when
+            _subject.Create(story);
+
+            // then
+            _storyRepository.Received(1).Create(Arg.Is<Story>(x => x.Id == story.Id));
+        }
+
+        [Test]
+        public async Task Update()
+        {
+            // given
+            var story = _fixture.Create<StoryViewModel>();
+
+            // when
+            await _subject.Update(story);
+
+            // then
+            await _storyRepository.Received(1).Update(Arg.Is<Story>(x => x.Id == story.Id));
+        }
+
+        [Test]
+        public void Delete()
+        {
+            // given
+            var story = _fixture.Create<StoryViewModel>();
+
+            // when
+            _subject.Delete(story);
+
+            // then
+            _storyRepository.Received(1).Delete(Arg.Is<Story>(x => x.Id == story.Id));
         }
     }
 }

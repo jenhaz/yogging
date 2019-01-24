@@ -89,7 +89,7 @@ namespace Yogging.Users
             };
         }
 
-        private User GetUser(UserViewModel viewModel)
+        private static User GetUser(UserViewModel viewModel)
         {
             return new User
             {

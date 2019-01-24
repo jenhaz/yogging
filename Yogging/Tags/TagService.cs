@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Yogging.Domain.Tags;
-using Yogging.Stories;
 using Yogging.ViewModels;
 
 namespace Yogging.Tags
@@ -10,14 +9,10 @@ namespace Yogging.Tags
     public class TagService : ITagService
     {
         private readonly ITagRepository _repository;
-        private readonly IStoryService _service;
 
-        public TagService(
-            ITagRepository repository, 
-            IStoryService service)
+        public TagService(ITagRepository repository)
         {
             _repository = repository;
-            _service = service;
         }
 
         public IEnumerable<TagViewModel> GetAll()

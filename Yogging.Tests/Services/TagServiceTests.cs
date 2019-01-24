@@ -5,22 +5,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Yogging.Domain.Tags;
-using Yogging.Stories;
 using Yogging.Tags;
+using Yogging.ViewModels;
 
 namespace Yogging.Tests.Services
 {
     public class TagServiceTests
     {
         private ITagRepository _tagRepository;
-        private IStoryService _storyService;
+        private TagService _subject;
         private Fixture _fixture;
 
         [SetUp]
         public void SetUp()
         {
             _tagRepository = Substitute.For<ITagRepository>();
-            _storyService = Substitute.For<IStoryService>();
+            _subject = new TagService(_tagRepository);
             _fixture = new Fixture();
         }
 
@@ -41,7 +41,7 @@ namespace Yogging.Tests.Services
             _tagRepository.GetAll().Returns(tags);
 
             // when
-            var result = new TagService(_tagRepository, _storyService).GetAll().ToList();
+            var result = _subject.GetAll().ToList();
 
             // then
             Assert.That(result.Count, Is.EqualTo(1));
@@ -64,13 +64,52 @@ namespace Yogging.Tests.Services
             _tagRepository.GetById(tagId).Returns(tag);
 
             // when
-            var result = new TagService(_tagRepository, _storyService).GetById(tagId);
+            var result = _subject.GetById(tagId);
 
             // then
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(tag.Id));
             Assert.That(result.Name, Is.EqualTo(tag.Name));
             Assert.That(result.Colour, Is.EqualTo(tag.Colour));
+        }
+
+        [Test]
+        public void Create()
+        {
+            // given
+            var tag = _fixture.Create<TagViewModel>();
+
+            // when
+            _subject.Create(tag);
+
+            // then
+            _tagRepository.Received(1).Create(Arg.Is<Tag>(x => x.Id == tag.Id));
+        }
+
+        [Test]
+        public void Update()
+        {
+            // given
+            var tag = _fixture.Create<TagViewModel>();
+
+            // when
+            _subject.Update(tag);
+
+            // then
+            _tagRepository.Received(1).Update(Arg.Is<Tag>(x => x.Id == tag.Id));
+        }
+
+        [Test]
+        public void Delete()
+        {
+            // given
+            var tag = _fixture.Create<TagViewModel>();
+
+            // when
+            _subject.Delete(tag);
+
+            // then
+            _tagRepository.Received(1).Delete(Arg.Is<Tag>(x => x.Id == tag.Id));
         }
     }
 }
