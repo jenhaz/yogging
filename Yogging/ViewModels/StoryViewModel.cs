@@ -6,85 +6,47 @@ namespace Yogging.ViewModels
 {
     public class StoryViewModel
     {
-        public StoryViewModel(
-            Guid id,
-            string name,
-            DateTime createdDate,
-            DateTime lastUpdated,
-            Priority priority,
-            TaskType type,
-            string description,
-            string acceptanceCriteria,
-            int points,
-            StoryStatus status,
-            Guid? userId,
-            string userName,
-            Guid? sprintId,
-            string sprintName,
-            Guid? tagId,
-            string tagColour,
-            string tagName)
-        {
-            Id = id;
-            Name = name;
-            CreatedDate = createdDate;
-            LastUpdated = lastUpdated;
-            Priority = priority;
-            Type = type;
-            Description = description;
-            AcceptanceCriteria = acceptanceCriteria;
-            Points = points;
-            Status = status;
-            UserId = userId;
-            UserName = userName;
-            SprintId = sprintId;
-            SprintName = sprintName;
-            TagId = tagId;
-            TagColour = tagColour;
-            TagName = tagName;
-        }
+        public Guid Id { get; set; }
 
-        public Guid Id { get; }
-
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Display(Name = "Created Date")]
-        public DateTime CreatedDate { get; }
+        public DateTime CreatedDate { get; set; }
 
         [Display(Name = "Last Updated Date")]
-        public DateTime LastUpdated { get; }
+        public DateTime LastUpdated { get; set; }
 
-        public Priority Priority { get; }
+        public Priority Priority { get; set; }
 
-        public TaskType Type { get; }
+        public TaskType Type { get; set; }
 
-        public string Description { get; }
+        public string Description { get; set; }
 
         [Display(Name = "Acceptance Criteria")]
-        public string AcceptanceCriteria { get; }
+        public string AcceptanceCriteria { get; set; }
 
-        public int Points { get; }
+        public int Points { get; set; }
 
-        public StoryStatus Status { get; }
+        public StoryStatus Status { get; set; }
 
         [Display(Name = "User")]
-        public Guid? UserId { get; }
+        public Guid? UserId { get; set; }
 
         [Display(Name = "Assigned User")]
-        public string UserName { get; }
+        public string UserName { get; set; }
 
         [Display(Name = "Sprint Id")]
-        public Guid? SprintId { get; }
+        public Guid? SprintId { get; set; }
 
         [Display(Name = "Sprint")]
-        public string SprintName { get; }
+        public string SprintName { get; set; }
 
         [Display(Name = "Tag Id")]
-        public Guid? TagId { get; }
+        public Guid? TagId { get; set; }
 
-        public string TagColour { get; }
+        public string TagColour { get; set; }
 
         [Display(Name = "Tag Name")]
-        public string TagName { get; }
+        public string TagName { get; set; }
     }
 }

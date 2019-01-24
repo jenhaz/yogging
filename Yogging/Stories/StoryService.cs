@@ -34,8 +34,7 @@ namespace Yogging.Stories
         public IEnumerable<StoryViewModel> GetBySprint(Guid sprintId)
         {
             var stories = _repository
-                .GetAll()
-                .Where(y => y.SprintId.Equals(sprintId))
+                .GetBySprintId(sprintId)
                 .Select(GetViewModel);
 
             return stories;
@@ -89,37 +88,37 @@ namespace Yogging.Stories
             _repository.Delete(story);
         }
 
-        private StoryViewModel GetViewModel(Story x)
+        private static StoryViewModel GetViewModel(Story x)
         {
             return new StoryViewModel
-            (
-                x.Id,
-                !string.IsNullOrEmpty(x.Name) ? x.Name : "Sprint " + x.Id,
-                x.CreatedDate,
-                x.LastUpdated,
-                x.Priority,
-                x.Type,
-                !string.IsNullOrEmpty(x.Description) ? x.Description : string.Empty,
-                !string.IsNullOrEmpty(x.AcceptanceCriteria) ? x.AcceptanceCriteria : string.Empty,
-                x.Points,
-                x.Status,
-                x.UserId,
-                string.Empty,
+            {
+                Id = x.Id,
+                Name = !string.IsNullOrEmpty(x.Name) ? x.Name : "Sprint " + x.Id,
+                CreatedDate = x.CreatedDate,
+                LastUpdated = x.LastUpdated,
+                Priority = x.Priority,
+                Type = x.Type,
+                Description = !string.IsNullOrEmpty(x.Description) ? x.Description : string.Empty,
+                AcceptanceCriteria = !string.IsNullOrEmpty(x.AcceptanceCriteria) ? x.AcceptanceCriteria : string.Empty,
+                Points = x.Points,
+                Status = x.Status,
+                UserId = x.UserId,
+                UserName = string.Empty,
                 //!string.IsNullOrEmpty(x.User?.FirstName) && !string.IsNullOrEmpty(x.User?.LastName)
                 //    ? x.User?.FirstName + " " + x.User?.LastName
                 //    : string.Empty,
-                x.SprintId,
-                string.Empty,
+                SprintId = x.SprintId,
+                SprintName = string.Empty,
                 //!string.IsNullOrEmpty(x.Sprint?.Name) ? x.Sprint?.Name : string.Empty,
-                x.TagId,
-                "#ffffff",
+                TagId = x.TagId,
+                TagColour = "#ffffff",
                 //!string.IsNullOrEmpty(x.Tag?.Colour) ? x.Tag?.Colour : "#ffffff",
-                string.Empty
+                TagName = string.Empty
                 //!string.IsNullOrEmpty(x.Tag?.Name) ? x.Tag?.Name : string.Empty
-            );
+            };
         }
 
-        private Story PutStory(StoryViewModel x)
+        private static Story PutStory(StoryViewModel x)
         {
             return new Story
             {

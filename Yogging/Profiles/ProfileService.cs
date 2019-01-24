@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Yogging.DAL.Profiles;
 using Yogging.Domain.Profiles;
 using Yogging.ViewModels;
 
@@ -43,7 +42,7 @@ namespace Yogging.Profiles
             return profiles;
         }
 
-        private ProfileViewModel GetViewModel(Profile profile)
+        private static ProfileViewModel GetViewModel(Profile profile)
         {
             return new ProfileViewModel
             {
@@ -74,7 +73,7 @@ namespace Yogging.Profiles
             };
         }
 
-        private Profile GetProfile(ProfileViewModel vm)
+        private static Profile GetProfile(ProfileViewModel vm)
         {
             return new Profile
             {

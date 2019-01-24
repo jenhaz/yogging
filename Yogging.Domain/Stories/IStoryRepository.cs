@@ -8,6 +8,7 @@ namespace Yogging.Domain.Stories
     {
         IEnumerable<Story> GetAll();
         Story GetById(Guid id);
+        IEnumerable<Story> GetBySprintId(Guid id);
         void Create(Story story);
         Task Update(Story story);
         void Delete(Story story);

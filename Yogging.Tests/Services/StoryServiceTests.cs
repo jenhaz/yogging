@@ -66,19 +66,13 @@ namespace Yogging.Tests.Services
                 .With(x => x.Id, storyInSprintId)
                 .With(x => x.SprintId, sprintId)
                 .Create();
-            var storyNotInSprintId = _fixture.Create<Guid>();
-            var storyNotInSprint = _fixture
-                .Build<Story>()
-                .With(x => x.Id, storyNotInSprintId)
-                .Create();
             
             var stories = new List<Story>
             {
-                storyInSprint,
-                storyNotInSprint
+                storyInSprint
             };
 
-            _storyRepository.GetAll().Returns(stories);
+            _storyRepository.GetBySprintId(sprintId).Returns(stories);
 
             // when
             var result = new StoryService(_storyRepository).GetBySprint(sprintId).ToList();

@@ -31,6 +31,13 @@ namespace Yogging.DAL.Stories
             return MapTo(story);
         }
 
+        public IEnumerable<Story> GetBySprintId(Guid id)
+        {
+            var stories = _db.Stories.Where(x => x.SprintId == id).Select(x => MapTo(x));
+
+            return stories;
+        }
+
         public void Create(Story story)
         {
             var dao = MapTo(story);
