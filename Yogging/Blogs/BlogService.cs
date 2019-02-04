@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -25,9 +24,7 @@ namespace Yogging.Blogs
             }
             
             var posts = await GetJson(url);
-
             var list = posts?.Posts;
-
             var vm = list?.Select(GetViewModel).ToList();
 
             return new BlogViewModel
@@ -42,7 +39,6 @@ namespace Yogging.Blogs
             using (var client = new WebClient())
             {
                 var content = await client.DownloadStringTaskAsync(url);
-
                 var jsonContent = JsonConvert.DeserializeObject<BlogPosts>(content);
 
                 return jsonContent;
