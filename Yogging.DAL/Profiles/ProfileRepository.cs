@@ -20,7 +20,7 @@ namespace Yogging.DAL.Profiles
         public async Task<IEnumerable<Profile>> GetAll()
         {
             var profiles = await _db.Profiles.ToListAsync();
-                
+            
             if (profiles.Any())
             {
                 return profiles.Select(MapTo).OrderBy(x => x.Id);
@@ -36,18 +36,18 @@ namespace Yogging.DAL.Profiles
             return MapTo(dao);
         }
 
-        public void Create(Profile profile)
+        public async Task Create(Profile profile)
         {
             var dao = MapTo(profile);
             _db.Profiles.Add(dao);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void Update(Profile profile)
+        public async Task Update(Profile profile)
         {
             var dao = MapTo(profile);
             _db.Entry(dao).State = EntityState.Modified;
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         private static ProfileDao MapTo(Profile profile)

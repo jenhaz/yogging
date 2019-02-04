@@ -9,7 +9,7 @@ namespace Yogging.Profiles
     {
         Task<ProfileViewModel> GetById(Guid id);
         Task<IEnumerable<ProfileViewModel>> GetAll();
-        void Create(ProfileViewModel profile);
-        void Update(ProfileViewModel profile);
+        Task Create(ProfileViewModel profile);
+        Task Update(ProfileViewModel profile);
     }
 }

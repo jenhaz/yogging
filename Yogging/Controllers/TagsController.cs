@@ -49,13 +49,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TagViewModel tag)
+        public async Task<ActionResult> Create(TagViewModel tag)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _tagService.Create(tag);
+                    await _tagService.Create(tag);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -87,13 +87,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(TagViewModel tag)
+        public async Task<ActionResult> Edit(TagViewModel tag)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _tagService.Update(tag);
+                    await _tagService.Update(tag);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -129,7 +129,7 @@ namespace Yogging.Controllers
                 var tag = await _tagService.GetById(id);
                 if (tag != null)
                 {
-                    _tagService.Delete(tag);
+                    await _tagService.Delete(tag);
                 }
                 return RedirectToAction("Index");
             }

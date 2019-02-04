@@ -79,7 +79,7 @@ namespace Yogging.Controllers
             {
                 try
                 {
-                    _storyService.Create(story);
+                    await _storyService.Create(story);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -111,7 +111,9 @@ namespace Yogging.Controllers
             ViewBag.UserId = await GetUsersSelectList(story);
 
             if (Request.IsAjaxRequest())
+            {
                 return PartialView("_EditPartial", story);
+            }
 
             return View(story);
         }
@@ -171,7 +173,7 @@ namespace Yogging.Controllers
                 var story = await _storyService.GetById(id);
                 if (story != null)
                 {
-                    _storyService.Delete(story);
+                    await _storyService.Delete(story);
                 }
                 return RedirectToAction("Index");
             }

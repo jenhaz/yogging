@@ -30,25 +30,25 @@ namespace Yogging.DAL.Sprints
             return MapTo(sprint);
         }
 
-        public void Create(Sprint sprint)
+        public async Task Create(Sprint sprint)
         {
             var dao = MapTo(sprint);
             _db.Sprints.Add(dao);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void Update(Sprint sprint)
+        public async Task Update(Sprint sprint)
         {
             var dao = MapTo(sprint);
             _db.Entry(dao).State = EntityState.Modified;
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void Delete(Sprint sprint)
+        public async Task Delete(Sprint sprint)
         {
             var dao = MapTo(sprint);
             _db.Sprints.Remove(dao);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         private static Sprint MapTo(SprintDao dao)

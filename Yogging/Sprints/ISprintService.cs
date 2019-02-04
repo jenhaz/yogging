@@ -11,8 +11,8 @@ namespace Yogging.Sprints
         Task<IEnumerable<SprintViewModel>> GetActive();
         Task<IEnumerable<SprintViewModel>> GetClosed();
         Task<SprintViewModel> GetById(Guid id);
-        void Create(SprintViewModel viewModel);
-        void Update(SprintViewModel viewModel);
-        void Delete(SprintViewModel viewModel);
+        Task Create(SprintViewModel viewModel);
+        Task Update(SprintViewModel viewModel);
+        Task Delete(SprintViewModel viewModel);
     }
 }

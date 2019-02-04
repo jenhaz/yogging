@@ -58,13 +58,13 @@ namespace Yogging.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProfile(ProfileViewModel profile)
+        public async Task<ActionResult> CreateProfile(ProfileViewModel profile)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _profileService.Create(profile);
+                    await _profileService.Create(profile);
                     return RedirectToAction("About");
                 }
                 catch (Exception e)
@@ -96,13 +96,13 @@ namespace Yogging.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProfile(ProfileViewModel viewModel)
+        public async Task<ActionResult> EditProfile(ProfileViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _profileService.Update(viewModel);
+                    await _profileService.Update(viewModel);
                     return RedirectToAction("About");
                 }
                 catch (Exception e)

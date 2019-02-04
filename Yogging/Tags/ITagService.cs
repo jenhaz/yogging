@@ -9,8 +9,8 @@ namespace Yogging.Tags
     {
         Task<IEnumerable<TagViewModel>> GetAll();
         Task<TagViewModel> GetById(Guid id);
-        void Create(TagViewModel viewModel);
-        void Update(TagViewModel viewModel);
-        void Delete(TagViewModel viewModel);
+        Task Create(TagViewModel viewModel);
+        Task Update(TagViewModel viewModel);
+        Task Delete(TagViewModel viewModel);
     }
 }

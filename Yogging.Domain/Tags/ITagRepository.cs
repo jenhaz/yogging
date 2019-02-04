@@ -8,8 +8,8 @@ namespace Yogging.Domain.Tags
     {
         Task<IEnumerable<Tag>> GetAll();
         Task<Tag> GetById(Guid id);
-        void Create(Tag tag);
-        void Update(Tag tag);
-        void Delete(Tag tag);
+        Task Create(Tag tag);
+        Task Update(Tag tag);
+        Task Delete(Tag tag);
     }
 }

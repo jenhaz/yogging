@@ -14,8 +14,8 @@ namespace Yogging.Stories
         Task<IEnumerable<StoryViewModel>> GetByTag(Guid tagId);
         Task<IEnumerable<StoryViewModel>> GetByAssignedUser(Guid userId);
         Task<IEnumerable<StoryViewModel>> GetByStatus(StoryStatus status);
-        void Create(StoryViewModel viewModel);
+        Task Create(StoryViewModel viewModel);
         Task Update(StoryViewModel viewModel);
-        void Delete(StoryViewModel viewModel);
+        Task Delete(StoryViewModel viewModel);
     }
 }

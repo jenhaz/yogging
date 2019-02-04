@@ -49,13 +49,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserViewModel user)
+        public async Task<ActionResult> Create(UserViewModel user)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _userService.Create(user);
+                    await _userService.Create(user);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -87,13 +87,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(UserViewModel user)
+        public async Task<ActionResult> Edit(UserViewModel user)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _userService.Update(user);
+                    await _userService.Update(user);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -129,7 +129,7 @@ namespace Yogging.Controllers
                 var user = await _userService.GetById(id);
                 if (user != null)
                 {
-                    _userService.Delete(user);
+                    await _userService.Delete(user);
                 }
                 return RedirectToAction("Index");
             }

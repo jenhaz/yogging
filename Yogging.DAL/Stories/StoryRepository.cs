@@ -38,13 +38,13 @@ namespace Yogging.DAL.Stories
             return stories.Where(x => x.Sprint.Id == id).Select(MapTo);
         }
 
-        public void Create(Story story)
+        public async Task Create(Story story)
         {
             var dao = MapTo(story);
             dao.CreatedDate = DateTime.UtcNow;
             dao.LastUpdated = DateTime.UtcNow;
             _db.Stories.Add(dao);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         public async Task Update(Story story)
@@ -57,11 +57,11 @@ namespace Yogging.DAL.Stories
             await _db.SaveChangesAsync();
         }
 
-        public void Delete(Story story)
+        public async Task Delete(Story story)
         {
             var dao = MapTo(story);
             _db.Stories.Remove(dao);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         private static Story MapTo(StoryDao dao)

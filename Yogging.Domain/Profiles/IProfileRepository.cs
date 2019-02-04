@@ -8,7 +8,7 @@ namespace Yogging.Domain.Profiles
     {
         Task<IEnumerable<Profile>> GetAll();
         Task<Profile> GetById(Guid id);
-        void Create(Profile profile);
-        void Update(Profile profile);
+        Task Create(Profile profile);
+        Task Update(Profile profile);
     }
 }

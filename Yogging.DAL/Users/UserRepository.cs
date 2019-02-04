@@ -29,25 +29,25 @@ namespace Yogging.DAL.Users
             return MapTo(user);
         }
 
-        public void Create(User user)
+        public async Task Create(User user)
         {
             var dao = MapTo(user);
             _db.Users.Add(dao);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void Update(User user)
+        public async Task Update(User user)
         {
             var dao = MapTo(user);
             _db.Entry(dao).State = EntityState.Modified;
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void Delete(User user)
+        public async Task Delete(User user)
         {
             var dao = MapTo(user);
             _db.Users.Remove(dao);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         private static User MapTo(UserDao dao)

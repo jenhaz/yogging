@@ -29,16 +29,16 @@ namespace Yogging.Profiles
             return profiles?.Select(GetViewModel);
         }
 
-        public void Create(ProfileViewModel viewModel)
+        public async Task Create(ProfileViewModel viewModel)
         {
             var profile = GetProfile(viewModel);
-            _repository.Create(profile);
+            await _repository.Create(profile);
         }
 
-        public void Update(ProfileViewModel viewModel)
+        public async Task Update(ProfileViewModel viewModel)
         {
             var profile = GetProfile(viewModel);
-            _repository.Update(profile);
+            await _repository.Update(profile);
         }
 
         private static ProfileViewModel GetViewModel(Profile profile)

@@ -56,13 +56,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SprintViewModel sprint)
+        public async Task<ActionResult> Create(SprintViewModel sprint)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _sprintService.Create(sprint);
+                    await _sprintService.Create(sprint);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -93,13 +93,13 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(SprintViewModel viewModel)
+        public async Task<ActionResult> Edit(SprintViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _sprintService.Update(viewModel);
+                    await _sprintService.Update(viewModel);
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -133,7 +133,7 @@ namespace Yogging.Controllers
                 var sprint = await _sprintService.GetById(id);
                 if (sprint != null)
                 {
-                    _sprintService.Delete(sprint);
+                    await _sprintService.Delete(sprint);
                 }
                 return RedirectToAction("Index");
             }

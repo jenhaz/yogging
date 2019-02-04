@@ -53,22 +53,22 @@ namespace Yogging.Sprints
             return await GetViewModel(sprint);
         }
 
-        public void Create(SprintViewModel viewModel)
+        public async Task Create(SprintViewModel viewModel)
         {
             var sprint = GetSprint(viewModel);
-            _sprintRepository.Create(sprint);
+            await _sprintRepository.Create(sprint);
         }
 
-        public void Update(SprintViewModel viewModel)
+        public async Task Update(SprintViewModel viewModel)
         {
             var sprint = GetSprint(viewModel);
-            _sprintRepository.Update(sprint);
+            await _sprintRepository.Update(sprint);
         }
 
-        public void Delete(SprintViewModel viewModel)
+        public async Task Delete(SprintViewModel viewModel)
         {
             var sprint = GetSprint(viewModel);
-            _sprintRepository.Delete(sprint);
+            await _sprintRepository.Delete(sprint);
         }
 
         private async Task<SprintViewModel> GetViewModel(Sprint sprint)

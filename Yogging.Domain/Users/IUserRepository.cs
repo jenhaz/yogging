@@ -8,8 +8,8 @@ namespace Yogging.Domain.Users
     {
         Task<IEnumerable<User>> GetAll();
         Task<User> GetById(Guid id);
-        void Create(User user);
-        void Update(User user);
-        void Delete(User user);
+        Task Create(User user);
+        Task Update(User user);
+        Task Delete(User user);
     }
 }

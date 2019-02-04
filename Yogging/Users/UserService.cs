@@ -44,22 +44,22 @@ namespace Yogging.Users
             return await Task.WhenAll(tasks);
         }
 
-        public void Create(UserViewModel viewModel)
+        public async Task Create(UserViewModel viewModel)
         {
             var user = GetUser(viewModel);
-            _userRepository.Create(user);
+            await _userRepository.Create(user);
         }
 
-        public void Update(UserViewModel viewModel)
+        public async Task Update(UserViewModel viewModel)
         {
             var user = GetUser(viewModel);
-            _userRepository.Update(user);
+            await _userRepository.Update(user);
         }
 
-        public void Delete(UserViewModel viewModel)
+        public async Task Delete(UserViewModel viewModel)
         {
             var user = GetUser(viewModel);
-            _userRepository.Delete(user);
+            await _userRepository.Delete(user);
         }
 
         private static string UserIsInactive(bool isInactive)

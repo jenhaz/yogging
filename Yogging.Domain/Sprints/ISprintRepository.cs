@@ -8,8 +8,8 @@ namespace Yogging.Domain.Sprints
     {
         Task<IEnumerable<Sprint>> GetAll();
         Task<Sprint> GetById(Guid id);
-        void Create(Sprint sprint);
-        void Update(Sprint sprint);
-        void Delete(Sprint sprint);
+        Task Create(Sprint sprint);
+        Task Update(Sprint sprint);
+        Task Delete(Sprint sprint);
     }
 }

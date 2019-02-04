@@ -28,22 +28,22 @@ namespace Yogging.Tags
             return GetViewModel(tag);
         }
 
-        public void Create(TagViewModel viewModel)
+        public async Task Create(TagViewModel viewModel)
         {
             var tag = GetTag(viewModel);
-            _repository.Create(tag);
+            await _repository.Create(tag);
         }
 
-        public void Update(TagViewModel viewModel)
+        public async Task Update(TagViewModel viewModel)
         {
             var tag = GetTag(viewModel);
-            _repository.Update(tag);
+            await _repository.Update(tag);
         }
 
-        public void Delete(TagViewModel viewModel)
+        public async Task Delete(TagViewModel viewModel)
         {
             var tag = GetTag(viewModel);
-            _repository.Delete(tag);
+            await _repository.Delete(tag);
         }
 
         private static TagViewModel GetViewModel(Tag tag)

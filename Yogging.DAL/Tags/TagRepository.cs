@@ -32,25 +32,25 @@ namespace Yogging.DAL.Tags
             return MapTo(tag);
         }
 
-        public void Create(Tag tag)
+        public async Task Create(Tag tag)
         {
             var dao = MapTo(tag);
             _db.Tags.Add(dao);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void Update(Tag tag)
+        public async Task Update(Tag tag)
         {
             var dao = MapTo(tag);
             _db.Entry(dao).State = EntityState.Modified;
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void Delete(Tag tag)
+        public async Task Delete(Tag tag)
         {
             var dao = MapTo(tag);
             _db.Tags.Remove(dao);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         private static Tag MapTo(TagDao dao)

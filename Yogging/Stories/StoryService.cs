@@ -58,10 +58,10 @@ namespace Yogging.Stories
                 .Select(GetViewModel);
         }
 
-        public void Create(StoryViewModel viewModel)
+        public async Task Create(StoryViewModel viewModel)
         {
             var story = PutStory(viewModel);
-            _repository.Create(story);
+            await _repository.Create(story);
         }
 
         public async Task Update(StoryViewModel viewModel)
@@ -70,10 +70,10 @@ namespace Yogging.Stories
             await _repository.Update(story);
         }
 
-        public void Delete(StoryViewModel viewModel)
+        public async Task Delete(StoryViewModel viewModel)
         {
             var story = PutStory(viewModel);
-            _repository.Delete(story);
+            await _repository.Delete(story);
         }
 
         private static StoryViewModel GetViewModel(Story x)
