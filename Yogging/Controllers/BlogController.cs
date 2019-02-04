@@ -27,7 +27,7 @@ namespace Yogging.Controllers
                 return null;
             }
 
-            var morePosts =await  _blogService.GetAll(nextPageToken);
+            var morePosts = await _blogService.GetAll(nextPageToken);
             return PartialView("_BlogPostsList", morePosts);
         }
     }

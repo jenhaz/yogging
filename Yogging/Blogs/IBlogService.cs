@@ -5,7 +5,6 @@ namespace Yogging.Blogs
 {
     public interface IBlogService
     {
-        Task<BlogViewModel> GetAll();
-        Task<BlogViewModel> GetAll(string nextPageToken);
+        Task<BlogViewModel> GetAll(string nextPageToken = "");
     }
 }

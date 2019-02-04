@@ -15,35 +15,25 @@ namespace Yogging.Blogs
         private readonly string _blogId = WebConfigurationManager.AppSettings["BloggerBlogId"];
         private readonly string _key = WebConfigurationManager.AppSettings["GoogleApiKey"];
 
-        public async Task<BlogViewModel> GetAll()
+        public async Task<BlogViewModel> GetAll(string nextPageToken = "")
         {
             var url = $"https://www.googleapis.com/blogger/v3/blogs/{_blogId}/posts?key={_key}";
+
+            if (!string.IsNullOrEmpty(nextPageToken))
+            {
+                url = $"https://www.googleapis.com/blogger/v3/blogs/{_blogId}/posts?pageToken={nextPageToken}&key={_key}";
+            }
+            
             var posts = await GetJson(url);
 
             var list = posts?.Posts;
 
-            IEnumerable<BlogPostViewModel> vm = list?.Select(GetViewModel).ToList();
+            var vm = list?.Select(GetViewModel).ToList();
 
             return new BlogViewModel
             {
                 BlogPosts = vm,
                 NextPageToken = posts?.NextPageToken
-            };
-        }
-
-        public async Task<BlogViewModel> GetAll(string nextPageToken)
-        {
-            var url = $"https://www.googleapis.com/blogger/v3/blogs/{_blogId}/posts?pageToken={nextPageToken}&key={_key}";
-            var nextPagePosts = await GetJson(url);
-
-            var list = nextPagePosts?.Posts;
-
-            IEnumerable<BlogPostViewModel> vm = list?.Select(GetViewModel).ToList();
-
-            return new BlogViewModel
-            {
-                BlogPosts = vm,
-                NextPageToken = nextPagePosts?.NextPageToken
             };
         }
 
