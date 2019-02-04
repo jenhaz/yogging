@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Configuration;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
@@ -14,10 +15,10 @@ namespace Yogging.Blogs
         private readonly string _blogId = WebConfigurationManager.AppSettings["BloggerBlogId"];
         private readonly string _key = WebConfigurationManager.AppSettings["GoogleApiKey"];
 
-        public BlogViewModel GetAll()
+        public async Task<BlogViewModel> GetAll()
         {
             var url = $"https://www.googleapis.com/blogger/v3/blogs/{_blogId}/posts?key={_key}";
-            var posts = GetJson(url);
+            var posts = await GetJson(url);
 
             var list = posts?.Posts;
 
@@ -30,10 +31,10 @@ namespace Yogging.Blogs
             };
         }
 
-        public BlogViewModel GetAll(string nextPageToken)
+        public async Task<BlogViewModel> GetAll(string nextPageToken)
         {
             var url = $"https://www.googleapis.com/blogger/v3/blogs/{_blogId}/posts?pageToken={nextPageToken}&key={_key}";
-            var nextPagePosts = GetJson(url);
+            var nextPagePosts = await GetJson(url);
 
             var list = nextPagePosts?.Posts;
 
@@ -46,11 +47,11 @@ namespace Yogging.Blogs
             };
         }
 
-        private static BlogPosts GetJson(string url)
+        private static async Task<BlogPosts> GetJson(string url)
         {
             using (var client = new WebClient())
             {
-                var content = client.DownloadString(url);
+                var content = await client.DownloadStringTaskAsync(url);
 
                 var jsonContent = JsonConvert.DeserializeObject<BlogPosts>(content);
 

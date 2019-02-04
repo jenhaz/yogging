@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Yogging.Domain.Profiles;
+using System.Threading.Tasks;
 using Yogging.ViewModels;
 
 namespace Yogging.Profiles
 {
     public interface IProfileService
     {
-        IEnumerable<ProfileViewModel> GetAll();
-        ProfileViewModel GetById(Guid id);
+        Task<ProfileViewModel> GetById(Guid id);
+        Task<IEnumerable<ProfileViewModel>> GetAll();
         void Create(ProfileViewModel profile);
         void Update(ProfileViewModel profile);
     }

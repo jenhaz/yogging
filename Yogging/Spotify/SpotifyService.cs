@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Configuration;
 using Newtonsoft.Json;
 using Yogging.ViewModels;
@@ -12,14 +13,14 @@ namespace Yogging.Spotify
 {
     public class SpotifyService : ISpotifyService
     {
-        public IEnumerable<SpotifyPlaylistViewModel> GetAllPlaylists()
+        public async Task<IEnumerable<SpotifyPlaylistViewModel>> GetAllPlaylists()
         {
-            var playlists = GetSpotifyPlaylists();
+            var playlists = await GetSpotifyPlaylists();
             IEnumerable<SpotifyPlaylist> list = playlists.Playlists;
 
             foreach (var playlist in list)
             {
-                var tracks = GetAllPlaylistTracks(playlist.Id);
+                var tracks = await GetAllPlaylistTracks(playlist.Id);
                 playlist.PlaylistTracks.Tracks = tracks.Tracks.OrderByDescending(x => x.Added).ToList(); //TODO: somehow get last page first
             }
 
@@ -28,19 +29,19 @@ namespace Yogging.Spotify
             return vmList;
         }
 
-        private SpotifyPlaylists GetSpotifyPlaylists()
+        private async Task<SpotifyPlaylists> GetSpotifyPlaylists()
         {
             var accountId = WebConfigurationManager.AppSettings["SpotifyAccountId"].ToString();
             var url = $"https://api.spotify.com/v1/users/{accountId}/playlists";
-            var token = GetAccessToken();
+            var token = await GetAccessToken();
             var accessToken = token.access_token;
 
-            var playlists = GetSpotifyPlaylistsJson(accessToken, url);
+            var playlists = await GetSpotifyPlaylistsJson(accessToken, url);
 
             return playlists;
         }
 
-        private SpotifyPlaylists GetSpotifyPlaylistsJson(string token, string url)
+        private async Task<SpotifyPlaylists> GetSpotifyPlaylistsJson(string token, string url)
         {
             var playlists = new SpotifyPlaylists();
             var request = WebRequest.Create(url);
@@ -56,7 +57,7 @@ namespace Yogging.Spotify
                     {
                         using (var reader = new StreamReader(dataStream))
                         {
-                            var responseFromServer = reader.ReadToEnd();
+                            var responseFromServer = await reader.ReadToEndAsync();
                             playlists = JsonConvert.DeserializeObject<SpotifyPlaylists>(responseFromServer);
 
                             return playlists;
@@ -68,26 +69,26 @@ namespace Yogging.Spotify
             return playlists;
         }
 
-        private SpotifyPlaylistTracks GetAllPlaylistTracks(string playlistId)
+        private async Task<SpotifyPlaylistTracks> GetAllPlaylistTracks(string playlistId)
         {
-            var tracks = GetSpotifyPlaylistTracks(playlistId);
+            var tracks = await GetSpotifyPlaylistTracks(playlistId);
 
             return tracks;
         }
 
-        private SpotifyPlaylistTracks GetSpotifyPlaylistTracks(string playlistId)
+        private async Task<SpotifyPlaylistTracks> GetSpotifyPlaylistTracks(string playlistId)
         {
             var accountId = WebConfigurationManager.AppSettings["SpotifyAccountId"];
             var url = $"https://api.spotify.com/v1/users/{accountId}/playlists/{playlistId}/tracks";
-            var token = GetAccessToken();
+            var token = await GetAccessToken();
             var accessToken = token.access_token;
 
-            var tracks = GetSpotifyPlaylistTracksJson(accessToken, url);
+            var tracks = await GetSpotifyPlaylistTracksJson(accessToken, url);
 
             return tracks;
         }
 
-        private SpotifyPlaylistTracks GetSpotifyPlaylistTracksJson(string token, string url)
+        private async Task<SpotifyPlaylistTracks> GetSpotifyPlaylistTracksJson(string token, string url)
         {
             var tracks = new SpotifyPlaylistTracks();
             var request = WebRequest.Create(url);
@@ -103,7 +104,7 @@ namespace Yogging.Spotify
                     {
                         using (var reader = new StreamReader(dataStream))
                         {
-                            var responseFromServer = reader.ReadToEnd();
+                            var responseFromServer = await reader.ReadToEndAsync();
                             tracks = JsonConvert.DeserializeObject<SpotifyPlaylistTracks>(responseFromServer);
                             return tracks;
                         }
@@ -114,7 +115,7 @@ namespace Yogging.Spotify
             return tracks;
         }
 
-        private SpotifyToken GetAccessToken()
+        private async Task<SpotifyToken> GetAccessToken()
         {
             var token = new SpotifyToken();
             var byteArray = Encoding.UTF8.GetBytes("grant_type=client_credentials");
@@ -129,20 +130,18 @@ namespace Yogging.Spotify
             request.ContentType = "application/x-www-form-urlencoded";
             request.ContentLength = byteArray.Length;
 
-            using (var dataStream = request.GetRequestStream())
+            using (var dataStream = await request.GetRequestStreamAsync())
             {
                 dataStream.Write(byteArray, 0, byteArray.Length);
-                using (var response = request.GetResponse())
+                using (var response = await request.GetResponseAsync())
+                using (var responseStream = response.GetResponseStream())
                 {
-                    using (var responseStream = response.GetResponseStream())
+                    if (responseStream != null)
                     {
-                        if (responseStream != null)
+                        using (var reader = new StreamReader(responseStream))
                         {
-                            using (var reader = new StreamReader(responseStream))
-                            {
-                                var responseFromServer = reader.ReadToEnd();
-                                token = JsonConvert.DeserializeObject<SpotifyToken>(responseFromServer);
-                            }
+                            var responseFromServer = await reader.ReadToEndAsync();
+                            token = JsonConvert.DeserializeObject<SpotifyToken>(responseFromServer);
                         }
                     }
                 }

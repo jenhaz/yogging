@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoFixture;
 using NSubstitute;
 using NUnit.Framework;
@@ -26,7 +27,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetAllProfiles()
+        public async Task GetAllProfiles()
         {
             // given
             var profileId = _fixture.Create<Guid>();
@@ -41,10 +42,10 @@ namespace Yogging.Tests.Services
             _profileRepository.GetAll().Returns(profiles);
 
             // when
-            var result = _subject.GetAll().ToList();
+            var result = await _subject.GetAll();
 
             // then
-            _profileRepository.Received(1).GetAll();
+            await _profileRepository.Received(1).GetAll();
             Assert.That(result, Is.Not.Null);
             var actual = result.FirstOrDefault(x => x.Id == profileId);
             Assert.That(actual, Is.Not.Null);
@@ -63,7 +64,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetById()
+        public async Task GetById()
         {
             // given
             var profileId = _fixture.Create<Guid>();
@@ -74,10 +75,10 @@ namespace Yogging.Tests.Services
             _profileRepository.GetById(profileId).Returns(profile);
 
             // when
-            var result = _subject.GetById(profileId);
+            var result = await _subject.GetById(profileId);
 
             // then
-            _profileRepository.Received(1).GetById(profileId);
+            await _profileRepository.Received(1).GetById(profileId);
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(profile.Id));

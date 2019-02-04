@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoFixture;
 using NSubstitute;
 using NUnit.Framework;
@@ -29,7 +30,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetAllActiveSprints()
+        public async Task GetAllActiveSprints()
         {
             // given
             var activeSprintId = _fixture.Create<Guid>();
@@ -51,10 +52,10 @@ namespace Yogging.Tests.Services
             _sprintRepository.GetAll().Returns(sprints);
 
             // when
-            var result = _subject.GetActive().ToList();
+            var result = await _subject.GetActive();
 
             // then
-            _sprintRepository.Received(1).GetAll();
+            await _sprintRepository.Received(1).GetAll();
             Assert.That(result.Count, Is.EqualTo(1));
             var actual = result.FirstOrDefault(x => x.Id == activeSprintId);
             Assert.That(actual, Is.Not.Null);
@@ -66,7 +67,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetAllClosedSprints()
+        public async Task GetAllClosedSprints()
         {
             // given
             var closedSprintId = _fixture.Create<Guid>();
@@ -88,10 +89,10 @@ namespace Yogging.Tests.Services
             _sprintRepository.GetAll().Returns(sprints);
 
             // when
-            var result = _subject.GetClosed().ToList();
+            var result = await _subject.GetClosed();
 
             // then
-            _sprintRepository.Received(1).GetAll();
+            await _sprintRepository.Received(1).GetAll();
             Assert.That(result.Count, Is.EqualTo(1));
             var actual = result.FirstOrDefault(x => x.Id == closedSprintId);
             Assert.That(actual, Is.Not.Null);
@@ -103,7 +104,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetById()
+        public async Task GetById()
         {
             // given
             var sprintId = _fixture.Create<Guid>();
@@ -114,10 +115,10 @@ namespace Yogging.Tests.Services
             _sprintRepository.GetById(sprintId).Returns(sprint);
 
             // when
-            var result = _subject.GetById(sprintId);
+            var result = await _subject.GetById(sprintId);
 
             // then
-            _sprintRepository.Received(1).GetById(sprintId);
+            await _sprintRepository.Received(1).GetById(sprintId);
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(sprint.Id));
             Assert.That(result.Name, Is.EqualTo(sprint.Name));
@@ -166,7 +167,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetSprintPointTotal()
+        public async Task GetSprintPointTotal()
         {
             // given
             var sprintId = _fixture.Create<Guid>();
@@ -193,7 +194,7 @@ namespace Yogging.Tests.Services
             _storyService.GetBySprint(sprintId).Returns(stories);
 
             // when
-            var result = _subject.GetById(sprintId);
+            var result = await _subject.GetById(sprintId);
 
             // then
             var expectedTotal = story1Points + story2Points;
@@ -201,7 +202,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetSprintPointTotal_ByStoryStatus()
+        public async Task GetSprintPointTotal_ByStoryStatus()
         {
             // given
             var sprintId = _fixture.Create<Guid>();
@@ -246,7 +247,7 @@ namespace Yogging.Tests.Services
             _storyService.GetByStatus(StoryStatus.Done).Returns(new List<StoryViewModel> {story3, story4});
 
             // when
-            var result = _subject.GetById(sprintId);
+            var result = await _subject.GetById(sprintId);
 
             // then
             Assert.That(result.TotalPointsToDo, Is.EqualTo(story1Points + story2Points));

@@ -16,58 +16,46 @@ namespace Yogging.Stories
             _repository = repository;
         }
 
-        public IEnumerable<StoryViewModel> GetAll()
+        public async Task<IEnumerable<StoryViewModel>> GetAll()
         {
-            var stories = _repository
-                .GetAll()
-                .Select(GetViewModel);
-
-            return stories;
+            var stories = await _repository.GetAll();
+            return stories.Select(GetViewModel);
         }
 
-        public StoryViewModel GetById(Guid id)
+        public async Task<StoryViewModel> GetById(Guid id)
         {
-            var story = _repository.GetById(id);
+            var story = await _repository.GetById(id);
             return GetViewModel(story);
         }
 
-        public IEnumerable<StoryViewModel> GetBySprint(Guid sprintId)
+        public async Task<IEnumerable<StoryViewModel>> GetBySprint(Guid sprintId)
         {
-            var stories = _repository
-                .GetBySprintId(sprintId)
-                .Select(GetViewModel);
-
-            return stories;
+            var stories = await _repository.GetBySprintId(sprintId);
+            return stories.Select(GetViewModel);
         }
 
-        public IEnumerable<StoryViewModel> GetByTag(Guid tagId)
+        public async Task<IEnumerable<StoryViewModel>> GetByTag(Guid tagId)
         {
-            var stories = _repository
-                .GetAll()
+            var stories = await _repository.GetAll();
+            return stories
                 .Where(y => y.TagId.Equals(tagId))
                 .Select(GetViewModel);
-
-            return stories;
         }
 
-        public IEnumerable<StoryViewModel> GetByAssignedUser(Guid userId)
+        public async Task<IEnumerable<StoryViewModel>> GetByAssignedUser(Guid userId)
         {
-            var stories = _repository
-                .GetAll()
+            var stories = await _repository.GetAll();
+            return stories
                 .Where(y => y.UserId.Equals(userId))
                 .Select(GetViewModel);
-
-            return stories;
         }
 
-        public IEnumerable<StoryViewModel> GetByStatus(StoryStatus status)
+        public async Task<IEnumerable<StoryViewModel>> GetByStatus(StoryStatus status)
         {
-            var stories = _repository
-                .GetAll()
+            var stories = await _repository.GetAll();
+            return stories
                 .Where(y => y.Status.Equals(status))
                 .Select(GetViewModel);
-
-            return stories;
         }
 
         public void Create(StoryViewModel viewModel)

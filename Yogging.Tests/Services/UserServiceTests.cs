@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoFixture;
 using NSubstitute;
 using NUnit.Framework;
@@ -29,7 +30,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetAllUsers()
+        public async Task GetAllUsers()
         {
             // given
             var userId = _fixture.Create<Guid>();
@@ -40,7 +41,7 @@ namespace Yogging.Tests.Services
             _userRepository.GetAll().Returns(new List<User> { user });
 
             // when
-            var result = _subject.GetAll().ToList();
+            var result = await _subject.GetAll();
 
             // then
             var actual = result.FirstOrDefault(x => x.Id == userId);
@@ -52,7 +53,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetAllActiveUsers()
+        public async Task GetAllActiveUsers()
         {
             // given
             var activeUserId = _fixture.Create<Guid>();
@@ -75,7 +76,7 @@ namespace Yogging.Tests.Services
             _userRepository.GetAll().Returns(users);
 
             // when
-            var result = _subject.GetActive().ToList();
+            var result = await _subject.GetActive();
 
             // then
             Assert.That(result.Count, Is.EqualTo(1));
@@ -89,7 +90,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetById()
+        public async Task GetById()
         {
             // given
             var userId = _fixture.Create<Guid>();
@@ -100,7 +101,7 @@ namespace Yogging.Tests.Services
             _userRepository.GetById(userId).Returns(user);
 
             // when
-            var result = _subject.GetById(userId);
+            var result = await _subject.GetById(userId);
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -111,7 +112,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void InactiveUser_ReturnsInactive()
+        public async Task InactiveUser_ReturnsInactive()
         {
             // given
             var userId = _fixture.Create<Guid>();
@@ -123,14 +124,14 @@ namespace Yogging.Tests.Services
             _userRepository.GetById(userId).Returns(user);
 
             // when
-            var result = _subject.GetById(userId);
+            var result = await _subject.GetById(userId);
 
             // then
             Assert.AreEqual("Inactive", result.IsInactive);
         }
 
         [Test]
-        public void ActiveUser_ReturnsActive()
+        public async Task ActiveUser_ReturnsActive()
         {
             // given
             var userId = _fixture.Create<Guid>();
@@ -142,7 +143,7 @@ namespace Yogging.Tests.Services
             _userRepository.GetById(userId).Returns(user);
 
             // when
-            var result = _subject.GetById(userId);
+            var result = await _subject.GetById(userId);
 
             // then
             Assert.AreEqual("Active", result.IsInactive);

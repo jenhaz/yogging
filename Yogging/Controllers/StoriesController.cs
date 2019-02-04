@@ -31,17 +31,17 @@ namespace Yogging.Controllers
         }
 
         // GET: Stories
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var stories = _storyService.GetAll();
+            var stories = await _storyService.GetAll();
 
             return View(stories);
         }
 
         // GET: Stories/Details/5
-        public ActionResult Details(Guid id)
+        public async Task<ActionResult> Details(Guid id)
         {
-            var story = _storyService.GetById(id);
+            var story = await _storyService.GetById(id);
 
             if (story == null)
             {
@@ -51,19 +51,19 @@ namespace Yogging.Controllers
             return View(story);
         }
 
-        public PartialViewResult PartialDetails(Guid id)
+        public async Task<PartialViewResult> PartialDetails(Guid id)
         {
-            var story = _storyService.GetById(id);
+            var story = await _storyService.GetById(id);
 
             return PartialView("_StoriesDetail", story);
         }
 
         // GET: Stories/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            ViewBag.SprintId = GetSprintsSelectList();
-            ViewBag.TagId = GetTagsSelectList();
-            ViewBag.UserId = GetUsersSelectList();
+            ViewBag.SprintId = await GetSprintsSelectList();
+            ViewBag.TagId = await GetTagsSelectList();
+            ViewBag.UserId = await GetUsersSelectList();
 
             return View();
         }
@@ -73,7 +73,7 @@ namespace Yogging.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(StoryViewModel story)
+        public async Task<ActionResult> Create(StoryViewModel story)
         {
             if (ModelState.IsValid)
             {
@@ -90,25 +90,25 @@ namespace Yogging.Controllers
                 }
             }
 
-            ViewBag.SprintId = GetSprintsSelectList(story);
-            ViewBag.TagId = GetTagsSelectList(story);
-            ViewBag.UserId = GetUsersSelectList(story);
+            ViewBag.SprintId = await GetSprintsSelectList(story);
+            ViewBag.TagId = await GetTagsSelectList(story);
+            ViewBag.UserId = await GetUsersSelectList(story);
 
             return View(story);
         }
         
         // GET: Stories/Edit/5
-        public ActionResult Edit(Guid id)
+        public async Task<ActionResult> Edit(Guid id)
         {
-            var story = _storyService.GetById(id);
+            var story = await _storyService.GetById(id);
             if (story == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.SprintId = GetSprintsSelectList(story);
-            ViewBag.TagId = GetTagsSelectList(story);
-            ViewBag.UserId = GetUsersSelectList(story);
+            ViewBag.SprintId = await GetSprintsSelectList(story);
+            ViewBag.TagId = await GetTagsSelectList(story);
+            ViewBag.UserId = await GetUsersSelectList(story);
 
             if (Request.IsAjaxRequest())
                 return PartialView("_EditPartial", story);
@@ -141,17 +141,17 @@ namespace Yogging.Controllers
                 }
             }
 
-            ViewBag.SprintId = GetSprintsSelectList(viewModel);
-            ViewBag.TagId = GetTagsSelectList(viewModel);
-            ViewBag.UserId = GetUsersSelectList(viewModel);
+            ViewBag.SprintId = await GetSprintsSelectList(viewModel);
+            ViewBag.TagId = await GetTagsSelectList(viewModel);
+            ViewBag.UserId = await GetUsersSelectList(viewModel);
 
             return View(viewModel);
         }
 
         // GET: Stories/Delete/5
-        public ActionResult Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
-            var story = _storyService.GetById(id);
+            var story = await _storyService.GetById(id);
 
             if (story == null)
             {
@@ -164,11 +164,11 @@ namespace Yogging.Controllers
         // POST: Stories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
             try
             {
-                var story = _storyService.GetById(id);
+                var story = await _storyService.GetById(id);
                 if (story != null)
                 {
                     _storyService.Delete(story);
@@ -183,22 +183,22 @@ namespace Yogging.Controllers
             }
         }
 
-        private SelectList GetSprintsSelectList(StoryViewModel story = null)
+        private async Task<SelectList> GetSprintsSelectList(StoryViewModel story = null)
         {
             var sprintId = story?.SprintId;
-            return new SelectList(_sprintService.GetAll(), "Id", "Name", sprintId);
+            return new SelectList(await _sprintService.GetAll(), "Id", "Name", sprintId);
         }
 
-        private SelectList GetTagsSelectList(StoryViewModel story = null)
+        private async Task<SelectList> GetTagsSelectList(StoryViewModel story = null)
         {
             var tagId = story?.TagId;
-            return new SelectList(_tagService.GetAll(), "Id", "Name", tagId);
+            return new SelectList(await _tagService.GetAll(), "Id", "Name", tagId);
         }
 
-        private SelectList GetUsersSelectList(StoryViewModel story = null)
+        private async Task<SelectList> GetUsersSelectList(StoryViewModel story = null)
         {
             var userId = story?.UserId;
-            return new SelectList(_userService.GetActive(), "Id", "FirstName", userId);
+            return new SelectList(await _userService.GetActive(), "Id", "FirstName", userId);
         }
     }
 }

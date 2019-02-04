@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Yogging.Domain.Tags;
 using Yogging.Tags;
 using Yogging.ViewModels;
@@ -25,7 +26,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetAllTags()
+        public async Task GetAllTags()
         {
             // given
             var tagId = Guid.NewGuid();
@@ -41,7 +42,7 @@ namespace Yogging.Tests.Services
             _tagRepository.GetAll().Returns(tags);
 
             // when
-            var result = _subject.GetAll().ToList();
+            var result = await _subject.GetAll();
 
             // then
             Assert.That(result.Count, Is.EqualTo(1));
@@ -53,7 +54,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetTagById()
+        public async Task GetTagById()
         {
             // given
             var tagId = Guid.NewGuid();
@@ -64,7 +65,7 @@ namespace Yogging.Tests.Services
             _tagRepository.GetById(tagId).Returns(tag);
 
             // when
-            var result = _subject.GetById(tagId);
+            var result = await _subject.GetById(tagId);
 
             // then
             Assert.That(result, Is.Not.Null);

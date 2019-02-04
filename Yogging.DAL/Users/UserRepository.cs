@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using Yogging.DAL.Context;
 using Yogging.Domain.Users;
 
@@ -16,17 +17,15 @@ namespace Yogging.DAL.Users
             _db = db;
         }
 
-        public IEnumerable<User> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            var users = _db.Users.Select(x => MapTo(x)).OrderBy(x => x.FirstName);
-
-            return users.ToList();
+            var users = await _db.Users.ToListAsync();
+            return users.Select(MapTo).OrderBy(x => x.FirstName);
         }
 
-        public User GetById(Guid id)
+        public async Task<User> GetById(Guid id)
         {
-            var user = _db.Users.FirstOrDefault(x => x.Id == id);
-
+            var user = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
             return MapTo(user);
         }
 

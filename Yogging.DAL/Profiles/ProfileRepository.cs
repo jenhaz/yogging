@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using Yogging.DAL.Context;
 using Yogging.Domain.Profiles;
 
@@ -16,21 +17,21 @@ namespace Yogging.DAL.Profiles
             _db = db;
         }
 
-        public IEnumerable<Profile> GetAll()
+        public async Task<IEnumerable<Profile>> GetAll()
         {
-            var profiles = _db.Profiles.OrderBy(x => x.Id);
-
+            var profiles = await _db.Profiles.ToListAsync();
+                
             if (profiles.Any())
             {
-                return profiles.Select(x => MapTo(x));
+                return profiles.Select(MapTo).OrderBy(x => x.Id);
             }
 
             return null;
         }
 
-        public Profile GetById(Guid id)
+        public async Task<Profile> GetById(Guid id)
         {
-            var dao = _db.Profiles.FirstOrDefault(x => x.Id == id);
+            var dao = await _db.Profiles.FirstOrDefaultAsync(x => x.Id == id);
 
             return MapTo(dao);
         }
@@ -49,7 +50,7 @@ namespace Yogging.DAL.Profiles
             _db.SaveChanges();
         }
 
-        private ProfileDao MapTo(Profile profile)
+        private static ProfileDao MapTo(Profile profile)
         {
             return new ProfileDao
             {
@@ -68,7 +69,7 @@ namespace Yogging.DAL.Profiles
             };
         }
 
-        private Profile MapTo(ProfileDao dao)
+        private static Profile MapTo(ProfileDao dao)
         {
             return new Profile
             {

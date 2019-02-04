@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Yogging.Blogs;
 
 namespace Yogging.Controllers
@@ -12,21 +13,21 @@ namespace Yogging.Controllers
             _blogService = blogService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var posts = _blogService.GetAll();
+            var posts = await _blogService.GetAll();
 
             return View(posts);
         }
 
-        public ActionResult MoreBlogPosts(string nextPageToken = "")
+        public async Task<ActionResult> MoreBlogPosts(string nextPageToken = "")
         {
             if (string.IsNullOrEmpty(nextPageToken))
             {
                 return null;
             }
 
-            var morePosts = _blogService.GetAll(nextPageToken);
+            var morePosts =await  _blogService.GetAll(nextPageToken);
             return PartialView("_BlogPostsList", morePosts);
         }
     }

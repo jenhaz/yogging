@@ -1,10 +1,11 @@
-﻿using Yogging.ViewModels;
+﻿using System.Threading.Tasks;
+using Yogging.ViewModels;
 
 namespace Yogging.Blogs
 {
     public interface IBlogService
     {
-        BlogViewModel GetAll();
-        BlogViewModel GetAll(string nextPageToken);
+        Task<BlogViewModel> GetAll();
+        Task<BlogViewModel> GetAll(string nextPageToken);
     }
 }

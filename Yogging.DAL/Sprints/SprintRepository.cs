@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using Yogging.DAL.Context;
 using Yogging.Domain.Sprints;
 
@@ -16,16 +17,16 @@ namespace Yogging.DAL.Sprints
             _db = db;
         }
 
-        public IEnumerable<Sprint> GetAll()
+        public async Task<IEnumerable<Sprint>> GetAll()
         {
-            var query = _db.Sprints.Select(x => MapTo(x)).OrderByDescending(x => x.Id);
+            var query = await _db.Sprints.ToListAsync();
 
-            return query.ToList();
+            return query.Select(MapTo).OrderByDescending(x => x.Id);
         }
 
-        public Sprint GetById(Guid id)
+        public async Task<Sprint> GetById(Guid id)
         {
-            var sprint = _db.Sprints.Find(id);
+            var sprint = await _db.Sprints.FindAsync(id);
             return MapTo(sprint);
         }
 

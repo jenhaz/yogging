@@ -17,25 +17,25 @@ namespace Yogging.DAL.Stories
             _db = db;
         }
 
-        public IEnumerable<Story> GetAll()
+        public async Task<IEnumerable<Story>> GetAll()
         {
-            var stories = _db.Stories.Select(x => MapTo(x)).OrderByDescending(x => x.Id);
+            var stories = await _db.Stories.ToListAsync();
 
-            return stories.ToList();
+            return stories.Select(MapTo).OrderByDescending(x => x.Id);
         }
 
-        public Story GetById(Guid id)
+        public async Task<Story> GetById(Guid id)
         {
-            var story = _db.Stories.FirstOrDefault(x => x.Id == id);
+            var story = await _db.Stories.FirstOrDefaultAsync(x => x.Id == id);
 
             return MapTo(story);
         }
 
-        public IEnumerable<Story> GetBySprintId(Guid id)
+        public async Task<IEnumerable<Story>> GetBySprintId(Guid id)
         {
-            var stories = _db.Stories.Where(x => x.Sprint.Id == id).Select(x => MapTo(x));
+            var stories = await _db.Stories.ToListAsync();
 
-            return stories;
+            return stories.Where(x => x.Sprint.Id == id).Select(MapTo);
         }
 
         public void Create(Story story)

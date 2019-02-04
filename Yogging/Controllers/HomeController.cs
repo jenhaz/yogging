@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Yogging.Helpers;
 using Yogging.Profiles;
@@ -27,9 +28,9 @@ namespace Yogging.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public async Task<ActionResult> About()
         {
-            var profiles = _profileService.GetAll();
+            var profiles = await _profileService.GetAll();
 
             if (profiles == null)
             {
@@ -39,9 +40,9 @@ namespace Yogging.Controllers
             return View(profiles);
         }
 
-        public ActionResult Playlists()
+        public async Task<ActionResult> Playlists()
         {
-            var playlists = _spotifyService.GetAllPlaylists();
+            var playlists = await _spotifyService.GetAllPlaylists();
 
             return View(playlists);
         }
@@ -79,9 +80,9 @@ namespace Yogging.Controllers
 
         // GET: Home/EditProfile/5
         [Authorize]
-        public ActionResult EditProfile(Guid id)
+        public async Task<ActionResult> EditProfile(Guid id)
         {
-            var profile = _profileService.GetById(id);
+            var profile = await _profileService.GetById(id);
 
             if (profile == null)
             {

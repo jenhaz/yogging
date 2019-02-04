@@ -27,7 +27,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetById()
+        public async Task GetById()
         {
             // given
             var storyId = _fixture.Create<Guid>();
@@ -38,7 +38,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetById(storyId).Returns(story);
 
             // when
-            var result = _subject.GetById(storyId);
+            var result = await _subject.GetById(storyId);
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -58,7 +58,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetAllStories()
+        public async Task GetAllStories()
         {
             // given
             var storyId = _fixture.Create<Guid>();
@@ -75,7 +75,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetAll().Returns(stories);
 
             // when
-            var result = _subject.GetAll().ToList();
+            var result = await _subject.GetAll();
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -93,7 +93,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetAllStoriesBySprint()
+        public async Task GetAllStoriesBySprint()
         {
             // given
             var sprintId = _fixture.Create<Guid>();
@@ -112,7 +112,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetBySprintId(sprintId).Returns(stories);
 
             // when
-            var result = _subject.GetBySprint(sprintId).ToList();
+            var result = await _subject.GetBySprint(sprintId);
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -132,7 +132,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void GetAllStoriesByTag()
+        public async Task GetAllStoriesByTag()
         {
             // given
             var tagId = _fixture.Create<Guid>();
@@ -155,7 +155,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetAll().Returns(stories);
 
             // when
-            var result = _subject.GetByTag(tagId).ToList();
+            var result = await _subject.GetByTag(tagId);
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -180,7 +180,7 @@ namespace Yogging.Tests.Services
         [TestCase(StoryStatus.ToDo, StoryStatus.InProgress)]
         [TestCase(StoryStatus.Done, StoryStatus.ToDo)]
         [TestCase(StoryStatus.InProgress, StoryStatus.Done)]
-        public void GetAllStoriesByStatus(
+        public async Task GetAllStoriesByStatus(
             StoryStatus filterStatus, 
             StoryStatus otherStatus)
         {
@@ -206,7 +206,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetAll().Returns(stories);
 
             // when
-            var result = _subject.GetByStatus(filterStatus).ToList();
+            var result = await _subject.GetByStatus(filterStatus);
 
             // then
             Assert.That(result, Is.Not.Null);
@@ -225,7 +225,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void MissingTag_ReturnsNull()
+        public async Task MissingTag_ReturnsNull()
         {
             // given
             var storyId = _fixture.Create<Guid>();
@@ -237,7 +237,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetById(storyId).Returns(story);
 
             // when
-            var result = _subject.GetById(storyId);
+            var result = await _subject.GetById(storyId);
 
             // then
             Assert.AreEqual("#ffffff", result.TagColour);
@@ -246,7 +246,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void MissingUser_ReturnsNull()
+        public async Task MissingUser_ReturnsNull()
         {
             // given
             var storyId = _fixture.Create<Guid>();
@@ -258,7 +258,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetById(storyId).Returns(story);
 
             // when
-            var result = _subject.GetById(storyId);
+            var result = await _subject.GetById(storyId);
 
             // then
             Assert.AreEqual(null, result.UserId);
@@ -266,7 +266,7 @@ namespace Yogging.Tests.Services
         }
 
         [Test]
-        public void MissingSprint_ReturnsNull()
+        public async Task MissingSprint_ReturnsNull()
         {
             // given
             var storyId = _fixture.Create<Guid>();
@@ -278,7 +278,7 @@ namespace Yogging.Tests.Services
             _storyRepository.GetById(storyId).Returns(story);
 
             // when
-            var result = _subject.GetById(storyId);
+            var result = await _subject.GetById(storyId);
 
             // then
             Assert.AreEqual(null, result.SprintId);

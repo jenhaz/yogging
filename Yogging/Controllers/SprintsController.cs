@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Yogging.Helpers;
 using Yogging.Sprints;
@@ -17,24 +18,24 @@ namespace Yogging.Controllers
         }
 
         // GET: Sprints
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var sprints = _sprintService.GetActive();
+            var sprints = await _sprintService.GetActive();
 
             return View(sprints);
         }
 
-        public ActionResult Finished()
+        public async Task<ActionResult> Finished()
         {
-            var sprints = _sprintService.GetClosed();
+            var sprints = await _sprintService.GetClosed();
 
             return View(sprints);
         }
 
         // GET: Sprints/Details/5
-        public ActionResult Details(Guid id)
+        public async Task<ActionResult> Details(Guid id)
         {
-            var sprint = _sprintService.GetById(id);
+            var sprint = await _sprintService.GetById(id);
 
             if (sprint == null)
             {
@@ -76,9 +77,9 @@ namespace Yogging.Controllers
         }
 
         // GET: Sprints/Edit/5
-        public ActionResult Edit(Guid id)
+        public async Task<ActionResult> Edit(Guid id)
         {
-            var sprint = _sprintService.GetById(id);
+            var sprint = await _sprintService.GetById(id);
             if (sprint == null)
             {
                 return HttpNotFound();
@@ -112,9 +113,9 @@ namespace Yogging.Controllers
         }
 
         // GET: Sprints/Delete/5
-        public ActionResult Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
-            var sprint = _sprintService.GetById(id);
+            var sprint = await _sprintService.GetById(id);
             if (sprint == null)
             {
                 return HttpNotFound();
@@ -125,11 +126,11 @@ namespace Yogging.Controllers
         // POST: Sprints/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
             try
             {
-                var sprint = _sprintService.GetById(id);
+                var sprint = await _sprintService.GetById(id);
                 if (sprint != null)
                 {
                     _sprintService.Delete(sprint);

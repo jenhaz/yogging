@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Yogging.Helpers;
 using Yogging.Users;
@@ -17,17 +18,17 @@ namespace Yogging.Controllers
         }
 
         // GET: Users
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var users = _userService.GetActive();
+            var users = await _userService.GetActive();
 
             return View(users);
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(Guid id)
+        public async Task<ActionResult> Details(Guid id)
         {
-            var user = _userService.GetById(id);
+            var user = await _userService.GetById(id);
 
             if (user == null)
             {
@@ -69,9 +70,9 @@ namespace Yogging.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(Guid id)
+        public async Task<ActionResult> Edit(Guid id)
         {
-            var user = _userService.GetById(id);
+            var user = await _userService.GetById(id);
 
             if (user == null)
             {
@@ -106,9 +107,9 @@ namespace Yogging.Controllers
         }
 
         // GET: Users/Delete/5
-        public ActionResult Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
-            var user = _userService.GetById(id);
+            var user = await _userService.GetById(id);
 
             if (user == null)
             {
@@ -121,11 +122,11 @@ namespace Yogging.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
             try
             {
-                var user = _userService.GetById(id);
+                var user = await _userService.GetById(id);
                 if (user != null)
                 {
                     _userService.Delete(user);

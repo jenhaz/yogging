@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Yogging.Domain.Tags;
 using Yogging.ViewModels;
 
@@ -15,19 +16,15 @@ namespace Yogging.Tags
             _repository = repository;
         }
 
-        public IEnumerable<TagViewModel> GetAll()
+        public async Task<IEnumerable<TagViewModel>> GetAll()
         {
-            var tags = _repository
-                .GetAll()
-                .Select(GetViewModel);
-
-            return tags;
+            var tags = await _repository.GetAll();
+            return tags.Select(GetViewModel);
         }
 
-        public TagViewModel GetById(Guid id)
+        public async Task<TagViewModel> GetById(Guid id)
         {
-            var tag = _repository.GetById(id);
-
+            var tag = await _repository.GetById(id);
             return GetViewModel(tag);
         }
 

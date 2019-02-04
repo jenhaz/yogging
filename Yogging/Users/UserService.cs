@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Yogging.Domain.Users;
 using Yogging.Stories;
 using Yogging.ViewModels;
@@ -20,30 +21,27 @@ namespace Yogging.Users
             _storyService = storyService;
         }
 
-        public IEnumerable<UserViewModel> GetAll()
+        public async Task<IEnumerable<UserViewModel>> GetAll()
         {
-            var users = _userRepository
-                .GetAll()
-                .Select(GetViewModel);
-
-            return users;
+            var users = await _userRepository.GetAll();
+            var tasks = users.Select(GetViewModel);
+            return await Task.WhenAll(tasks);
         }
 
-        public UserViewModel GetById(Guid id)
+        public async Task<UserViewModel> GetById(Guid id)
         {
-            var user = _userRepository.GetById(id);
-
-            return GetViewModel(user);
+            var user = await _userRepository.GetById(id);
+            return await GetViewModel(user);
         }
 
-        public IEnumerable<UserViewModel> GetActive()
+        public async Task<IEnumerable<UserViewModel>> GetActive()
         {
-            var users = _userRepository
-                .GetAll()
+            var users = await _userRepository.GetAll();
+            var tasks = users
                 .Where(y => !y.IsInactive)
                 .Select(GetViewModel);
 
-            return users;
+            return await Task.WhenAll(tasks);
         }
 
         public void Create(UserViewModel viewModel)
@@ -66,9 +64,7 @@ namespace Yogging.Users
 
         private static string UserIsInactive(bool isInactive)
         {
-            var words = isInactive ? "Inactive" : "Active";
-
-            return words;
+            return isInactive ? "Inactive" : "Active";
         }
 
         private static bool UserIsInactive(string isInactive)
@@ -76,7 +72,7 @@ namespace Yogging.Users
             return isInactive.Equals("Inactive");
         }
 
-        private UserViewModel GetViewModel(User user)
+        private async Task<UserViewModel> GetViewModel(User user)
         {
             return new UserViewModel
             {
@@ -85,7 +81,7 @@ namespace Yogging.Users
                 LastName = user.LastName,
                 EmailAddress = user.EmailAddress,
                 IsInactive = UserIsInactive(user.IsInactive),
-                Stories = _storyService.GetByAssignedUser(user.Id)
+                Stories = await _storyService.GetByAssignedUser(user.Id)
             };
         }
 

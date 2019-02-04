@@ -8,12 +8,12 @@ namespace Yogging.Stories
 {
     public interface IStoryService
     {
-        IEnumerable<StoryViewModel> GetAll();
-        StoryViewModel GetById(Guid id);
-        IEnumerable<StoryViewModel> GetBySprint(Guid sprintId);
-        IEnumerable<StoryViewModel> GetByTag(Guid tagId);
-        IEnumerable<StoryViewModel> GetByAssignedUser(Guid userId);
-        IEnumerable<StoryViewModel> GetByStatus(StoryStatus status);
+        Task<IEnumerable<StoryViewModel>> GetAll();
+        Task<StoryViewModel> GetById(Guid id);
+        Task<IEnumerable<StoryViewModel>> GetBySprint(Guid sprintId);
+        Task<IEnumerable<StoryViewModel>> GetByTag(Guid tagId);
+        Task<IEnumerable<StoryViewModel>> GetByAssignedUser(Guid userId);
+        Task<IEnumerable<StoryViewModel>> GetByStatus(StoryStatus status);
         void Create(StoryViewModel viewModel);
         Task Update(StoryViewModel viewModel);
         void Delete(StoryViewModel viewModel);

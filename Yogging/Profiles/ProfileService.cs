@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Yogging.Domain.Profiles;
 using Yogging.ViewModels;
 
@@ -15,6 +16,19 @@ namespace Yogging.Profiles
             _repository = repository;
         }
 
+        public async Task<ProfileViewModel> GetById(Guid id)
+        {
+            var profile = await _repository.GetById(id);
+            return GetViewModel(profile);
+        }
+
+        public async Task<IEnumerable<ProfileViewModel>> GetAll()
+        {
+            var profiles = await _repository.GetAll();
+
+            return profiles?.Select(GetViewModel);
+        }
+
         public void Create(ProfileViewModel viewModel)
         {
             var profile = GetProfile(viewModel);
@@ -25,20 +39,6 @@ namespace Yogging.Profiles
         {
             var profile = GetProfile(viewModel);
             _repository.Update(profile);
-        }
-
-        public ProfileViewModel GetById(Guid id)
-        {
-            var profile = _repository.GetById(id);
-            return GetViewModel(profile);
-        }
-
-        public IEnumerable<ProfileViewModel> GetAll()
-        {
-            var profiles = _repository
-                .GetAll();
-
-            return profiles?.Select(GetViewModel);
         }
 
         private static ProfileViewModel GetViewModel(Profile profile)

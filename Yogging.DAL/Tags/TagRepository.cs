@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using Yogging.DAL.Context;
 using Yogging.Domain.Tags;
 
@@ -17,16 +18,16 @@ namespace Yogging.DAL.Tags
             _db = db;
         }
 
-        public IEnumerable<Tag> GetAll()
+        public async Task<IEnumerable<Tag>> GetAll()
         {
-            var tags = _db.Tags.Select(x => MapTo(x)).OrderBy(x => x.Name);
+            var tags = await _db.Tags.ToListAsync();
 
-            return tags.ToList();
+            return tags.Select(MapTo).OrderBy(x => x.Name);
         }
 
-        public Tag GetById(Guid id)
+        public async Task<Tag> GetById(Guid id)
         {
-            var tag = _db.Tags.FirstOrDefault(x => x.Id == id);
+            var tag = await _db.Tags.FirstOrDefaultAsync(x => x.Id == id);
 
             return MapTo(tag);
         }
