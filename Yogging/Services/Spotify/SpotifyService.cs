@@ -20,37 +20,31 @@ namespace Yogging.Services.Spotify
         public async Task<IEnumerable<SpotifyPlaylistViewModel>> GetAllPlaylists()
         {
             var playlists = await GetSpotifyPlaylists();
-            var list = playlists.Playlists;
 
-            foreach (var playlist in list)
+            foreach (var playlist in playlists)
             {
-                var tracks = await GetAllPlaylistTracks(playlist.Id);
-                playlist.PlaylistTracks.Tracks = tracks.Tracks.OrderByDescending(x => x.Added).ToList(); //TODO: somehow get last page first
+                var tracks = await GetSpotifyPlaylistTracks(playlist.Id);
+                playlist.PlaylistTracks.Tracks = tracks.OrderByDescending(x => x.Added).ToList(); //TODO: somehow get last page first
             }
 
-            var vmList = list.Select(GetPlaylistVm);
+            var vmList = playlists.Select(GetPlaylistVm);
 
             return vmList;
         }
 
-        private async Task<SpotifyPlaylists> GetSpotifyPlaylists()
+        private async Task<List<SpotifyPlaylist>> GetSpotifyPlaylists()
         {
             var url = $"https://api.spotify.com/v1/users/{_accountId}/playlists";
             var token = await GetAccessToken();
-            var accessToken = token.access_token;
-
-            var playlists = await GetSpotifyPlaylistsJson(accessToken, url);
+            var playlists = await GetSpotifyPlaylistsJson(token, url);
 
             return playlists;
         }
 
-        private async Task<SpotifyPlaylists> GetSpotifyPlaylistsJson(string token, string url)
+        private static async Task<List<SpotifyPlaylist>> GetSpotifyPlaylistsJson(string token, string url)
         {
             var playlists = new SpotifyPlaylists();
-            var request = WebRequest.Create(url);
-            request.Method = "GET";
-            request.Headers.Add("Authorization", "Bearer " + token);
-            request.ContentType = "application/json";
+            var request = CreateGetRequest(token, url);
 
             using (var response = request.GetResponse())
             using (var dataStream = response.GetResponseStream())
@@ -62,39 +56,27 @@ namespace Yogging.Services.Spotify
                         var responseFromServer = await reader.ReadToEndAsync();
                         playlists = JsonConvert.DeserializeObject<SpotifyPlaylists>(responseFromServer);
 
-                        return playlists;
+                        return playlists.Playlists;
                     }
                 }
             }
 
-            return playlists;
+            return playlists.Playlists;
         }
 
-        private async Task<SpotifyPlaylistTracks> GetAllPlaylistTracks(string playlistId)
-        {
-            var tracks = await GetSpotifyPlaylistTracks(playlistId);
-
-            return tracks;
-        }
-
-        private async Task<SpotifyPlaylistTracks> GetSpotifyPlaylistTracks(string playlistId)
+        private async Task<List<SpotifyTrack>> GetSpotifyPlaylistTracks(string playlistId)
         {
             var url = $"https://api.spotify.com/v1/users/{_accountId}/playlists/{playlistId}/tracks";
             var token = await GetAccessToken();
-            var accessToken = token.access_token;
+            var tracks = await GetSpotifyPlaylistTracksJson(token, url);
 
-            var tracks = await GetSpotifyPlaylistTracksJson(accessToken, url);
-
-            return tracks;
+            return tracks.Tracks;
         }
 
-        private async Task<SpotifyPlaylistTracks> GetSpotifyPlaylistTracksJson(string token, string url)
+        private static async Task<SpotifyPlaylistTracks> GetSpotifyPlaylistTracksJson(string token, string url)
         {
             var tracks = new SpotifyPlaylistTracks();
-            var request = WebRequest.Create(url);
-            request.Method = "GET";
-            request.Headers.Add("Authorization", "Bearer " + token);
-            request.ContentType = "application/json";
+            var request = CreateGetRequest(token, url);
 
             using (var response = request.GetResponse())
             using (var dataStream = response.GetResponseStream())
@@ -113,18 +95,13 @@ namespace Yogging.Services.Spotify
             return tracks;
         }
 
-        private async Task<SpotifyToken> GetAccessToken()
+        private async Task<string> GetAccessToken()
         {
             var token = new SpotifyToken();
             var byteArray = Encoding.UTF8.GetBytes("grant_type=client_credentials");
             var credentials = $"{_clientId}:{_secret}";
             var auth = "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials));
-
-            var request = WebRequest.Create("https://accounts.spotify.com/api/token");
-            request.Method = "POST";
-            request.Headers.Add("Authorization", auth);
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = byteArray.Length;
+            var request = CreatePostRequest(auth, byteArray);
 
             using (var dataStream = await request.GetRequestStreamAsync())
             {
@@ -143,10 +120,29 @@ namespace Yogging.Services.Spotify
                 }
             }
 
-            return token;
+            return token.access_token;
         }
 
-        private SpotifyPlaylistViewModel GetPlaylistVm(SpotifyPlaylist playlist)
+        private static WebRequest CreateGetRequest(string token, string url)
+        {
+            var request = WebRequest.Create(url);
+            request.Method = "GET";
+            request.Headers.Add("Authorization", "Bearer " + token);
+            request.ContentType = "application/json";
+            return request;
+        }
+
+        private static WebRequest CreatePostRequest(string auth, byte[] byteArray)
+        {
+            var request = WebRequest.Create("https://accounts.spotify.com/api/token");
+            request.Method = "POST";
+            request.Headers.Add("Authorization", auth);
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = byteArray.Length;
+            return request;
+        }
+
+        private static SpotifyPlaylistViewModel GetPlaylistVm(SpotifyPlaylist playlist)
         {
             return new SpotifyPlaylistViewModel
             {
@@ -159,7 +155,7 @@ namespace Yogging.Services.Spotify
             };
         }
 
-        private SpotifyTrackViewModel GetTrackVm(SpotifyTrack track)
+        private static SpotifyTrackViewModel GetTrackVm(SpotifyTrack track)
         {
             var artists = GetAllArtists(track?.Track?.Artists);
 
@@ -174,7 +170,7 @@ namespace Yogging.Services.Spotify
             };
         }
 
-        private IEnumerable<SpotifyArtistViewModel> GetAllArtists(IEnumerable<SpotifyArtist> artists)
+        private static IEnumerable<SpotifyArtistViewModel> GetAllArtists(IEnumerable<SpotifyArtist> artists)
         {
             var allArtists = new List<SpotifyArtistViewModel>();
 
