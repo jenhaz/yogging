@@ -6,8 +6,8 @@ using AutoFixture;
 using NSubstitute;
 using NUnit.Framework;
 using Yogging.Domain.Users;
-using Yogging.Stories;
-using Yogging.Users;
+using Yogging.Services.Stories;
+using Yogging.Services.Users;
 using Yogging.ViewModels;
 
 namespace Yogging.Tests.Services

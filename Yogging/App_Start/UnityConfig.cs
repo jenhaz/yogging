@@ -2,7 +2,6 @@ using System.Web.Mvc;
 using Unity;
 using Unity.Injection;
 using Unity.Mvc5;
-using Yogging.Blogs;
 using Yogging.Controllers;
 using Yogging.DAL.Profiles;
 using Yogging.DAL.Sprints;
@@ -14,11 +13,12 @@ using Yogging.Domain.Sprints;
 using Yogging.Domain.Stories;
 using Yogging.Domain.Tags;
 using Yogging.Domain.Users;
-using Yogging.Spotify;
-using Yogging.Sprints;
-using Yogging.Stories;
-using Yogging.Tags;
-using Yogging.Users;
+using Yogging.Services.Blogs;
+using Yogging.Services.Spotify;
+using Yogging.Services.Sprints;
+using Yogging.Services.Stories;
+using Yogging.Services.Tags;
+using Yogging.Services.Users;
 
 namespace Yogging
 {

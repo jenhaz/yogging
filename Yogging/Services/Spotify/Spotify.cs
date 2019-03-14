@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Yogging.Spotify
+namespace Yogging.Services.Spotify
 {
     public class SpotifyPlaylists
     {

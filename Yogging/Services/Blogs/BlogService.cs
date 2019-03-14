@@ -7,7 +7,7 @@ using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Yogging.ViewModels;
 
-namespace Yogging.Blogs
+namespace Yogging.Services.Blogs
 {
     public class BlogService : IBlogService
     {

@@ -7,8 +7,8 @@ using NSubstitute;
 using NUnit.Framework;
 using Yogging.Domain.Sprints;
 using Yogging.Domain.Stories;
-using Yogging.Sprints;
-using Yogging.Stories;
+using Yogging.Services.Sprints;
+using Yogging.Services.Stories;
 using Yogging.ViewModels;
 
 namespace Yogging.Tests.Services

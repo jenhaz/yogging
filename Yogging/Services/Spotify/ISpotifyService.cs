@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Yogging.ViewModels;
 
-namespace Yogging.Spotify
+namespace Yogging.Services.Spotify
 {
     public interface ISpotifyService
     {

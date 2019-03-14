@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yogging.Domain.Users;
-using Yogging.Stories;
+using Yogging.Services.Stories;
 using Yogging.ViewModels;
 
-namespace Yogging.Users
+namespace Yogging.Services.Users
 {
     public class UserService : IUserService
     {

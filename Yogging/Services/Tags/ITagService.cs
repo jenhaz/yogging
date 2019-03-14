@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yogging.ViewModels;
 
-namespace Yogging.Tags
+namespace Yogging.Services.Tags
 {
     public interface ITagService
     {

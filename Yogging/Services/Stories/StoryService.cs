@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Yogging.Domain.Stories;
 using Yogging.ViewModels;
 
-namespace Yogging.Stories
+namespace Yogging.Services.Stories
 {
     public class StoryService : IStoryService
     {

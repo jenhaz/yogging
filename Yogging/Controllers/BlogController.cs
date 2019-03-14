@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-using Yogging.Blogs;
+using Yogging.Services.Blogs;
 
 namespace Yogging.Controllers
 {

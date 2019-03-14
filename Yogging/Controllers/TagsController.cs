@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Yogging.Helpers;
-using Yogging.Tags;
+using Yogging.Services.Tags;
 using Yogging.ViewModels;
 
 namespace Yogging.Controllers

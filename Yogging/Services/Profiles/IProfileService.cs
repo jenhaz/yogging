@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yogging.ViewModels;
 
-namespace Yogging.Profiles
+namespace Yogging.Services.Profiles
 {
     public interface IProfileService
     {

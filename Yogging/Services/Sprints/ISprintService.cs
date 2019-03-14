@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yogging.ViewModels;
 
-namespace Yogging.Sprints
+namespace Yogging.Services.Sprints
 {
     public interface ISprintService
     {

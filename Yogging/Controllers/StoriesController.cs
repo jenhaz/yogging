@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Yogging.Helpers;
-using Yogging.Sprints;
-using Yogging.Stories;
-using Yogging.Tags;
-using Yogging.Users;
+using Yogging.Services.Sprints;
+using Yogging.Services.Stories;
+using Yogging.Services.Tags;
+using Yogging.Services.Users;
 using Yogging.ViewModels;
 
 namespace Yogging.Controllers
@@ -34,6 +34,11 @@ namespace Yogging.Controllers
         public async Task<ActionResult> Index()
         {
             var stories = await _storyService.GetAll();
+
+            if (stories == null)
+            {
+                return View();
+            }
 
             return View(stories);
         }

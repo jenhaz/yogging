@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yogging.Domain.Tags;
-using Yogging.Tags;
+using Yogging.Services.Tags;
 using Yogging.ViewModels;
 
 namespace Yogging.Tests.Services

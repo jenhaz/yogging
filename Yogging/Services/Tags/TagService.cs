@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Yogging.Domain.Tags;
 using Yogging.ViewModels;
 
-namespace Yogging.Tags
+namespace Yogging.Services.Tags
 {
     public class TagService : ITagService
     {

@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Yogging.Helpers;
-using Yogging.Profiles;
-using Yogging.Spotify;
+using Yogging.Services.Profiles;
+using Yogging.Services.Spotify;
 using Yogging.ViewModels;
 
 namespace Yogging.Controllers

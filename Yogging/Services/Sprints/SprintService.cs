@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Yogging.Domain.Sprints;
 using Yogging.Domain.Stories;
-using Yogging.Stories;
+using Yogging.Services.Stories;
 using Yogging.ViewModels;
 
-namespace Yogging.Sprints
+namespace Yogging.Services.Sprints
 {
     public class SprintService : ISprintService
     {

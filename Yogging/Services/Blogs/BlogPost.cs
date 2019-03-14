@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Yogging.Blogs
+namespace Yogging.Services.Blogs
 {
     public class BlogPost
     {

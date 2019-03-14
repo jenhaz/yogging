@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Yogging.Domain.Profiles;
 using Yogging.ViewModels;
 
-namespace Yogging.Profiles
+namespace Yogging.Services.Profiles
 {
     public class ProfileService : IProfileService
     {

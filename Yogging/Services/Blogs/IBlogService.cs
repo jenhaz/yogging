@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Yogging.ViewModels;
 
-namespace Yogging.Blogs
+namespace Yogging.Services.Blogs
 {
     public interface IBlogService
     {

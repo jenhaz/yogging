@@ -48,9 +48,12 @@
                         </a>
                     </div>
                     <div class="track__artist">
-                        <a href="@track.ArtistUrl" target="_blank">
-                            @track.ArtistName
-                        </a>
+                        @foreach (var artist in track.Artists)
+                        {
+                            <a href="@artist.ArtistUrl" target="_blank">
+                                @artist.ArtistName
+                            </a> 
+                        }
                     </div>
                     <div class="track__track">
                         <a href="@track.TrackUrl" target="_blank">

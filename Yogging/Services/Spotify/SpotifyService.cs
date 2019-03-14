@@ -9,7 +9,7 @@ using System.Web.Configuration;
 using Newtonsoft.Json;
 using Yogging.ViewModels;
 
-namespace Yogging.Spotify
+namespace Yogging.Services.Spotify
 {
     public class SpotifyService : ISpotifyService
     {
@@ -109,8 +109,7 @@ namespace Yogging.Spotify
                     }
                 }
             }
-
-
+            
             return tracks;
         }
 
@@ -162,17 +161,34 @@ namespace Yogging.Spotify
 
         private SpotifyTrackViewModel GetTrackVm(SpotifyTrack track)
         {
+            var artists = GetAllArtists(track?.Track?.Artists);
+
             return new SpotifyTrackViewModel
             {
                 AlbumName = track?.Track?.Album?.Name,
                 AlbumImage = track?.Track?.Album?.AlbumImage?.FirstOrDefault()?.ImageUrl,
                 AlbumUrl = track?.Track?.Album?.ExternalUrl?.Url,
-                ArtistName = track?.Track?.Artists?.FirstOrDefault()?.Name, //TODO: list them out
-                ArtistImage = string.Empty, //TODO: get image 
-                ArtistUrl = track?.Track?.Artists?.FirstOrDefault()?.ExternalUrl?.Url,
+                Artists = artists,
                 TrackName = track?.Track?.Name,
                 TrackUrl = track?.Track?.ExternalUrl?.Url
             };
+        }
+
+        private IEnumerable<SpotifyArtistViewModel> GetAllArtists(IEnumerable<SpotifyArtist> artists)
+        {
+            var allArtists = new List<SpotifyArtistViewModel>();
+
+            foreach (var artist in artists)
+            {
+                allArtists.Add(new SpotifyArtistViewModel
+                {
+                    ArtistName = artist.Name,
+                    ArtistImage = "",
+                    ArtistUrl = artist.ExternalUrl.Url
+                });
+            }
+
+            return allArtists;
         }
     }
 }
